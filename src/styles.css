@@ -10,7 +10,10 @@
 body {
   position: relative;
   font-family: 'Roboto', sans-serif;
-  background: #f4f7fa;
+  background-image: url('assets/shared/images/PitMania.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .card {
