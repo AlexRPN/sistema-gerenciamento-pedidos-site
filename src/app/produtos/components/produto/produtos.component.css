@@ -101,20 +101,27 @@ td {
   vertical-align: middle;
 }
 
+/* Container da tabela com transparência sutil */
 .mat-elevation-z8 {
-  background-color: white;
+  background-color: rgba(0, 0, 0, 0.7) !important;
   border-radius: 8px;
   overflow: hidden;
+}
+
+/* Linhas da tabela com fundo semi-transparente */
+.mat-mdc-row, .mat-mdc-header-row {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Hover mais visível mas ainda semi-transparente */
+.mat-mdc-row:hover {
+  background-color: rgba(0, 0, 0, 0.6) !important;
 }
 
 .mat-mdc-form-field {
   font-size: 14px;
   width: 100%;
   margin: 16px;
-}
-
-.mat-mdc-row:hover {
-  background-color: #f5f5f5;
 }
 
 .mat-column-id {
@@ -154,20 +161,17 @@ td.mat-column-acoes {
   padding: 0 8px !important;
 }
 
-.mat-mdc-header-cell {
-  font-weight: bold;
-  color: rgba(0, 0, 0, 0.87);
-}
-
+/* Container dos filtros com fundo mais escuro */
 .filtros-container {
   display: flex;
   gap: 16px;
   padding: 16px;
   flex-wrap: wrap;
   align-items: center;
-  background-color: #fff;
+  background-color: rgba(0, 0, 0, 0.7) !important;
 }
 
+/* Estilos para os campos de filtro */
 .filtro-texto {
   flex: 2;
   min-width: 200px;
@@ -178,7 +182,55 @@ td.mat-column-acoes {
   min-width: 150px;
 }
 
-/* Estilo para o painel de opções do select */
+/* Estilo para os inputs e selects */
+::ng-deep .mat-mdc-text-field-wrapper {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+::ng-deep .mat-mdc-form-field-flex {
+  background-color: transparent !important;
+}
+
+/* Cor do texto dos inputs */
+::ng-deep .mat-mdc-input-element {
+  color: white !important;
+}
+
+/* Estilo para os labels dos filtros */
+::ng-deep .mat-mdc-form-field-label {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Cor do texto do cabeçalho */
+.mat-mdc-header-cell {
+  font-weight: bold;
+  color: white !important;
+}
+
+/* Cor do texto das células */
+.mat-mdc-cell {
+  color: white !important;
+}
+
+/* Estilos para a paginação */
+::ng-deep .mat-mdc-paginator {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+::ng-deep .mat-mdc-paginator-page-size-label,
+::ng-deep .mat-mdc-paginator-range-label {
+  color: white !important;
+}
+
+::ng-deep .mat-mdc-paginator-icon {
+  fill: white !important;
+}
+
+::ng-deep .mat-mdc-select-value-text {
+  color: white !important;
+}
+
+/* Estilo para o painel de opções do select (mantendo preto) */
 ::ng-deep .mat-mdc-select-panel {
   background-color: black !important;
 }
@@ -200,4 +252,25 @@ td.mat-column-acoes {
 /* Cor do check mark da opção selecionada */
 ::ng-deep .mat-mdc-option.mdc-list-item--selected .mdc-list-item__primary-text {
   color: white !important;
+}
+
+/* Labels dos filtros em branco */
+.filtro-label {
+  color: white !important;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+/* Estilo para as bordas dos campos */
+::ng-deep .mdc-text-field--outlined .mdc-notched-outline__leading,
+::ng-deep .mdc-text-field--outlined .mdc-notched-outline__notch,
+::ng-deep .mdc-text-field--outlined .mdc-notched-outline__trailing {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Estilo para as bordas dos campos em foco */
+::ng-deep .mdc-text-field--focused .mdc-notched-outline__leading,
+::ng-deep .mdc-text-field--focused .mdc-notched-outline__notch,
+::ng-deep .mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: white !important;
 }

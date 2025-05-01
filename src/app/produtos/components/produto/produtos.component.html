@@ -5,12 +5,12 @@
     <div class="mat-elevation-z8">
       <div class="filtros-container">
         <mat-form-field class="filtro-texto">
-          <mat-label>Filtrar</mat-label>
+          <mat-label style="color: #fff;">Filtrar</mat-label>
           <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Pizza" #input>
         </mat-form-field>
 
         <mat-form-field class="filtro-select">
-          <mat-label>Tamanho</mat-label>
+          <mat-label style="color: #fff;">Tamanho</mat-label>
           <mat-select [(ngModel)]="tamanhoSelecionado" (selectionChange)="aplicarFiltroSelect()">
             <mat-option value="">Todos</mat-option>
             <mat-option *ngFor="let tamanho of tamanhos" [value]="tamanho">
@@ -20,7 +20,7 @@
         </mat-form-field>
 
         <mat-form-field class="filtro-select">
-          <mat-label>Categoria</mat-label>
+          <mat-label style="color: #fff;">Categoria</mat-label>
           <mat-select [(ngModel)]="categoriaSelecionada" (selectionChange)="aplicarFiltroSelect()">
             <mat-option value="">Todas</mat-option>
             <mat-option *ngFor="let categoria of categorias" [value]="categoria">
@@ -30,7 +30,7 @@
         </mat-form-field>
 
         <mat-form-field class="filtro-select">
-          <mat-label>Situação</mat-label>
+          <mat-label style="color: #fff;">Situação</mat-label>
           <mat-select [(ngModel)]="situacaoSelecionada" (selectionChange)="aplicarFiltroSelect()">
             <mat-option value="">Todas</mat-option>
             <mat-option *ngFor="let situacao of situacoes" [value]="situacao">
