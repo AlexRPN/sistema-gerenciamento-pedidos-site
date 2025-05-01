@@ -43,43 +43,43 @@
       <table mat-table [dataSource]="dataSource" matSort>
         <!-- ID Column -->
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="id"> ID </th>
           <td mat-cell *matCellDef="let produto"> {{produto.id}} </td>
         </ng-container>
 
         <!-- Nome Column -->
         <ng-container matColumnDef="nome">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="nome"> Nome </th>
           <td mat-cell *matCellDef="let produto"> {{produto.nome}} </td>
         </ng-container>
 
         <!-- Descrição Column -->
         <ng-container matColumnDef="descricao">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="descricao"> Descrição </th>
           <td mat-cell *matCellDef="let produto"> {{produto.descricao}} </td>
         </ng-container>
 
         <!-- Valor Column -->
         <ng-container matColumnDef="valor">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="valor"> Valor </th>
           <td mat-cell *matCellDef="let produto"> R$ {{produto.valor | number:'1.2-2':'pt-BR'}} </td>
         </ng-container>
 
         <!-- Tamanho Column -->
         <ng-container matColumnDef="tamanho">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Tamanho </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="tamanho"> Tamanho </th>
           <td mat-cell *matCellDef="let produto"> {{produto.tamanho}} </td>
         </ng-container>
 
         <!-- Categoria Column -->
         <ng-container matColumnDef="categoria">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Categoria </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="categoria"> Categoria </th>
           <td mat-cell *matCellDef="let produto"> {{produto.categoria}} </td>
         </ng-container>
 
         <!-- Situação Column -->
         <ng-container matColumnDef="situacao">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Situação </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="situacao"> Situação </th>
           <td mat-cell *matCellDef="let produto"> {{produto.situacao}} </td>
         </ng-container>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ProdutoService } from '../../services/produto.service';
 import { ProdutoResponse } from '../../models/response/produto.response';
 import { RouterModule } from '@angular/router';
@@ -40,7 +40,7 @@ interface FiltroState {
   templateUrl: './produtos.component.html',
   styleUrl: './produtos.component.css'
 })
-export class ProdutosComponent implements OnInit {
+export class ProdutosComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'nome', 'descricao', 'valor', 'tamanho', 'categoria', 'situacao', 'acoes'];
   dataSource!: MatTableDataSource<ProdutoResponse>;
   dadosOriginais: ProdutoResponse[] = [];
@@ -65,14 +65,23 @@ export class ProdutosComponent implements OnInit {
   categoriaSelecionada: string = '';
   situacaoSelecionada: string = '';
 
-  constructor(private produtoService: ProdutoService, private toastr: ToastrService) { }
+  constructor(private produtoService: ProdutoService, private toastr: ToastrService) {
+    this.dataSource = new MatTableDataSource<ProdutoResponse>([]);
+  }
 
   ngOnInit(): void {
+    this.carregarProdutos();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  private carregarProdutos() {
     this.produtoService.listarProdutos().subscribe(response => {
       this.dadosOriginais = response.dados;
-      this.dataSource = new MatTableDataSource(this.dadosOriginais);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this.dataSource.data = this.dadosOriginais;
     });
   }
 
