@@ -18,5 +18,7 @@ export class ProdutoService {
     return this.http.get<ResponseModel<ProdutoResponse[]>>(`${this.ApiUrl}/Produto`);
   }
 
-
+  inativarProduto(id: number): Observable<ResponseModel<ProdutoResponse>> {
+    return this.http.put<ResponseModel<ProdutoResponse>>(`${this.ApiUrl}/Produto/${id}`, null);
+  }
 }

@@ -1,0 +1,179 @@
+/* Estilos gerais da tabela */
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+/* Larguras específicas para cada coluna */
+td, th {
+  padding: 8px;
+  vertical-align: middle;
+}
+
+/* Coluna ID */
+td:nth-child(1), th:nth-child(1) {
+  width: 5%;
+}
+
+/* Coluna Nome */
+td:nth-child(2), th:nth-child(2) {
+  width: 12%;
+}
+
+/* Coluna Descrição */
+td:nth-child(3), th:nth-child(3) {
+  width: 35%;
+}
+
+/* Coluna Valor */
+td:nth-child(4), th:nth-child(4) {
+  width: 8%;
+}
+
+/* Coluna Tamanho */
+td:nth-child(5), th:nth-child(5) {
+  width: 8%;
+}
+
+/* Coluna Categoria */
+td:nth-child(6), th:nth-child(6) {
+  width: 8%;
+}
+
+/* Coluna Situação */
+td:nth-child(7), th:nth-child(7) {
+  width: 8%;
+}
+
+/* Coluna Ações */
+td:nth-child(8), th:nth-child(8) {
+  width: 16%;
+  min-width: 130px; /* Garante espaço mínimo para os botões */
+}
+
+/* Ajustes para os botões na coluna de ações */
+td:nth-child(8) {
+  padding: 4px 8px;
+}
+
+.container {
+  max-width: 95% !important;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.d-flex {
+  display: flex;
+  gap: 4px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* Ajuste para textos longos */
+.text-truncate {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Estilo para os botões */
+.btn-sm {
+  padding: 6px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-sm i {
+  font-size: 1rem;
+}
+
+/* Ajuste para a coluna de descrição */
+td:nth-child(3) {
+  white-space: normal;
+  text-align: left;
+}
+
+/* Centralização vertical */
+td {
+  vertical-align: middle;
+}
+
+.mat-elevation-z8 {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+  margin: 16px;
+}
+
+.mat-mdc-row:hover {
+  background-color: #f5f5f5;
+}
+
+.mat-column-id {
+  width: 5%;
+}
+
+.mat-column-nome {
+  width: 12%;
+}
+
+.mat-column-descricao {
+  width: 35%;
+}
+
+.mat-column-valor {
+  width: 8%;
+}
+
+.mat-column-tamanho {
+  width: 8%;
+}
+
+.mat-column-categoria {
+  width: 8%;
+}
+
+.mat-column-situacao {
+  width: 8%;
+}
+
+.mat-column-acoes {
+  width: 16%;
+  text-align: center;
+}
+
+td.mat-column-acoes {
+  padding: 0 8px !important;
+}
+
+.mat-mdc-header-cell {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.filtros-container {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: #fff;
+}
+
+.filtro-texto {
+  flex: 2;
+  min-width: 200px;
+}
+
+.filtro-select {
+  flex: 1;
+  min-width: 150px;
+}
