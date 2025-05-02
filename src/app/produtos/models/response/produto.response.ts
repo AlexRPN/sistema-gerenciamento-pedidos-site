@@ -8,7 +8,5 @@ export interface ProdutoResponse {
   situacao: string,
   dataCadastro: Date,
   imagem: string,
-  //empresa: EmpresaResponse
+  empresaId: number
 }
-
-// Falta adicionar a empresaResponse

@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { ResponseModel } from '../../../assets/shared/models/responseModel/responseModel';
 import { Observable } from 'rxjs';
 import { ProdutoResponse } from '../models/response/produto.response';
+import { ProdutoEdicaoRequest } from '../models/request/produtoEdicao.request';
+import { ProdutoRequest } from '../models/request/produto.request';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +22,17 @@ export class ProdutoService {
 
   inativarProduto(id: number): Observable<ResponseModel<ProdutoResponse>> {
     return this.http.put<ResponseModel<ProdutoResponse>>(`${this.ApiUrl}/Produto/${id}`, null);
+  }
+
+  buscarProdutoPorId(id: number): Observable<ResponseModel<ProdutoResponse>> {
+    return this.http.get<ResponseModel<ProdutoResponse>>(`${this.ApiUrl}/Produto/${id}`);
+  }
+
+  editarProduto(produto: ProdutoEdicaoRequest): Observable<ResponseModel<ProdutoResponse>> {
+    return this.http.put<ResponseModel<ProdutoResponse>>(`${this.ApiUrl}/Produto`, produto);
+  }
+
+  cadastrarProduto(produto: ProdutoRequest): Observable<ResponseModel<ProdutoResponse>> {
+    return this.http.post<ResponseModel<ProdutoResponse>>(`${this.ApiUrl}/Produto`, produto);
   }
 }

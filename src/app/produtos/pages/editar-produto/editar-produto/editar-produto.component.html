@@ -1,0 +1,8 @@
+<div *ngIf="produto">
+  <app-formulario
+  [dadosProduto]="produto"
+  [btnAcao]="btnAcao"
+  [descTitulo]="descTitulo"
+  (onSubmit)="editarProduto($event)"
+  ></app-formulario>
+</div>
