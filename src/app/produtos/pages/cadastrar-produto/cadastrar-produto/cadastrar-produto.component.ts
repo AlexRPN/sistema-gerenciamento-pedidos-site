@@ -20,22 +20,17 @@ export class CadastrarProdutoComponent {
               private router: Router,
               private toastr: ToastrService){}
 
-  cadastrarProduto(request: any) {
-    const formData = new FormData();
-    formData.append('nome', request.nome);
-    formData.append('descricao', request.descricao);
-    formData.append('valor', request.valor);
-    formData.append('categoria', request.categoria);
-    formData.append('tamanho', request.tamanho);
-    formData.append('situacao', request.situacao || 'Ativo');
-    formData.append('empresaId', request.empresaId || 1);
+  cadastrarProduto(request: ProdutoRequest) {
+    this.produtoService.cadastrarProduto(request).subscribe(response => {
+      if (response.dados != null) {
+        this.toastr.success(response.mensagem, 'Sucesso!');
+        this.router.navigate(['/produtos']);
+      } else {
+        this.toastr.error(response.mensagem, 'Erro!');
+      }
+    });
 
-    // Se for um arquivo (imagem), adiciona ao FormData
-    if (request.imagem && typeof request.imagem !== 'string') {
-      formData.append('foto', request.imagem);
-    }
-
-    this.produtoService.cadastrarProduto(formData).subscribe(response => {
+    this.produtoService.cadastrarProduto(request).subscribe(response => {
       if (response.dados != null) {
         this.toastr.success(response.mensagem, 'Sucesso!');
         this.router.navigate(['/produtos']);
