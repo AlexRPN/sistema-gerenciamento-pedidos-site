@@ -20,20 +20,26 @@ export class CadastrarProdutoComponent {
               private router: Router,
               private toastr: ToastrService){}
 
-  cadastrarProduto(request: ProdutoRequest){
-    // Garante que todos os campos obrigatórios estejam presentes
-    const produto: ProdutoRequest = {
-      ...request,
-      situacao: request.situacao || 'Ativo',
-      empresaId: request.empresaId || 1,
-      imagem: request.imagem || null
-    };
+  cadastrarProduto(request: any) {
+    const formData = new FormData();
+    formData.append('nome', request.nome);
+    formData.append('descricao', request.descricao);
+    formData.append('valor', request.valor);
+    formData.append('categoria', request.categoria);
+    formData.append('tamanho', request.tamanho);
+    formData.append('situacao', request.situacao || 'Ativo');
+    formData.append('empresaId', request.empresaId || 1);
 
-    this.produtoService.cadastrarProduto(produto).subscribe(response => {
-      if(response.dados != null){
+    // Se for um arquivo (imagem), adiciona ao FormData
+    if (request.imagem && typeof request.imagem !== 'string') {
+      formData.append('foto', request.imagem);
+    }
+
+    this.produtoService.cadastrarProduto(formData).subscribe(response => {
+      if (response.dados != null) {
         this.toastr.success(response.mensagem, 'Sucesso!');
         this.router.navigate(['/produtos']);
-      }else{
+      } else {
         this.toastr.error(response.mensagem, 'Erro!');
       }
     });

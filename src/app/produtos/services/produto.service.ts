@@ -32,7 +32,7 @@ export class ProdutoService {
     return this.http.put<ResponseModel<ProdutoResponse>>(`${this.ApiUrl}/Produto`, produto);
   }
 
-  cadastrarProduto(produto: ProdutoRequest): Observable<ResponseModel<ProdutoResponse>> {
+  cadastrarProduto(produto: ProdutoRequest | FormData): Observable<ResponseModel<ProdutoResponse>> {
     return this.http.post<ResponseModel<ProdutoResponse>>(`${this.ApiUrl}/Produto`, produto);
   }
 }
