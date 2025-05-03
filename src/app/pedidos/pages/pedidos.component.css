@@ -1,0 +1,67 @@
+/* Garante que o overlay do dropdown seja branco e opaco */
+.cdk-overlay-backdrop {
+  background: #fff !important;
+  opacity: 1 !important;
+}
+
+/* Garante que o painel do dropdown ocupe toda a largura do campo */
+.white-dropdown .mat-select-panel {
+  min-width: 100% !important;
+  background: #fff !important;
+  color: #222 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  border: 1px solid #c4c4c4 !important;
+  border-radius: 4px !important;
+  opacity: 1 !important;
+  backdrop-filter: none !important;
+  z-index: 1001 !important;
+}
+
+/* Remove qualquer transparência do overlay do painel */
+.cdk-overlay-pane {
+  background: #fff !important;
+  opacity: 1 !important;
+}
+
+/* Corrige cor do texto e fundo do item selecionado */
+.mat-option.mat-selected:not(.mat-option-disabled) {
+  background: #f5f5f5 !important;
+  color: #222 !important;
+}
+
+/* Corrige cor do hover */
+.mat-option:hover, .mat-option.mat-active {
+  background: #ececec !important;
+  color: #222 !important;
+}
+
+/* Campo do filtro */
+.mat-select-value,
+.mat-select-trigger {
+  background: #fff !important;
+}
+
+/* Inputs do calendário */
+.mat-date-range-input-inner,
+.mat-date-range-input input,
+.mat-input-element {
+  background: #fff !important;
+}
+
+/* Painel do calendário */
+.mat-datepicker-content,
+.mat-calendar {
+  background: #fff !important;
+}
+
+/* Campo do filtro */
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #fff !important;
+}
+
+/* Remover estilos que podem causar conflito */
+::ng-deep .white-dropdown .mat-select-panel {
+  background: #fff !important;
+  color: #222 !important;
+}
+

@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { ProdutosComponent } from './produtos/components/produto/produtos.component';
-import { PedidosComponent } from './pedidos/pedidos.component';
+import { PedidosComponent } from './pedidos/pages/pedidos.component';
 import { ClientesComponent } from './clientes/components/cliente/clientes.component';
 import { FuncionariosComponent } from './funcionarios/components/funcionario/funcionarios.component';
 import { RelatoriosComponent } from './relatorios/relatorios.component';
