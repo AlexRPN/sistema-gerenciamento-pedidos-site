@@ -14,6 +14,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ResponseModel } from '../../../assets/shared/models/responseModel/responseModel';
+import { MatDialog } from '@angular/material/dialog';
+import { DetalhesPedidoModalComponent } from '../components/detalhes-pedido-modal/detalhes-pedido-modal/detalhes-pedido-modal.component';
 
 @Component({
   selector: 'app-pedidos',
@@ -33,7 +35,7 @@ export class PedidosComponent implements OnInit {
   filtroDataInicio: Date | null = null;
   filtroDataFim: Date | null = null;
 
-  constructor(private pedidoService: PedidoService) {}
+  constructor(private pedidoService: PedidoService, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.carregarPedidos();
@@ -67,7 +69,20 @@ export class PedidosComponent implements OnInit {
   }
 
   exibirDetalhes(pedido: PedidoResponse) {
-    // Implementar lógica para exibir detalhes do pedido
+    this.pedidoService.obterPedidoPorId(pedido.id).subscribe({
+      next: (response) => {
+        const pedidoDetalhado = response.dados;
+        this.dialog.open(DetalhesPedidoModalComponent, {
+          width: '500px',
+          position: { right: '0' },
+          panelClass: 'custom-dialog-container',
+          data: { pedido: pedidoDetalhado }
+        });
+      },
+      error: (err) => {
+        console.error('Erro ao buscar detalhes do pedido:', err);
+      }
+    });
   }
 
   cancelarPedido(pedido: PedidoResponse) {

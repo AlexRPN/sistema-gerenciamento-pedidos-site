@@ -1,0 +1,75 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <h2>Detalhes do Pedido #{{data.pedido.id}}</h2>
+    <button class="btn btn-secondary" (click)="fecharModal()">
+      <i class="bi bi-x-circle"></i>
+    </button>
+  </div>
+
+  <div class="print-header" style="text-align:center; margin-bottom: 16px;">
+    <h2 style="margin:0;">{{ data.pedido.empresa.razaoSocial }}</h2>
+    <div style="font-size:13px;">
+      CNPJ: {{ data.pedido.empresa.cnpj }}<br>
+      Tel: {{ data.pedido.empresa.telefone.valueOf() }}
+    </div>
+    <div style="margin-top:8px; font-size:12px;">
+      Data/Hora: {{ data.pedido.dataPedido | date:'dd/MM/yyyy HH:mm' }}
+    </div>
+    <hr>
+  </div>
+
+  <div class="modal-content">
+    <div class="info-section">
+      <h3>Informações do Cliente</h3>
+      <p><strong>Nome:</strong> {{data.pedido.cliente.nome}}</p>
+      <p><strong>Telefone:</strong> {{data.pedido.cliente.telefone}}</p>
+      <ng-container *ngIf="data.pedido.cliente.endereco">
+        <p><strong>Endereço:</strong></p>
+        <p>
+          <span *ngIf="data.pedido.cliente.endereco.logradouro">
+            Logradouro: {{data.pedido.cliente.endereco.logradouro}}
+          </span><br>
+          <span *ngIf="data.pedido.cliente.endereco.complemento">
+            Complemento: {{data.pedido.cliente.endereco.complemento}}
+          </span><br>
+          <span *ngIf="data.pedido.cliente.endereco.cep">
+            CEP: {{data.pedido.cliente.endereco.cep}}
+          </span>
+        </p>
+      </ng-container>
+    </div>
+
+    <div class="info-section">
+      <h3>Detalhes do Pedido</h3>
+      <p><strong>Data:</strong> {{data.pedido.dataPedido | date:'dd/MM/yyyy HH:mm'}}</p>
+      <p><strong>Status:</strong> {{data.pedido.statusPedido}}</p>
+      <p><strong>Valor Total:</strong> R$ {{data.pedido.valorTotal | number:'1.2-2'}}</p>
+    </div>
+
+    <div class="info-section">
+      <h3>Produtos do Pedido</h3>
+      <table class="items-table">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Observação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of data.pedido.produtos">
+            <td>{{item.nomeProduto}}</td>
+            <td>{{item.quantidade}}</td>
+            <td>R$ {{item.valorUnitario | number:'1.2-2'}}</td>
+            <td>{{item.observacao || '-'}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button class="btn btn-primary mt-3" (click)="imprimirPedido()">
+        <i class="bi bi-printer"></i> Imprimir
+      </button>
+    </div>
+  </div>
+</div>

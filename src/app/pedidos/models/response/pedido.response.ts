@@ -1,5 +1,6 @@
 import { ClienteResponse } from "../../../clientes/models/response/cliente.response";
-import { ProdutoResponse } from "../../../produtos/models/response/produto.response";
+import { EmpresaResponse } from "../../../empresa/models/response/empresa.response";
+import { PedidoProdutoResponse } from "../../../pedido-produto/models/response/pedido-produto.response";
 
 export interface PedidoResponse {
   id: number;
@@ -7,5 +8,6 @@ export interface PedidoResponse {
   dataPedido: Date;
   statusPedido: string;
   cliente: ClienteResponse;
-  produtos: ProdutoResponse[];
+  produtos: PedidoProdutoResponse[];
+  empresa: EmpresaResponse;
 }
