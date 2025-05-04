@@ -1,4 +1,3 @@
-import { PedidoResponse } from './../../../models/response/pedido.response';
 import { Component, OnInit } from '@angular/core';
 import { PedidoService } from '../../../services/pedido.service';
 import { PedidoRequest } from '../../../models/request/pedido.request';
@@ -86,18 +85,6 @@ export class CriarPedidoComponent implements OnInit {
     const categoria = this.tabs[event.index].categoria;
     this.carregarProdutosPorCategoria(categoria);
   }
-
-  /*carregarProdutosPorCategoria(categoria: string) {
-    this.produtoService.listarProdutosPorCategoria({ categoria }).subscribe(
-      response => {
-        if (response.dados) {
-          this.produtos = response.dados;
-        }else{
-          this.toastr.error(response.mensagem, 'Erro!');
-        }
-      }
-    );
-  }*/
 
     carregarProdutosPorCategoria(categoria: string) {
       this.produtos = []; // Limpa antes de buscar

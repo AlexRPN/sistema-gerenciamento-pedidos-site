@@ -1,7 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { PedidoService } from '../../../services/pedido.service';
+import { ConfirmacaoModalComponent } from '../../confirmacao-modal/confirmacao-modal/confirmacao-modal.component';
 
 @Component({
   selector: 'app-carrinho-modal',
@@ -17,7 +19,9 @@ export class CarrinhoModalComponent {
 
   constructor(
     public dialogRef: MatDialogRef<CarrinhoModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialog: MatDialog,
+    private pedidoService: PedidoService
   ) {
     this.itensCarrinho = data?.itensCarrinho || [];
     this.cliente = data?.cliente || null;
@@ -32,8 +36,46 @@ export class CarrinhoModalComponent {
   }
 
   criarPedido() {
-    // Aqui você pode emitir um evento ou chamar um serviço para criar o pedido
-    alert('Pedido criado com observação: ' + this.observacao);
+    console.log('Cliente selecionado:', this.cliente);
+    const pedidoProdutos = this.itensCarrinho.map(item => ({
+      clienteId: Number(this.cliente?.id),
+      produtoId: item.id,
+      quantidade: item.quantidade,
+      observacao: this.observacao || '',
+      valorUnitario: item.valor
+    }));
+
+    const request = {
+      clienteId: Number(this.cliente?.id),
+      pedidoProdutos,
+      observacao: this.observacao
+    } as any;
+
+    console.log('Request:', request);
+
+    this.pedidoService.criarPedido(request).subscribe({
+      next: response => {
+        console.log('Resposta do criarPedido:', response);
+        if (response.dados) {
+          // Buscar detalhes completos do pedido pelo id retornado
+          this.pedidoService.obterPedidoPorId(response.dados.id).subscribe({
+            next: detalhesResponse => {
+              this.dialog.open(ConfirmacaoModalComponent, {
+                width: '400px',
+                data: { pedido: detalhesResponse.dados }
+              });
+              this.dialogRef.close();
+            },
+            error: err => {
+              console.error('Erro ao buscar detalhes do pedido:', err);
+            }
+          });
+        }
+      },
+      error: err => {
+        console.error('Erro ao criar pedido:', err);
+      }
+    });
   }
 
   alterarQuantidade(item: any, delta: number) {

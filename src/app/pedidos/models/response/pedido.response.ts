@@ -6,6 +6,7 @@ export interface PedidoResponse {
   id: number;
   valorTotal: number;
   dataPedido: Date;
+  observacao: string;
   statusPedido: string;
   cliente: ClienteResponse;
   produtos: PedidoProdutoResponse[];
