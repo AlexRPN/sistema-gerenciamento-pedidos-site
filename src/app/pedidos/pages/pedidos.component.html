@@ -37,7 +37,7 @@
       </mat-form-field>
     </div>
     <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px;">
-      <button class="btn btn-primary" (click)="novoPedido()">
+      <button class="btn btn-primary" [routerLink]="['/criar-pedido']">
         <i class="bi bi-plus-circle"></i> Novo Pedido
       </button>
       <button class="btn btn-success" (click)="exportarExcel()">

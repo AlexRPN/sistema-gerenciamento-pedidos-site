@@ -5,6 +5,7 @@ import { PedidoResponse } from '../models/response/pedido.response';
 import { ResponseModel } from '../../../assets/shared/models/responseModel/responseModel';
 import { Observable } from 'rxjs';
 import { PedidoProdutoResponse } from '../../pedido-produto/models/response/pedido-produto.response';
+import { PedidoRequest } from '../models/request/pedido.request';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,9 @@ export class PedidoService {
 
   obterPedidoPorId(id: number): Observable<ResponseModel<PedidoProdutoResponse>> {
     return this.http.get<ResponseModel<PedidoProdutoResponse>>(`${this.ApiUrl}/Pedido/${id}`);
+  }
+
+  criarPedido(pedido: PedidoRequest): Observable<ResponseModel<PedidoResponse>> {
+    return this.http.post<ResponseModel<PedidoResponse>>(`${this.ApiUrl}/Pedido`, pedido);
   }
 }

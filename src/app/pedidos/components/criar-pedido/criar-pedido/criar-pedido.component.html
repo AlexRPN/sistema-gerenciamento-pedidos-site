@@ -1,1 +1,53 @@
-<p>criar-pedido works!</p>
+<h1 style="color: #fff;">Criar Pedido</h1>
+
+<div class="container-form" style="background: #fff; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 24px; margin-bottom: 24px;">
+  <h2 style="color: #222; margin-bottom: 16px;">Consultar Cliente</h2>
+  <form (ngSubmit)="consultarCliente()" #formCliente="ngForm" style="display: flex; gap: 16px; flex-wrap: wrap;">
+    <mat-form-field appearance="outline" style="flex: 1; min-width: 120px;">
+      <mat-label>ID</mat-label>
+      <input matInput [(ngModel)]="filtroId" name="id" placeholder="ID do Cliente">
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="flex: 2; min-width: 180px;">
+      <mat-label>Nome</mat-label>
+      <input matInput [(ngModel)]="filtroNome" name="nome" placeholder="Nome do Cliente">
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="flex: 2; min-width: 180px;">
+      <mat-label>Telefone</mat-label>
+      <input matInput [(ngModel)]="filtroTelefone" name="telefone" placeholder="Telefone">
+    </mat-form-field>
+    <button class="btn btn-primary" type="submit" style="height: 56px;">Consultar</button>
+    <button class="btn btn-secondary" type="button" style="height: 56px;" (click)="limparFiltros()">Limpar Filtros</button>
+  </form>
+
+  <!-- Exibe o formulário de endereço somente se clienteEncontrado for true -->
+<div *ngIf="clienteEncontrado" class="container-form" style="background: #fff; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 24px;">
+  <div style="display: flex; gap: 48px;">
+    <!-- Coluna Dados do Cliente -->
+    <div style="flex: 1;">
+      <h3 style="color: #222; margin-top: 0;">Dados do Cliente</h3>
+      <div><strong>Nome:</strong> {{cliente?.nome}}</div>
+      <div><strong>Telefone:</strong> {{cliente?.telefone}}</div>
+    </div>
+    <!-- Coluna Endereço do Cliente -->
+    <div style="flex: 2;">
+      <h3 style="color: #222; margin-top: 0;">Endereço do Cliente</h3>
+      <div style="display: flex; gap: 16px;">
+        <mat-form-field class="example-full-width" style="flex: 2;">
+          <mat-label>Logradouro</mat-label>
+          <input matInput [(ngModel)]="endereco.logradouro" name="logradouro" placeholder="Ex. San Francisco">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" style="flex: 1;">
+          <mat-label>Complemento</mat-label>
+          <input matInput [(ngModel)]="endereco.complemento" name="complemento" placeholder="Ex. Apt 101">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" style="flex: 1;">
+          <mat-label>CEP</mat-label>
+          <input matInput [(ngModel)]="endereco.cep" name="cep" maxlength="9" placeholder="Ex. 74950-355">
+          <mat-hint align="end">{{endereco.cep?.length || 0}} / 9</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+

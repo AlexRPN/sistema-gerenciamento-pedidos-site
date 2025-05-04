@@ -16,13 +16,24 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { ResponseModel } from '../../../assets/shared/models/responseModel/responseModel';
 import { MatDialog } from '@angular/material/dialog';
 import { DetalhesPedidoModalComponent } from '../components/detalhes-pedido-modal/detalhes-pedido-modal/detalhes-pedido-modal.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-pedidos',
   templateUrl: './pedidos.component.html',
   styleUrls: ['./pedidos.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule, MatTableModule, MatDatepickerModule, MatNativeDateModule, MatPaginatorModule]
+  imports: [CommonModule,
+            FormsModule,
+            MatFormFieldModule,
+            MatIconModule,
+            MatInputModule,
+            MatSelectModule,
+            MatTableModule,
+            MatDatepickerModule,
+            MatNativeDateModule,
+            MatPaginatorModule,
+            RouterModule]
 })
 export class PedidosComponent implements OnInit {
   pedidos: PedidoResponse[] = [];

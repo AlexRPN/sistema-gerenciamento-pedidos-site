@@ -6,6 +6,7 @@ import { FuncionariosComponent } from './funcionarios/components/funcionario/fun
 import { RelatoriosComponent } from './relatorios/relatorios.component';
 import { CadastrarProdutoComponent } from './produtos/pages/cadastrar-produto/cadastrar-produto/cadastrar-produto.component';
 import { EditarProdutoComponent } from './produtos/pages/editar-produto/editar-produto/editar-produto.component';
+import { CriarPedidoComponent } from './pedidos/components/criar-pedido/criar-pedido/criar-pedido.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'produtos', pathMatch: 'full'},
@@ -16,4 +17,5 @@ export const routes: Routes = [
   {path: 'relatorios', component: RelatoriosComponent},
   {path: 'cadastro', component: CadastrarProdutoComponent},
   {path: 'editar/:id', component: EditarProdutoComponent},
+  {path: 'criar-pedido', component: CriarPedidoComponent}
 ];
