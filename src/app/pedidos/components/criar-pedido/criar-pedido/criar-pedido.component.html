@@ -15,8 +15,8 @@
       <mat-label>Telefone</mat-label>
       <input matInput [(ngModel)]="filtroTelefone" name="telefone" placeholder="Telefone">
     </mat-form-field>
-    <button class="btn btn-primary" type="submit" style="height: 56px;">Consultar</button>
-    <button class="btn btn-secondary" type="button" style="height: 56px;" (click)="limparFiltros()">Limpar Filtros</button>
+    <button class="btn btn-primary" type="submit" style="height: 56px;"><i class="bi bi-search"></i> Consultar</button>
+    <button class="btn btn-secondary" type="button" style="height: 56px;" (click)="limparFiltros()"><i class="bi bi-x-circle"></i> Limpar Filtros</button>
   </form>
 
   <!-- Exibe o formulário de endereço somente se clienteEncontrado for true -->
@@ -32,15 +32,15 @@
     <div style="flex: 2;">
       <h3 style="color: #222; margin-top: 0;">Endereço do Cliente</h3>
       <div style="display: flex; gap: 16px;">
-        <mat-form-field class="example-full-width" style="flex: 2;">
+        <mat-form-field style="flex: 1;">
           <mat-label>Logradouro</mat-label>
           <input matInput [(ngModel)]="endereco.logradouro" name="logradouro" placeholder="Ex. San Francisco">
         </mat-form-field>
-        <mat-form-field class="example-full-width" style="flex: 1;">
+        <mat-form-field style="flex: 2;">
           <mat-label>Complemento</mat-label>
           <input matInput [(ngModel)]="endereco.complemento" name="complemento" placeholder="Ex. Apt 101">
         </mat-form-field>
-        <mat-form-field class="example-full-width" style="flex: 1;">
+        <mat-form-field style="flex: 1;">
           <mat-label>CEP</mat-label>
           <input matInput [(ngModel)]="endereco.cep" name="cep" maxlength="9" placeholder="Ex. 74950-355">
           <mat-hint align="end">{{endereco.cep?.length || 0}} / 9</mat-hint>
@@ -51,8 +51,14 @@
 </div>
 
 <div class="container">
-  <div>
-    <h3 style="margin-top: 24px; text-align: center;">Produtos</h3>
+  <div class="d-flex align-items-center" style="margin-bottom: 16px;">
+    <div style="flex: 1;"></div>
+    <div style="flex: 1; text-align: center;">
+      <h3 style="margin: 0;">Produtos</h3>
+    </div>
+    <div style="flex: 1; text-align: right;">
+      <button class="btn btn-primary" type="button" (click)="abrirCarrinhoModal()"><i class="bi bi-cart"></i> Carrinho</button>
+    </div>
   </div>
   <mat-tab-group (selectedTabChange)="onTabChange($event)" style="width: 100%; margin-top: 15px;">
     @for (tab of asyncTabs | async; track tab) {
@@ -81,7 +87,6 @@
     }
   </mat-tab-group>
 </div>
-
 </div>
 
 

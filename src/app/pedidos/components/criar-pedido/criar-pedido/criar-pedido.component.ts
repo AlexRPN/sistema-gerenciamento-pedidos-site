@@ -16,12 +16,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { Observable, of } from 'rxjs';
 import { ProdutoResponse } from '../../../../produtos/models/response/produto.response';
 import { ProdutoService } from '../../../../produtos/services/produto.service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { CarrinhoModalComponent } from '../../carrinho-modal/carrinho-modal/carrinho-modal.component';
 
 interface Tab {
   label: string;
   content: string;
   categoria: string;
 }
+
+type ItemCarrinho = ProdutoResponse & { quantidade: number };
 
 @Component({
   selector: 'app-criar-pedido',
@@ -32,7 +36,8 @@ interface Tab {
     CommonModule,
     MatCardModule,
     MatTabsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
   ],
   templateUrl: './criar-pedido.component.html',
   styleUrl: './criar-pedido.component.css'
@@ -51,13 +56,15 @@ export class CriarPedidoComponent implements OnInit {
   produtos: ProdutoResponse[] = [];
   asyncTabs: Observable<Tab[]>;
   tabs: Tab[] = [];
+  itensCarrinho: ItemCarrinho[] = [];
 
   constructor(
     private pedidoService: PedidoService,
     private router: Router,
     private toastr: ToastrService,
     private clienteService: ClienteService,
-    private produtoService: ProdutoService
+    private produtoService: ProdutoService,
+    private dialog: MatDialog
   ) {
     this.tabs = [
       { label: 'Pizza', content: 'Pizza', categoria: 'Pizza' },
@@ -106,8 +113,14 @@ export class CriarPedidoComponent implements OnInit {
     }
 
   adicionarAoCarrinho(produto: ProdutoResponse) {
-    // Implementar lógica para adicionar ao carrinho
-    this.toastr.success('Produto adicionado ao carrinho!', 'Sucesso!');
+    const item = this.itensCarrinho.find(p => p.id === produto.id);
+    if (!item) {
+      this.itensCarrinho.push({ ...produto, quantidade: 1 });
+      this.toastr.success('Produto adicionado ao carrinho!', 'Sucesso!');
+    } else {
+      item.quantidade++;
+      this.toastr.info('Quantidade aumentada no carrinho!', 'Atenção!');
+    }
   }
 
   consultarCliente() {
@@ -168,5 +181,22 @@ export class CriarPedidoComponent implements OnInit {
       complemento: '',
       cep: ''
     };
+  }
+
+  abrirCarrinhoModal() {
+    const dialogRef = this.dialog.open(CarrinhoModalComponent, {
+      width: '900px',
+      panelClass: 'custom-dialog-container',
+      data: {
+        cliente: this.cliente,
+        itensCarrinho: this.itensCarrinho
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'limparCarrinho') {
+        this.itensCarrinho = [];
+      }
+    });
   }
 }
