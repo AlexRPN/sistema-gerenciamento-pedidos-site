@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ResponseModel } from '../../../assets/shared/models/responseModel/responseModel';
 import { Observable } from 'rxjs';
 import { ProdutoResponse } from '../models/response/produto.response';
@@ -34,5 +34,15 @@ export class ProdutoService {
 
   cadastrarProduto(produto: ProdutoRequest): Observable<ResponseModel<ProdutoResponse>> {
     return this.http.post<ResponseModel<ProdutoResponse>>(`${this.ApiUrl}/Produto`, produto);
+  }
+
+  listarProdutosPorCategoria(filtro?: {categoria?: string}): Observable<ResponseModel<ProdutoResponse[]>> {
+    let params = new HttpParams();
+
+    if (filtro?.categoria) {
+      params = params.append('categoria', filtro.categoria);
+    }
+
+    return this.http.get<ResponseModel<ProdutoResponse[]>>(`${this.ApiUrl}/Produto`, { params });
   }
 }

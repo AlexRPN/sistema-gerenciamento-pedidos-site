@@ -1,7 +1,7 @@
 <h1 style="color: #fff;">Criar Pedido</h1>
 
-<div class="container-form" style="background: #fff; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 24px; margin-bottom: 24px;">
-  <h2 style="color: #222; margin-bottom: 16px;">Consultar Cliente</h2>
+<div class="container container-form" style="background: #fff; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 24px; margin-bottom: 24px;">
+  <h3 style="color: #222; margin-bottom: 16px;"><i class="bi bi-person"></i> Consultar Cliente</h3>
   <form (ngSubmit)="consultarCliente()" #formCliente="ngForm" style="display: flex; gap: 16px; flex-wrap: wrap;">
     <mat-form-field appearance="outline" style="flex: 1; min-width: 120px;">
       <mat-label>ID</mat-label>
@@ -49,5 +49,40 @@
     </div>
   </div>
 </div>
+
+<div class="container">
+  <div>
+    <h3 style="margin-top: 24px; text-align: center;">Produtos</h3>
+  </div>
+  <mat-tab-group (selectedTabChange)="onTabChange($event)" style="width: 100%; margin-top: 15px;">
+    @for (tab of asyncTabs | async; track tab) {
+      <mat-tab [label]="tab.label">
+        <div *ngIf="produtos.length > 0; else semProdutos" class="produtos-grid">
+          @for (produto of produtos; track produto.id) {
+            <mat-card class="produto-card">
+              <mat-card-header>
+                <mat-card-title><strong>{{produto.nome}} - {{produto.tamanho}}</strong></mat-card-title>
+                <mat-card-subtitle>{{produto.descricao}}</mat-card-subtitle>
+                <mat-card-subtitle><strong>R$ {{produto.valor| number:'1.2-2'}}</strong></mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-actions>
+                <button class="btn btn-primary" type="button" style="width: 100%;" (click)="adicionarAoCarrinho(produto)">Adicionar no Carrinho</button>
+              </mat-card-actions>
+            </mat-card>
+          }
+
+        </div>
+        <ng-template #semProdutos>
+          <div style="text-align:center; color: #888; margin: 32px 0;">
+            Nenhum produto encontrado para esta categoria.
+          </div>
+        </ng-template>
+      </mat-tab>
+    }
+  </mat-tab-group>
 </div>
+
+</div>
+
+
 

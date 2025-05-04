@@ -1,5 +1,5 @@
 import { PedidoResponse } from './../../../models/response/pedido.response';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PedidoService } from '../../../services/pedido.service';
 import { PedidoRequest } from '../../../models/request/pedido.request';
 import { ToastrService } from 'ngx-toastr';
@@ -10,18 +10,34 @@ import { MatIconModule } from '@angular/material/icon';
 import { ClienteService } from '../../../../clientes/service/cliente.service';
 import { ClienteResponse } from '../../../../clientes/models/response/cliente.response';
 import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonModule } from '@angular/material/button';
+import { Observable, of } from 'rxjs';
+import { ProdutoResponse } from '../../../../produtos/models/response/produto.response';
+import { ProdutoService } from '../../../../produtos/services/produto.service';
+
+interface Tab {
+  label: string;
+  content: string;
+  categoria: string;
+}
 
 @Component({
   selector: 'app-criar-pedido',
-  imports: [MatInputModule,
-            FormsModule,
-            MatIconModule,
-            CommonModule,
+  imports: [
+    MatInputModule,
+    FormsModule,
+    MatIconModule,
+    CommonModule,
+    MatCardModule,
+    MatTabsModule,
+    MatButtonModule
   ],
   templateUrl: './criar-pedido.component.html',
   styleUrl: './criar-pedido.component.css'
 })
-export class CriarPedidoComponent {
+export class CriarPedidoComponent implements OnInit {
   filtroId: string = '';
   filtroNome: string = '';
   filtroTelefone: string = '';
@@ -32,13 +48,67 @@ export class CriarPedidoComponent {
     cep: ''
   };
   cliente: any = null;
+  produtos: ProdutoResponse[] = [];
+  asyncTabs: Observable<Tab[]>;
+  tabs: Tab[] = [];
 
   constructor(
     private pedidoService: PedidoService,
     private router: Router,
     private toastr: ToastrService,
-    private clienteService: ClienteService
-  ) {}
+    private clienteService: ClienteService,
+    private produtoService: ProdutoService
+  ) {
+    this.tabs = [
+      { label: 'Pizza', content: 'Pizza', categoria: 'Pizza' },
+      { label: 'Sanduíche', content: 'Sanduíche', categoria: 'Sanduiche' },
+      { label: 'Omelete', content: 'Omelete', categoria: 'Omelete' },
+      { label: 'Pão Sírio', content: 'Pão Sírio', categoria: 'PaoSirio' },
+      { label: 'Adicional', content: 'Adicional', categoria: 'Adicional' },
+      { label: 'Bebidas', content: 'Bebidas', categoria: 'Bebidas' }
+    ];
+    this.asyncTabs = of(this.tabs);
+  }
+
+  ngOnInit() {
+    // Carrega os produtos da primeira aba (Pizza) ao iniciar
+    this.carregarProdutosPorCategoria(this.tabs[0].categoria);
+  }
+
+  onTabChange(event: any) {
+    const categoria = this.tabs[event.index].categoria;
+    this.carregarProdutosPorCategoria(categoria);
+  }
+
+  /*carregarProdutosPorCategoria(categoria: string) {
+    this.produtoService.listarProdutosPorCategoria({ categoria }).subscribe(
+      response => {
+        if (response.dados) {
+          this.produtos = response.dados;
+        }else{
+          this.toastr.error(response.mensagem, 'Erro!');
+        }
+      }
+    );
+  }*/
+
+    carregarProdutosPorCategoria(categoria: string) {
+      this.produtos = []; // Limpa antes de buscar
+      this.produtoService.listarProdutosPorCategoria({ categoria }).subscribe(
+        response => {
+          if (response.dados && response.dados.length > 0) {
+            this.produtos = response.dados;
+          } else {
+            this.produtos = []; // Garante que o grid fique vazio
+          }
+        }
+      );
+    }
+
+  adicionarAoCarrinho(produto: ProdutoResponse) {
+    // Implementar lógica para adicionar ao carrinho
+    this.toastr.success('Produto adicionado ao carrinho!', 'Sucesso!');
+  }
 
   consultarCliente() {
     if (!this.filtroId && !this.filtroNome && !this.filtroTelefone) {
