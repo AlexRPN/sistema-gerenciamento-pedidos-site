@@ -20,13 +20,12 @@ export class ConfirmacaoModalComponent {
   confirmar() {
     const detalhesRef = this.dialog.open(DetalhesPedidoModalComponent, {
       width: '650px',
-      data: { pedido: this.data.pedido, imprimir: true }
+      data: { pedido: this.data.pedido }
     });
     this.dialogRef.close();
+
     detalhesRef.afterOpened().subscribe(() => {
-      setTimeout(() => {
-        window.print();
-      }, 300);
+      detalhesRef.componentInstance.imprimirPedido();
     });
   }
 

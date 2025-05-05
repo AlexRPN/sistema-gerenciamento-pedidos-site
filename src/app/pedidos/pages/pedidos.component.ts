@@ -100,11 +100,6 @@ export class PedidosComponent implements OnInit {
     // Implementar lógica para cancelar pedido
   }
 
-  novoPedido() {
-    // Implementar navegação para o componente de criar pedido
-    console.log('Navegar para criar novo pedido');
-  }
-
   exportarExcel() {
     // Implementar lógica para exportar para Excel
     console.log('Exportar dados para Excel');
