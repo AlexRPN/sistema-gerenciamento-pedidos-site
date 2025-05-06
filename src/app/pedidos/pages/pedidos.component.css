@@ -65,3 +65,38 @@
   color: #222 !important;
 }
 
+/* Reforço máximo para fundo branco no dropdown do mat-select */
+::ng-deep .mat-select-panel, ::ng-deep .mat-select-panel-wrap, ::ng-deep .cdk-overlay-pane, ::ng-deep .mat-select-content {
+  background: #fff !important;
+  color: #222 !important;
+  opacity: 1 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  border: 1px solid #c4c4c4 !important;
+  border-radius: 4px !important;
+  backdrop-filter: none !important;
+  z-index: 1001 !important;
+}
+
+/* Reforço para garantir fundo branco no overlay do calendário */
+::ng-deep .mat-datepicker-content, ::ng-deep .mat-calendar {
+  background: #fff !important;
+  color: #222 !important;
+  opacity: 1 !important;
+}
+
+/* Intervalo do período: azul mais suave e menos opaco */
+::ng-deep .mat-calendar-body-in-range:not(.mat-calendar-body-comparison-identical) {
+  background-color: #b3c6f7 !important; /* Azul suave */
+  opacity: 0.7 !important;
+}
+
+/* Início e fim do período: azul escuro, texto branco, borda branca, sombra */
+::ng-deep .mat-calendar-body-range-start,
+::ng-deep .mat-calendar-body-range-end {
+  background-color: #1c1aaa !important; /* Azul escuro */
+  color: #fff !important;
+  border-radius: 50% !important;
+  border: 2px solid #fff !important;
+  box-shadow: 0 0 0 2px #1c1aaa33;
+}
+

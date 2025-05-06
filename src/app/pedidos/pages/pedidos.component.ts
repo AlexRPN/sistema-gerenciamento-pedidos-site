@@ -17,6 +17,8 @@ import { ResponseModel } from '../../../assets/shared/models/responseModel/respo
 import { MatDialog } from '@angular/material/dialog';
 import { DetalhesPedidoModalComponent } from '../components/detalhes-pedido-modal/detalhes-pedido-modal/detalhes-pedido-modal.component';
 import { RouterModule } from '@angular/router';
+import {jsPDF} from 'jspdf';
+import {autoTable} from 'jspdf-autotable';
 
 @Component({
   selector: 'app-pedidos',
@@ -46,6 +48,8 @@ export class PedidosComponent implements OnInit {
   filtroDataInicio: Date | null = null;
   filtroDataFim: Date | null = null;
 
+  pedidosFiltradosAux: PedidoResponse[] = [];
+
   constructor(private pedidoService: PedidoService, private dialog: MatDialog) {}
 
   ngOnInit() {
@@ -61,6 +65,7 @@ export class PedidosComponent implements OnInit {
       (response: ResponseModel<PedidoResponse[]>) => {
         this.pedidos = response.dados;
         this.dataSource.data = response.dados;
+        this.pedidosFiltradosAux = response.dados;
       },
       (error: any) => {
         console.error('Erro ao carregar pedidos:', error);
@@ -68,15 +73,27 @@ export class PedidosComponent implements OnInit {
     );
   }
 
-  pedidosFiltrados() {
-    return this.pedidos.filter(pedido => {
+  aplicarFiltro() {
+    this.pedidosFiltradosAux = this.pedidos.filter(pedido => {
       const idMatch = !this.filtroIdPedido || pedido.id.toString().includes(this.filtroIdPedido);
       const nomeMatch = !this.filtroNomeCliente || pedido.cliente.nome.toLowerCase().includes(this.filtroNomeCliente.toLowerCase());
       const statusMatch = !this.filtroStatus || pedido.statusPedido === this.filtroStatus;
-      const dataMatch = !this.filtroDataInicio || !this.filtroDataFim ||
-        (new Date(pedido.dataPedido) >= this.filtroDataInicio && new Date(pedido.dataPedido) <= this.filtroDataFim);
+      const dataMatch = (!this.filtroDataInicio && !this.filtroDataFim) ||
+        (this.filtroDataInicio && this.filtroDataFim &&
+          (new Date(pedido.dataPedido) >= this.filtroDataInicio && new Date(pedido.dataPedido) <= this.filtroDataFim));
       return idMatch && nomeMatch && statusMatch && dataMatch;
     });
+    this.dataSource.data = this.pedidosFiltradosAux;
+  }
+
+  limparFiltro() {
+    this.filtroIdPedido = '';
+    this.filtroNomeCliente = '';
+    this.filtroStatus = '';
+    this.filtroDataInicio = null;
+    this.filtroDataFim = null;
+    this.pedidosFiltradosAux = this.pedidos;
+    this.dataSource.data = this.pedidos;
   }
 
   exibirDetalhes(pedido: PedidoResponse) {
@@ -100,8 +117,37 @@ export class PedidosComponent implements OnInit {
     // Implementar lógica para cancelar pedido
   }
 
-  exportarExcel() {
-    // Implementar lógica para exportar para Excel
-    console.log('Exportar dados para Excel');
+  exportarPDF() {
+    const doc = new jsPDF();
+
+    // Título do PDF
+    doc.setFontSize(18);
+    doc.text('Relatório de Pedidos', 14, 15);
+
+    // Cabeçalho da tabela
+    const head = [['ID Pedido', 'Cliente', 'Data do Pedido', 'Status']];
+
+    // Dados da tabela (substitua pelo array real do seu componente)
+    const data = this.pedidos.map((pedido: any) => [
+      pedido.id,
+      pedido.cliente.nome,
+      this.formatarData(pedido.dataPedido),
+      pedido.statusPedido
+    ]);
+
+    // Geração da tabela
+    autoTable(doc, {
+      startY: 25,
+      head: head,
+      body: data,
+    });
+
+    // Salvar PDF
+    doc.save('relatorio-pedidos.pdf');
+  }
+
+  private formatarData(data: string | Date): string {
+    const d = new Date(data);
+    return d.toLocaleDateString('pt-BR');
   }
 }

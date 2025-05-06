@@ -2,7 +2,7 @@
   <h1 style="color: #fff;">Pedidos</h1>
 
   <div class="filtros" style="display: flex; flex-direction: column; background: #fff; border-radius: 16px 16px 0 0; padding: 16px 24px 8px 24px; margin-bottom: 0;">
-    <div style="display: flex; gap: 16px; align-items: flex-end;">
+    <div style="display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap;">
       <mat-form-field appearance="outline" style="flex: 1; min-width: 120px;">
         <mat-label>ID Pedido</mat-label>
         <input matInput [(ngModel)]="filtroIdPedido" placeholder="Filtrar por ID">
@@ -17,10 +17,10 @@
         <mat-label>Status</mat-label>
         <mat-select [(ngModel)]="filtroStatus" panelClass="white-dropdown">
           <mat-option value="">Todos</mat-option>
-          <mat-option value="Em Preparacao">Em Preparação</mat-option>
-          <mat-option value="Pronto Para Retirada">Pronto Para Retirada</mat-option>
+          <mat-option value="EmPreparacao">Em Preparação</mat-option>
+          <mat-option value="ProntoParaRetirada">Pronto Para Retirada</mat-option>
           <mat-option value="AguardandoEntrega">Aguardando Entrega</mat-option>
-          <mat-option value="Em Rota">Em Rota</mat-option>
+          <mat-option value="EmRota">Em Rota</mat-option>
           <mat-option value="Entregue">Entregue</mat-option>
           <mat-option value="Cancelado">Cancelado</mat-option>
         </mat-select>
@@ -35,18 +35,21 @@
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-date-range-picker #picker panelClass="white-dropdown"></mat-date-range-picker>
       </mat-form-field>
+
+      <button class="btn btn-primary" style="height: 56px;" (click)="aplicarFiltro()"><i class="bi bi-search"></i> Filtrar</button>
+      <button class="btn btn-secondary" style="height: 56px;" (click)="limparFiltro()"><i class="bi bi-x-circle"></i> Limpar Filtro</button>
     </div>
     <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px;">
       <button class="btn btn-primary" [routerLink]="['/criar-pedido']">
         <i class="bi bi-plus-circle"></i> Novo Pedido
       </button>
-      <button class="btn btn-success" (click)="exportarExcel()">
-        <i class="bi bi-file-earmark-excel"></i> Exportar Excel
+      <button class="btn btn-danger" (click)="exportarPDF()">
+        <i class="bi bi-filetype-pdf"></i> Exportar PDF
       </button>
     </div>
   </div>
 
-  <table mat-table [dataSource]="pedidosFiltrados()" class="mat-elevation-z8" style="width: 100%; background: #fff; border-radius: 0 0 16px 16px;">
+  <table mat-table [dataSource]="pedidosFiltradosAux" class="mat-elevation-z8" style="width: 100%; background: #fff; border-radius: 0 0 16px 16px;">
     <!-- ID Pedido -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>ID Pedido</th>
@@ -75,10 +78,10 @@
           'color': '#fff',
           'background-color':
             pedido.statusPedido === 'Cancelado' ? '#dc3545' :
-            pedido.statusPedido === 'Pronto Para Retirada' ? '#fd7e14' :
-            pedido.statusPedido === 'Em Preparacao' ? '#0dcaf0' :
+            pedido.statusPedido === 'ProntoParaRetirada' ? '#fd7e14' :
+            pedido.statusPedido === 'EmPreparacao' ? '#586a6e' :
             pedido.statusPedido === 'AguardandoEntrega' ? '#ffc107' :
-            pedido.statusPedido === 'Em Rota' ? '#6f42c1' :
+            pedido.statusPedido === 'EmRota' ? '#6f42c1' :
             pedido.statusPedido === 'Entregue' ? '#198754' : '#6c757d'
         }">
           {{ pedido.statusPedido }}
