@@ -56,6 +56,8 @@ export class CriarPedidoComponent implements OnInit {
   asyncTabs: Observable<Tab[]>;
   tabs: Tab[] = [];
   itensCarrinho: ItemCarrinho[] = [];
+  edicaoCliente: boolean = false;
+  clienteOriginal: any = null;
 
   constructor(
     private pedidoService: PedidoService,
@@ -137,6 +139,8 @@ export class CriarPedidoComponent implements OnInit {
           complemento: cliente.endereco?.complemento || '',
           cep: cliente.endereco?.cep || ''
         };
+        this.clienteOriginal = JSON.parse(JSON.stringify(cliente)); // Salva cópia original
+        this.edicaoCliente = false;
         this.toastr.success(response.mensagem, 'Sucesso!');
       } else {
         this.toastr.warning(response.mensagem, 'Atenção!');
@@ -144,6 +148,27 @@ export class CriarPedidoComponent implements OnInit {
     }, err => {
       this.toastr.error(err.error.mensagem, 'Erro!');
     });
+  }
+
+  habilitarEdicaoCliente() {
+    this.edicaoCliente = true;
+  }
+
+  cancelarEdicaoCliente() {
+    if (this.clienteOriginal) {
+      this.cliente = JSON.parse(JSON.stringify(this.clienteOriginal));
+      this.endereco = {
+        logradouro: this.clienteOriginal.endereco?.logradouro || '',
+        complemento: this.clienteOriginal.endereco?.complemento || '',
+        cep: this.clienteOriginal.endereco?.cep || ''
+      };
+    }
+    this.edicaoCliente = false;
+  }
+
+  salvarEdicaoCliente() {
+    // Implementação futura
+    this.edicaoCliente = false;
   }
 
   criarPedido(request: PedidoRequest){

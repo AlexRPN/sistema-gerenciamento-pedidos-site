@@ -21,12 +21,18 @@
 
   <!-- Exibe o formulário de endereço somente se clienteEncontrado for true -->
 <div *ngIf="clienteEncontrado" class="container-form" style="background: #fff; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 24px;">
-  <div style="display: flex; gap: 48px;">
+  <div style="display: flex; gap: 48px; align-items: flex-start;">
     <!-- Coluna Dados do Cliente -->
     <div style="flex: 1;">
       <h3 style="color: #222; margin-top: 0;">Dados do Cliente</h3>
-      <div><strong>Nome:</strong> {{cliente?.nome}}</div>
-      <div><strong>Telefone:</strong> {{cliente?.telefone}}</div>
+      <mat-form-field style="width: 100%;">
+        <mat-label>Nome</mat-label>
+        <input matInput [(ngModel)]="cliente.nome" name="nomeCliente" [disabled]="!edicaoCliente">
+      </mat-form-field>
+      <mat-form-field style="width: 100%;">
+        <mat-label>Telefone</mat-label>
+        <input matInput [(ngModel)]="cliente.telefone" name="telefoneCliente" [disabled]="!edicaoCliente">
+      </mat-form-field>
     </div>
     <!-- Coluna Endereço do Cliente -->
     <div style="flex: 2;">
@@ -34,17 +40,24 @@
       <div style="display: flex; gap: 16px;">
         <mat-form-field style="flex: 1;">
           <mat-label>Logradouro</mat-label>
-          <input matInput [(ngModel)]="endereco.logradouro" name="logradouro" placeholder="Ex. San Francisco">
+          <input matInput [(ngModel)]="endereco.logradouro" name="logradouro" [disabled]="!edicaoCliente">
         </mat-form-field>
         <mat-form-field style="flex: 2;">
           <mat-label>Complemento</mat-label>
-          <input matInput [(ngModel)]="endereco.complemento" name="complemento" placeholder="Ex. Apt 101">
+          <input matInput [(ngModel)]="endereco.complemento" name="complemento" [disabled]="!edicaoCliente">
         </mat-form-field>
         <mat-form-field style="flex: 1;">
           <mat-label>CEP</mat-label>
-          <input matInput [(ngModel)]="endereco.cep" name="cep" maxlength="9" placeholder="Ex. 74950-355">
+          <input matInput [(ngModel)]="endereco.cep" name="cep" maxlength="9" [disabled]="!edicaoCliente">
           <mat-hint align="end">{{endereco.cep?.length || 0}} / 9</mat-hint>
         </mat-form-field>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-end; min-width: 160px;">
+      <button *ngIf="!edicaoCliente" class="btn btn-secondary" type="button" (click)="habilitarEdicaoCliente()"><i class="bi bi-pencil"></i> Editar dados</button>
+      <div *ngIf="edicaoCliente" style="display: flex; flex-direction: column; gap: 8px;">
+        <button class="btn btn-primary" type="button" (click)="salvarEdicaoCliente()"><i class="bi bi-save"></i> Salvar dados</button>
+        <button class="btn btn-secondary" type="button" (click)="cancelarEdicaoCliente()"><i class="bi bi-x-circle"></i> Cancelar</button>
       </div>
     </div>
   </div>
@@ -72,7 +85,7 @@
                 <mat-card-subtitle><strong>R$ {{produto.valor| number:'1.2-2'}}</strong></mat-card-subtitle>
               </mat-card-header>
               <mat-card-actions>
-                <button class="btn btn-primary" type="button" style="width: 100%;" (click)="adicionarAoCarrinho(produto)">Adicionar no Carrinho</button>
+                <button class="btn btn-success" type="button" style="width: 100%;" (click)="adicionarAoCarrinho(produto)">Adicionar no Carrinho</button>
               </mat-card-actions>
             </mat-card>
           }
