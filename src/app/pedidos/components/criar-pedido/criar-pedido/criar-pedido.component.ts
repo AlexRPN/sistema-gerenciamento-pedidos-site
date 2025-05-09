@@ -17,6 +17,7 @@ import { ProdutoResponse } from '../../../../produtos/models/response/produto.re
 import { ProdutoService } from '../../../../produtos/services/produto.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CarrinhoModalComponent } from '../../carrinho-modal/carrinho-modal/carrinho-modal.component';
+import { ClienteEdicaoRequest } from '../../../../clientes/models/request/clienteEdicao.request';
 
 interface Tab {
   label: string;
@@ -47,6 +48,7 @@ export class CriarPedidoComponent implements OnInit {
   filtroTelefone: string = '';
   clienteEncontrado: boolean = false;
   endereco: any = {
+    id: 0,
     logradouro: '',
     complemento: '',
     cep: ''
@@ -121,6 +123,7 @@ export class CriarPedidoComponent implements OnInit {
     this.clienteEncontrado = false;
     this.cliente = null;
     this.endereco = {
+      id: 0,
       logradouro: '',
       complemento: '',
       cep: ''
@@ -135,10 +138,12 @@ export class CriarPedidoComponent implements OnInit {
         this.clienteEncontrado = true;
         this.cliente = cliente;
         this.endereco = {
+          id: cliente.endereco?.id,
           logradouro: cliente.endereco?.logradouro || '',
           complemento: cliente.endereco?.complemento || '',
           cep: cliente.endereco?.cep || ''
         };
+        console.log(this.endereco, "Endereço do cliente");
         this.clienteOriginal = JSON.parse(JSON.stringify(cliente)); // Salva cópia original
         this.edicaoCliente = false;
         this.toastr.success(response.mensagem, 'Sucesso!');
@@ -167,7 +172,35 @@ export class CriarPedidoComponent implements OnInit {
   }
 
   salvarEdicaoCliente() {
-    // Implementação futura
+    if (!this.cliente) {
+      this.toastr.error('Cliente não encontrado', 'Erro!');
+      return;
+    }
+
+    const request: ClienteEdicaoRequest = {
+      id: this.cliente.id,
+      nome: this.cliente.nome,
+      telefone: this.cliente.telefone,
+      enderecoCliente: {
+        id: this.endereco.id,
+        logradouro: this.endereco.logradouro,
+        complemento: this.endereco.complemento,
+        cep: this.endereco.cep
+      }
+    };
+
+    this.clienteService.editarCliente(request).subscribe(response => {
+      if (response.dados) {
+        this.toastr.success(response.mensagem, 'Sucesso!');
+        this.clienteOriginal = JSON.parse(JSON.stringify(this.cliente));
+      } else {
+        this.toastr.error(response.mensagem, 'Erro!');
+        this.cancelarEdicaoCliente();
+      }
+    }, error => {
+      this.toastr.error('Erro ao editar cliente', 'Erro!');
+      this.cancelarEdicaoCliente();
+    });
     this.edicaoCliente = false;
   }
 

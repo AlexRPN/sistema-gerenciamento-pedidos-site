@@ -5,6 +5,7 @@ import { ClienteResponse } from '../models/response/cliente.response';
 import { ResponseModel } from '../../../assets/shared/models/responseModel/responseModel';
 import { Observable } from 'rxjs';
 import { ClienteRequest } from '../models/request/cliente.request';
+import { ClienteEdicaoRequest } from '../models/request/clienteEdicao.request';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,9 @@ export class ClienteService {
     }
 
     return this.http.get<ResponseModel<ClienteRequest[]>>(`${this.ApiUrl}/Cliente`, { params });
+  }
+
+  editarCliente(request: ClienteEdicaoRequest): Observable<ResponseModel<ClienteRequest>> {
+    return this.http.put<ResponseModel<ClienteRequest>>(`${this.ApiUrl}/Cliente`, request);
   }
 }
