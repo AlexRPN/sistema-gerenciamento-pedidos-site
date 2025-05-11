@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
-import { ProdutosComponent } from './produtos/components/produto/produtos.component';
-import { PedidosComponent } from './pedidos/pages/pedidos.component';
-import { ClientesComponent } from './clientes/pages/cliente/clientes.component';
-import { FuncionariosComponent } from './funcionarios/components/funcionario/funcionarios.component';
-import { RelatoriosComponent } from './relatorios/relatorios.component';
-import { CadastrarProdutoComponent } from './produtos/pages/cadastrar-produto/cadastrar-produto/cadastrar-produto.component';
-import { EditarProdutoComponent } from './produtos/pages/editar-produto/editar-produto/editar-produto.component';
-import { CriarPedidoComponent } from './pedidos/components/criar-pedido/criar-pedido/criar-pedido.component';
-import { CadastrarClienteModalComponent } from './clientes/components/cadastrar-cliente-modal/cadastrar-cliente-modal.component';
+import { ProdutosComponent } from './admin/produtos/pages/produto/produtos.component';
+import { PedidosComponent } from './admin/pedidos/pages/pedidos.component';
+import { ClientesComponent } from './admin/clientes/pages/cliente/clientes.component';
+import { FuncionariosComponent } from './admin/funcionarios/components/funcionario/funcionarios.component';
+import { RelatoriosComponent } from './admin/relatorios/relatorios.component';
+import { CadastrarProdutoComponent } from './admin/produtos/components/cadastrar-produto/cadastrar-produto.component';
+import { EditarProdutoComponent } from './admin/produtos/components/editar-produto/editar-produto.component';
+import { CriarPedidoComponent } from './admin/pedidos/components/criar-pedido/criar-pedido.component';
+import { CadastrarClienteModalComponent } from './admin/clientes/components/cadastrar-cliente-modal/cadastrar-cliente-modal.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'produtos', pathMatch: 'full'},

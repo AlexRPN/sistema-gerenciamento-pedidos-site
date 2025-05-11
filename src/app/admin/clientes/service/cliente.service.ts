@@ -1,0 +1,46 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { ClienteResponse } from '../models/response/cliente.response';
+import { Observable } from 'rxjs';
+import { ClienteRequest } from '../models/request/cliente.request';
+import { ClienteEdicaoRequest } from '../models/request/clienteEdicao.request';
+import { environment } from '../../../../environments/environment.development';
+import { ResponseModel } from '../../../../assets/shared/models/responseModel/responseModel';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ClienteService {
+
+  ApiUrl = environment.UrlApi;
+
+  constructor(private http: HttpClient) { }
+
+  listarClientes(filtro?: {id?: number, telefone?: string, nome?: string}): Observable<ResponseModel<ClienteResponse[]>> {
+    let params = new HttpParams();
+
+    if (filtro?.id) {
+      params = params.append('id', filtro.id.toString());
+    }
+    if (filtro?.telefone) {
+      params = params.append('telefone', filtro.telefone);
+    }
+    if (filtro?.nome) {
+      params = params.append('nome', filtro.nome);
+    }
+
+    return this.http.get<ResponseModel<ClienteResponse[]>>(`${this.ApiUrl}/Cliente`, { params });
+  }
+
+  editarCliente(request: ClienteEdicaoRequest): Observable<ResponseModel<ClienteRequest>> {
+    return this.http.put<ResponseModel<ClienteRequest>>(`${this.ApiUrl}/Cliente`, request);
+  }
+
+  alterarStatusCliente(id: number): Observable<ResponseModel<ClienteResponse>> {
+    return this.http.patch<ResponseModel<ClienteResponse>>(`${this.ApiUrl}/Cliente/${id}/status`, {});
+  }
+
+  cadastrarCliente(request: ClienteRequest): Observable<ResponseModel<ClienteRequest>> {
+    return this.http.post<ResponseModel<ClienteRequest>>(`${this.ApiUrl}/Cliente`, request);
+  }
+}

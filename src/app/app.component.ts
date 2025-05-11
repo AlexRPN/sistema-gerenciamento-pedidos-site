@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import { SidenavComponent } from "./sidenav/sidenav.component";
-import { BodyComponent } from "./body/body.component";
+import { SidenavComponent } from "./admin/sidenav/sidenav.component";
+import { BodyComponent } from "./admin/body/body.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
