@@ -1,0 +1,283 @@
+/* Estilos gerais da tabela */
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+/* Larguras específicas para cada coluna */
+td, th {
+  padding: 8px;
+  vertical-align: middle;
+}
+
+/* Coluna ID */
+td:nth-child(1), th:nth-child(1) {
+  width: 5%;
+  min-width: 50px;
+  text-align: left;
+}
+
+/* Coluna Nome */
+td:nth-child(2), th:nth-child(2) {
+  width: 18%;
+  min-width: 140px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Coluna Telefone */
+td:nth-child(3), th:nth-child(3) {
+  width: 13%;
+  min-width: 110px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Coluna Endereço */
+td:nth-child(4), th:nth-child(4) {
+  width: 36%;
+  min-width: 220px;
+  text-align: left;
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Coluna Situação */
+td:nth-child(5), th:nth-child(5) {
+  width: 10%;
+  min-width: 80px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+/* Coluna Ações */
+td:nth-child(6), th:nth-child(6) {
+  width: 18%;
+  min-width: 120px;
+  text-align: center;
+}
+
+/* Ajustes para os botões na coluna de ações */
+td:nth-child(6) {
+  padding: 4px 8px;
+}
+
+.container {
+  max-width: 95% !important;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.d-flex {
+  display: flex;
+  gap: 4px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* Ajuste para textos longos */
+.text-truncate {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Estilo para os botões */
+.btn-sm {
+  padding: 6px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-sm i {
+  font-size: 1rem;
+}
+
+/* Ajuste para a coluna de descrição */
+td:nth-child(4) {
+  white-space: normal;
+  text-align: left;
+}
+
+/* Centralização vertical */
+td {
+  vertical-align: middle;
+}
+
+/* Container da tabela */
+.mat-elevation-z8 {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Linhas da tabela */
+.mat-mdc-row, .mat-mdc-header-row {
+  background-color: white;
+}
+
+/* Hover */
+.mat-mdc-row:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+  margin: 16px;
+}
+
+/* Container dos filtros */
+.filtros-container {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: white;
+}
+
+/* Estilos para os campos de filtro */
+.filtro-texto {
+  flex: 2;
+  min-width: 200px;
+}
+
+.filtro-select {
+  flex: 1;
+  min-width: 150px;
+}
+
+/* Estilo para os inputs e selects */
+::ng-deep .mat-mdc-text-field-wrapper {
+  background-color: white;
+}
+
+::ng-deep .mat-mdc-form-field-flex {
+  background-color: white;
+}
+
+/* Cor do texto dos inputs */
+::ng-deep .mat-mdc-input-element {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* Estilo para os labels dos filtros */
+::ng-deep .mat-mdc-form-field-label {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* Cor do texto do cabeçalho */
+.mat-mdc-header-cell {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* Cor do texto das células */
+.mat-mdc-cell {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* Estilos para a paginação */
+::ng-deep .mat-mdc-paginator {
+  background-color: white;
+}
+
+::ng-deep .mat-mdc-paginator-page-size-label,
+::ng-deep .mat-mdc-paginator-range-label {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+::ng-deep .mat-mdc-paginator-icon {
+  fill: rgba(0, 0, 0, 0.87);
+}
+
+::ng-deep .mat-mdc-select-value-text {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* Estilo para o painel de opções do select */
+::ng-deep .mat-mdc-select-panel {
+  background-color: white !important;
+}
+
+::ng-deep .mat-mdc-option {
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+/* Cor de hover das opções */
+::ng-deep .mat-mdc-option:hover:not(.mdc-list-item--disabled) {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Cor quando a opção está selecionada */
+::ng-deep .mat-mdc-option.mdc-list-item--selected {
+  background-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Cor do check mark da opção selecionada */
+::ng-deep .mat-mdc-option.mdc-list-item--selected .mdc-list-item__primary-text {
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+/* Adicionar estilo específico para o overlay do select */
+::ng-deep .cdk-overlay-pane {
+  background-color: white !important;
+}
+
+::ng-deep .mat-mdc-select-panel-wrap {
+  background-color: white !important;
+}
+
+/* Labels dos filtros */
+.filtro-label {
+  color: rgba(0, 0, 0, 0.87);
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+/* Estilo para as bordas dos campos */
+::ng-deep .mdc-text-field--outlined .mdc-notched-outline__leading,
+::ng-deep .mdc-text-field--outlined .mdc-notched-outline__notch,
+::ng-deep .mdc-text-field--outlined .mdc-notched-outline__trailing {
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* Estilo para as bordas dos campos em foco */
+::ng-deep .mdc-text-field--focused .mdc-notched-outline__leading,
+::ng-deep .mdc-text-field--focused .mdc-notched-outline__notch,
+::ng-deep .mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: #3f51b5;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+  td, th {
+    font-size: 0.95rem;
+    padding: 4px;
+  }
+  td:nth-child(2), th:nth-child(2) { width: 20%; min-width: 90px; }
+  td:nth-child(3), th:nth-child(3) { width: 15%; min-width: 70px; }
+  td:nth-child(4), th:nth-child(4) { width: 30%; min-width: 120px; }
+  td:nth-child(5), th:nth-child(5) { width: 12%; min-width: 60px; }
+  td:nth-child(6), th:nth-child(6) { width: 23%; min-width: 80px; }
+}
+
+@media (max-width: 600px) {
+  td, th {
+    font-size: 0.9rem;
+    padding: 2px;
+  }
+  td:nth-child(2), th:nth-child(2) { min-width: 60px; max-width: 90px; }
+  td:nth-child(3), th:nth-child(3) { min-width: 40px; max-width: 60px; }
+  td:nth-child(4), th:nth-child(4) { min-width: 60px; max-width: 100px; }
+  td:nth-child(5), th:nth-child(5) { min-width: 40px; max-width: 60px; }
+  td:nth-child(6), th:nth-child(6) { min-width: 50px; max-width: 70px; }
+}

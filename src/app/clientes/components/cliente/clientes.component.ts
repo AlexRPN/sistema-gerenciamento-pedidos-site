@@ -1,11 +1,88 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ClienteService } from '../../service/cliente.service';
+import { ClienteResponse } from '../../models/response/cliente.response';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @Component({
   selector: 'app-clientes',
-  imports: [],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
+  ],
   templateUrl: './clientes.component.html',
   styleUrl: './clientes.component.css'
 })
-export class ClientesComponent {
+export class ClientesComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
+  dataSource!: MatTableDataSource<ClienteResponse>;
+  clientes: ClienteResponse[] = [];
+  displayedColumns: string[] = ['id', 'nome', 'telefone', 'endereco', 'situacao', 'acoes'];
+
+  // Filtros
+  situacaoSelecionada: string = '';
+  situacoes: string[] = ['Ativo', 'Inativo'];
+
+  constructor(private clienteService: ClienteService) {
+    this.dataSource = new MatTableDataSource<ClienteResponse>([]);
+  }
+
+  ngOnInit(): void {
+    this.carregarClientes();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  private carregarClientes() {
+    this.clienteService.listarClientes().subscribe(response => {
+      this.clientes = response.dados;
+      this.dataSource.data = this.clientes;
+    });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  aplicarFiltroSelect() {
+    this.dataSource.filterPredicate = (data: ClienteResponse, filter: string) => {
+      const matchSituacao = !this.situacaoSelecionada || data.situacao === this.situacaoSelecionada;
+      return matchSituacao;
+    };
+    this.dataSource.filter = ' ';
+  }
+
+  alterarStatusCliente(id: number) {
+    this.clienteService.alterarStatusCliente(id).subscribe(() => {
+      this.carregarClientes();
+    });
+  }
 }

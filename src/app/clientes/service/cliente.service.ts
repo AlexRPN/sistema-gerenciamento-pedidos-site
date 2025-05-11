@@ -16,7 +16,7 @@ export class ClienteService {
 
   constructor(private http: HttpClient) { }
 
-  listarClientes(filtro?: {id?: number, telefone?: string, nome?: string}): Observable<ResponseModel<ClienteRequest[]>> {
+  listarClientes(filtro?: {id?: number, telefone?: string, nome?: string}): Observable<ResponseModel<ClienteResponse[]>> {
     let params = new HttpParams();
 
     if (filtro?.id) {
@@ -29,10 +29,14 @@ export class ClienteService {
       params = params.append('nome', filtro.nome);
     }
 
-    return this.http.get<ResponseModel<ClienteRequest[]>>(`${this.ApiUrl}/Cliente`, { params });
+    return this.http.get<ResponseModel<ClienteResponse[]>>(`${this.ApiUrl}/Cliente`, { params });
   }
 
   editarCliente(request: ClienteEdicaoRequest): Observable<ResponseModel<ClienteRequest>> {
     return this.http.put<ResponseModel<ClienteRequest>>(`${this.ApiUrl}/Cliente`, request);
+  }
+
+  alterarStatusCliente(id: number): Observable<ResponseModel<ClienteResponse>> {
+    return this.http.patch<ResponseModel<ClienteResponse>>(`${this.ApiUrl}/Cliente/${id}/status`, {});
   }
 }
