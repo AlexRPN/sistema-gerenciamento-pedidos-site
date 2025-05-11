@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { ProdutosComponent } from './produtos/components/produto/produtos.component';
 import { PedidosComponent } from './pedidos/pages/pedidos.component';
-import { ClientesComponent } from './clientes/components/cliente/clientes.component';
+import { ClientesComponent } from './clientes/pages/cliente/clientes.component';
 import { FuncionariosComponent } from './funcionarios/components/funcionario/funcionarios.component';
 import { RelatoriosComponent } from './relatorios/relatorios.component';
 import { CadastrarProdutoComponent } from './produtos/pages/cadastrar-produto/cadastrar-produto/cadastrar-produto.component';
