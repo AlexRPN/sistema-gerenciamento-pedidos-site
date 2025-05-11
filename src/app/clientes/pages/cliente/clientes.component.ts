@@ -6,13 +6,15 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { CadastrarClienteModalComponent } from '../../components/cadastrar-cliente-modal/cadastrar-cliente-modal.component';
 
 @Component({
   selector: 'app-clientes',
@@ -43,7 +45,11 @@ export class ClientesComponent implements OnInit {
   situacaoSelecionada: string = '';
   situacoes: string[] = ['Ativo', 'Inativo'];
 
-  constructor(private clienteService: ClienteService) {
+  constructor(
+    private clienteService: ClienteService,
+    private router: Router,
+    private dialog: MatDialog
+  ) {
     this.dataSource = new MatTableDataSource<ClienteResponse>([]);
   }
 
@@ -60,6 +66,10 @@ export class ClientesComponent implements OnInit {
     this.clienteService.listarClientes().subscribe(response => {
       this.clientes = response.dados;
       this.dataSource.data = this.clientes;
+      setTimeout(() => {
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
     });
   }
 
@@ -83,6 +93,20 @@ export class ClientesComponent implements OnInit {
   alterarStatusCliente(id: number) {
     this.clienteService.alterarStatusCliente(id).subscribe(() => {
       this.carregarClientes();
+    });
+  }
+
+  abrirModalCadastroCliente() {
+    const dialogRef = this.dialog.open(CadastrarClienteModalComponent, {
+      width: '1100px',
+      maxWidth: '98vw',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'atualizar') {
+        this.carregarClientes();
+      }
     });
   }
 }

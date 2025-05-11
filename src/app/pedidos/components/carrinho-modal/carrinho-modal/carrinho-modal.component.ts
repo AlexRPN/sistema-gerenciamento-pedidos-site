@@ -36,7 +36,6 @@ export class CarrinhoModalComponent {
   }
 
   criarPedido() {
-    console.log('Cliente selecionado:', this.cliente);
     const pedidoProdutos = this.itensCarrinho.map(item => ({
       clienteId: Number(this.cliente?.id),
       produtoId: item.id,

@@ -39,4 +39,8 @@ export class ClienteService {
   alterarStatusCliente(id: number): Observable<ResponseModel<ClienteResponse>> {
     return this.http.patch<ResponseModel<ClienteResponse>>(`${this.ApiUrl}/Cliente/${id}/status`, {});
   }
+
+  cadastrarCliente(request: ClienteRequest): Observable<ResponseModel<ClienteRequest>> {
+    return this.http.post<ResponseModel<ClienteRequest>>(`${this.ApiUrl}/Cliente`, request);
+  }
 }

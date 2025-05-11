@@ -1,7 +1,8 @@
+import { EnderecoClienteRequest } from "./endereco-cliente.request";
+
 export interface ClienteRequest {
-  id: number;
   nome: string;
   telefone: string;
+  endereco: EnderecoClienteRequest;
   empresaId: number;
-  //enderecoCliente: EnderecoClienteRequest;
 }

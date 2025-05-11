@@ -61,7 +61,7 @@
         <ng-container matColumnDef="acoes">
           <th mat-header-cell *matHeaderCellDef> Ações </th>
           <td mat-cell *matCellDef="let cliente">
-            <button class="btn btn-success me-2" title="Cadastrar" [routerLink]="['/cadastro']">
+            <button class="btn btn-success me-2" title="Cadastrar" (click)="abrirModalCadastroCliente()">
               <i class="bi bi-plus-circle"></i>
             </button>
             <button class="btn btn-info me-2" title="Editar" [routerLink]="['/editar', cliente.id]">
