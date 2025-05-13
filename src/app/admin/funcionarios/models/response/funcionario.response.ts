@@ -1,3 +1,6 @@
+import { EmpresaResponse } from "../../../empresa/models/response/empresa.response";
+import { EnderecoFuncionarioResponse } from "./endereco-funcionario.response";
+
 export interface FuncionarioResponse {
   id: number;
   nome: string;
@@ -8,6 +11,6 @@ export interface FuncionarioResponse {
   situacao: string;
   dataCriacao: string;
   perfilAcesso: string;
-  //empresa: EmpresaResponse;
-  //endereco: EnderecoFuncionarioResponse;
+  empresa: EmpresaResponse;
+  endereco: EnderecoFuncionarioResponse;
 }
