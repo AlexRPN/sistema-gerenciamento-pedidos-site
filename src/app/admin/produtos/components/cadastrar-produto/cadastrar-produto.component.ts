@@ -32,6 +32,7 @@ export class CadastrarProdutoComponent {
 
     this.produtoService.cadastrarProduto(request).subscribe(response => {
       if (response.dados != null) {
+        console.log(response, "Dados do produto");
         this.toastr.success(response.mensagem, 'Sucesso!');
         this.router.navigate(['/produtos']);
       } else {

@@ -74,17 +74,16 @@ export class FormularioComponent implements OnInit {
     if (file) {
       this.selectedFile = file;
 
-      // Cria preview da imagem
+      // Cria preview da imagem e converte para base64
       const reader = new FileReader();
       reader.onload = (e) => {
         this.previewUrl = e.target?.result as string;
+        // Atualiza o valor do form com a string base64
+        this.produtoForm.patchValue({
+          imagem: e.target?.result as string
+        });
       };
       reader.readAsDataURL(file);
-
-      // Atualiza o valor do form
-      this.produtoForm.patchValue({
-        imagem: file
-      });
     }
   }
 
