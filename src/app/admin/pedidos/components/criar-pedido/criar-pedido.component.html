@@ -80,7 +80,7 @@
           @for (produto of produtos; track produto.id) {
             <mat-card class="produto-card">
               <ng-container *ngIf="produto.imagem; else placeholderImg">
-                <img [src]="produto.imagem"
+                <img [src]="getUrlImagem(produto.imagem)"
                      alt="Imagem do produto"
                      style="width: 100%; height: auto; max-height: 140px; object-fit: cover; border-radius: 8px 8px 0 0; border-bottom: 1px solid #eee;">
               </ng-container>

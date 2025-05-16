@@ -28,11 +28,11 @@ export class ProdutoService {
     return this.http.get<ResponseModel<ProdutoResponse>>(`${this.ApiUrl}/Produto/${id}`);
   }
 
-  editarProduto(produto: ProdutoEdicaoRequest): Observable<ResponseModel<ProdutoResponse>> {
+  editarProduto(produto: FormData): Observable<ResponseModel<ProdutoResponse>> {
     return this.http.put<ResponseModel<ProdutoResponse>>(`${this.ApiUrl}/Produto`, produto);
   }
 
-  cadastrarProduto(produto: ProdutoRequest): Observable<ResponseModel<ProdutoResponse>> {
+  cadastrarProduto(produto: FormData): Observable<ResponseModel<ProdutoResponse>> {
     return this.http.post<ResponseModel<ProdutoResponse>>(`${this.ApiUrl}/Produto`, produto);
   }
 

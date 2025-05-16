@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ProdutoResponse } from '../../models/response/produto.response';
 import { ProdutoEdicaoRequest } from '../../models/request/produtoEdicao.request';
 import { ProdutoRequest } from '../../models/request/produto.request';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-formulario',
@@ -36,10 +37,17 @@ export class FormularioComponent implements OnInit {
       empresaId: new FormControl(this.dadosProduto?.empresaId || 1)
     });
 
-    // Se houver uma imagem existente, exibe o preview
+    // Se houver uma imagem existente, exibe o preview com a URL completa
     if (this.dadosProduto?.imagem) {
-      this.previewUrl = this.dadosProduto.imagem;
+      this.previewUrl = this.getUrlImagem(this.dadosProduto.imagem);
     }
+  }
+
+  getUrlImagem(imagem: string | null): string {
+    if (!imagem) {
+      return 'assets/img/sem-imagem.png';
+    }
+    return `${environment.UrlApi.replace(/\/api$/, '')}/${imagem}`;
   }
 
   submit(): void {
@@ -50,21 +58,30 @@ export class FormularioComponent implements OnInit {
         valor = valor.replace(',', '.');
         valor = parseFloat(valor);
       }
-      // Garante que os campos obrigatórios estejam presentes
-      const produtoData = {
-        ...formValue,
-        valor: valor,
-        situacao: formValue.situacao || 'Ativo',
-        empresaId: formValue.empresaId || 1,
-        id: formValue.id || 0
-      };
+
+      const formData = new FormData();
+
+      // Adiciona os campos do formulário ao FormData
+      formData.append('nome', formValue.nome);
+      formData.append('descricao', formValue.descricao);
+      formData.append('valor', valor.toString());
+      formData.append('categoria', formValue.categoria);
+      formData.append('tamanho', formValue.tamanho);
+      formData.append('empresaId', (formValue.empresaId || 1).toString());
+      formData.append('situacao', formValue.situacao || 'Ativo');
+
+      // Adiciona a imagem se existir
+      if (this.selectedFile) {
+        formData.append('imagem', this.selectedFile);
+      }
 
       if(this.dadosProduto && (this.dadosProduto as ProdutoResponse).id){
-        this.onSubmit.emit(produtoData as ProdutoEdicaoRequest);
-      }else{
-        this.onSubmit.emit(produtoData as ProdutoRequest);
+        formData.append('id', formValue.id.toString());
+        this.onSubmit.emit(formData as unknown as ProdutoEdicaoRequest);
+      } else {
+        this.onSubmit.emit(formData as unknown as ProdutoRequest);
       }
-    }else{
+    } else {
       this.produtoForm.markAllAsTouched();
     }
   }

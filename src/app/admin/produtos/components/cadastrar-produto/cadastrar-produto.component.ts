@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ProdutoService } from '../../services/produto.service';
-import { ProdutoRequest } from '../../models/request/produto.request';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormularioComponent } from '../formulario/formulario.component';
@@ -20,19 +19,9 @@ export class CadastrarProdutoComponent {
               private router: Router,
               private toastr: ToastrService){}
 
-  cadastrarProduto(request: ProdutoRequest) {
-    this.produtoService.cadastrarProduto(request).subscribe(response => {
+  cadastrarProduto(formData: FormData) {
+    this.produtoService.cadastrarProduto(formData).subscribe(response => {
       if (response.dados != null) {
-        this.toastr.success(response.mensagem, 'Sucesso!');
-        this.router.navigate(['/produtos']);
-      } else {
-        this.toastr.error(response.mensagem, 'Erro!');
-      }
-    });
-
-    this.produtoService.cadastrarProduto(request).subscribe(response => {
-      if (response.dados != null) {
-        console.log(response, "Dados do produto");
         this.toastr.success(response.mensagem, 'Sucesso!');
         this.router.navigate(['/produtos']);
       } else {

@@ -18,6 +18,7 @@ import { ProdutoService } from '../../../produtos/services/produto.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ClienteEdicaoRequest } from '../../../clientes/models/request/clienteEdicao.request';
 import { CarrinhoModalComponent } from '../carrinho-modal/carrinho-modal.component';
+import { environment } from '../../../../../environments/environment.development';
 
 interface Tab {
   label: string;
@@ -60,6 +61,7 @@ export class CriarPedidoComponent implements OnInit {
   itensCarrinho: ItemCarrinho[] = [];
   edicaoCliente: boolean = false;
   clienteOriginal: any = null;
+  urlApi = environment.UrlApi.replace(/\/api$/, '');
 
   constructor(
     private pedidoService: PedidoService,
@@ -243,5 +245,12 @@ export class CriarPedidoComponent implements OnInit {
         this.itensCarrinho = [];
       }
     });
+  }
+
+  getUrlImagem(imagem: string | null): string {
+    if (!imagem) {
+      return 'assets/img/sem-imagem.png'; // Caminho para imagem padrão
+    }
+    return `${this.urlApi}/${imagem}`;
   }
 }
