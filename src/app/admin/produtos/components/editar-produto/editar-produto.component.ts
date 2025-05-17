@@ -34,7 +34,6 @@ export class EditarProdutoComponent implements OnInit {
   editarProduto(formData: FormData): void {
     this.produtoService.editarProduto(formData).subscribe(response => {
       if(response.dados != null){
-        console.log(response, "editar produto");
         this.toastr.success(response.mensagem, 'Sucesso');
         this.router.navigate(['/produtos']);
       }else{

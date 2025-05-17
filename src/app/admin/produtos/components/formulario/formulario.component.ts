@@ -55,7 +55,8 @@ export class FormularioComponent implements OnInit {
       const formValue = this.produtoForm.value;
       let valor = formValue.valor;
       if (typeof valor === 'string') {
-        valor = valor.replace(',', '.');
+        // Remove pontos de milhar e troca vírgula decimal por ponto
+        valor = valor.replace(/\./g, '').replace(',', '.');
         valor = parseFloat(valor);
       }
 
@@ -64,7 +65,7 @@ export class FormularioComponent implements OnInit {
       // Adiciona os campos do formulário ao FormData
       formData.append('nome', formValue.nome);
       formData.append('descricao', formValue.descricao);
-      formData.append('valor', valor.toString());
+      formData.append('valor', formValue.valor);
       formData.append('categoria', formValue.categoria);
       formData.append('tamanho', formValue.tamanho);
       formData.append('empresaId', (formValue.empresaId || 1).toString());
