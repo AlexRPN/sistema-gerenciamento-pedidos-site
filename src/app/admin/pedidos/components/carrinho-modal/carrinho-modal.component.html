@@ -56,6 +56,17 @@
           </tr>
         </tbody>
       </table>
+
+      <div class="info-section pagamento-row" style="display: flex; align-items: center; gap: 8px; margin-top: 16px;">
+        <label for="tipoPagamento" style="margin-bottom: 0;"><strong>Tipo de Pagamento:</strong></label>
+        <select id="tipoPagamento" [(ngModel)]="tipoPagamento" class="form-control" style="width: auto; flex: 1;">
+          <option value="">Selecione o tipo de pagamento</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="CartaoCredito">Cartão de Crédito</option>
+          <option value="CartaoDebito">Cartão de Débito</option>
+          <option value="Pix">PIX</option>
+        </select>
+      </div>
     </ng-container>
 
     <div class="info-section">
@@ -67,7 +78,7 @@
       <strong>Total do Pedido:</strong> R$ {{calcularTotal() | number:'1.2-2'}}
     </div>
 
-    <button class="btn btn-success mt-3 w-100" (click)="criarPedido()">
+    <button class="btn btn-success mt-3 w-100" (click)="criarPedido()" [disabled]="!tipoPagamento">
       <i class="bi bi-check-circle"></i> Criar Pedido
     </button>
   </div>

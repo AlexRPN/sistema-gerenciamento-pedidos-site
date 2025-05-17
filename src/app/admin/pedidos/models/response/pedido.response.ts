@@ -5,6 +5,7 @@ import { PedidoProdutoResponse } from "../../../pedido-produto/models/response/p
 export interface PedidoResponse {
   id: number;
   valorTotal: number;
+  tipoPagamento: string;
   dataPedido: Date;
   observacao: string;
   statusPedido: string;
