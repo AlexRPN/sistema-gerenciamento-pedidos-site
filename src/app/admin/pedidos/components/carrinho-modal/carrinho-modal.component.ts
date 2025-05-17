@@ -42,14 +42,13 @@ export class CarrinhoModalComponent {
       tipoPagamento: this.tipoPagamento,
       produtoId: item.id,
       quantidade: item.quantidade,
-      observacao: this.observacao || '',
+      observacao: item.observacao || '',
       valorUnitario: item.valor
     }));
 
     const request = {
       clienteId: Number(this.cliente?.id),
       pedidoProdutos,
-      observacao: this.observacao,
       tipoPagamento: this.tipoPagamento
     } as any;
 

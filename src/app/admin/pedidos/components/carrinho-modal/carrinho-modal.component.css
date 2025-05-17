@@ -1,5 +1,5 @@
 .modal-container {
-  width: 650px;
+  width: 900px;
   height: 100vh;
   background: #fff;
   position: fixed;
@@ -52,7 +52,7 @@
 
 .items-table th,
 .items-table td {
-  padding: 12px;
+  padding: 8px 7px;
   text-align: left;
   border-bottom: 1px solid #eee;
 }

@@ -44,7 +44,7 @@
       <p><strong>Data:</strong> {{data.pedido.dataPedido | date:'dd/MM/yyyy HH:mm'}}</p>
       <p><strong>Status:</strong> {{data.pedido.statusPedido}}</p>
       <p><strong>Valor Total:</strong> R$ {{data.pedido.valorTotal | number:'1.2-2'}}</p>
-      <p><strong>Observação:</strong> {{data.pedido.observacao || '-'}}</p>
+      <p><strong>Tipo de Pagamento:</strong> {{data.pedido.tipoPagamento}}</p>
     </div>
 
     <div class="info-section">

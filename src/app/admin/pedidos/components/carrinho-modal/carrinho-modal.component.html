@@ -40,19 +40,26 @@
             <th>Produto</th>
             <th style="text-align:center;">Quantidade</th>
             <th>Valor Unitário</th>
-            <th>Total</th>
+            <th>Observação</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of itensCarrinho">
-            <td>{{item.nome}}</td>
-            <td style="text-align:center;">
-              <button class="btn btn-light btn-sm" (click)="alterarQuantidade(item, -1)" style="margin-right:4px;"><i class="bi bi-dash"></i></button>
-              {{item.quantidade}}
-              <button class="btn btn-light btn-sm" (click)="alterarQuantidade(item, 1)" style="margin-left:4px;"><i class="bi bi-plus"></i></button>
+            <td>
+              {{item.nome}}<br>
+              <span style="font-size: 13px; color: #888;">{{item.descricao}}</span>
+            </td>
+            <td style="text-align:center; white-space: nowrap;">
+              <div style="display: flex; align-items: center; justify-content: center; gap: 4px;">
+                <button class="btn btn-light btn-sm" (click)="alterarQuantidade(item, -1)"><i class="bi bi-dash"></i></button>
+                <span>{{item.quantidade}}</span>
+                <button class="btn btn-light btn-sm" (click)="alterarQuantidade(item, 1)"><i class="bi bi-plus"></i></button>
+              </div>
             </td>
             <td>R$ {{item.valor | number:'1.2-2'}}</td>
-            <td>R$ {{item.valor * item.quantidade | number:'1.2-2'}}</td>
+            <td>
+              <textarea class="form-control" [(ngModel)]="item.observacao" placeholder="Observação do produto" rows="1" style="min-height: 32px;"></textarea>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -68,11 +75,6 @@
         </select>
       </div>
     </ng-container>
-
-    <div class="info-section">
-      <label for="observacao"><strong>Observação do Pedido:</strong></label>
-      <textarea id="observacao" [(ngModel)]="observacao" rows="3" class="form-control" placeholder="Digite alguma observação para o pedido..."></textarea>
-    </div>
 
     <div class="info-section" style="font-size: 18px; margin-bottom: 16px;">
       <strong>Total do Pedido:</strong> R$ {{calcularTotal() | number:'1.2-2'}}
