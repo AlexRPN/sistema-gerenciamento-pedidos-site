@@ -61,6 +61,15 @@ export class CriarPedidoComponent implements OnInit {
   itensCarrinho: ItemCarrinho[] = [];
   edicaoCliente: boolean = false;
   clienteOriginal: any = null;
+
+  tamanhoPizzaSelecionado = 'Pequeno';
+  pizzaTamanhos = ['Pequeno', 'Medio', 'Grande'];
+  abaSelecionada = 0;
+
+  get pizzasFiltradas() {
+    return this.produtos.filter(p => p.tamanho === this.tamanhoPizzaSelecionado);
+  }
+
   urlApi = environment.UrlApi.replace(/\/api$/, '');
 
   constructor(
@@ -88,6 +97,7 @@ export class CriarPedidoComponent implements OnInit {
   }
 
   onTabChange(event: any) {
+    this.abaSelecionada = event.index;
     const categoria = this.tabs[event.index].categoria;
     this.carregarProdutosPorCategoria(categoria);
   }
@@ -252,5 +262,9 @@ export class CriarPedidoComponent implements OnInit {
       return 'assets/img/sem-imagem.png'; // Caminho para imagem padrão
     }
     return `${this.urlApi}/${imagem}`;
+  }
+
+  trackByProdutoId(index: number, produto: any) {
+    return produto.id;
   }
 }
