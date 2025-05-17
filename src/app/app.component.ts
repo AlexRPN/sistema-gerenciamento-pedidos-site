@@ -1,30 +1,12 @@
 import { Component } from '@angular/core';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import { SidenavComponent } from "./admin/sidenav/sidenav.component";
-import { BodyComponent } from "./admin/body/body.component";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
-interface SideNavToggle {
-  screenWidth: number;
-  collapsed: boolean;
-}
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [MatSidenavModule, SidenavComponent, BodyComponent],
+  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  title = 'sistema-gerenciamento-pedidos-site';
-
-  isSidenavCollapsed = false;
-  screenWidth = 0;
-
-  onToggleSidenav(data: SideNavToggle): void {
-    this.screenWidth = data.screenWidth;
-    this.isSidenavCollapsed = data.collapsed;
-  }
-}
+export class AppComponent {}

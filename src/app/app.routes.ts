@@ -9,6 +9,7 @@ import { CriarPedidoComponent } from './admin/pedidos/components/criar-pedido/cr
 import { CadastrarClienteModalComponent } from './admin/clientes/components/cadastrar-cliente-modal/cadastrar-cliente-modal.component';
 import { FuncionariosComponent } from './admin/funcionarios/pages/funcionario/funcionarios.component';
 import { HomeComponent } from './client/home/pages/home/home.component';
+import { AdminLayoutComponent } from './admin/layout/admin-layout.component';
 
 export const routes: Routes = [
   // Rotas do cliente (público)
@@ -23,6 +24,7 @@ export const routes: Routes = [
   // Rotas do admin
   {
     path: 'admin',
+    component: AdminLayoutComponent,
     children: [
       { path: '', redirectTo: 'produtos', pathMatch: 'full' },
       { path: 'produtos', component: ProdutosComponent },
