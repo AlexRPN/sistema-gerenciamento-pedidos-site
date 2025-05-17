@@ -1,26 +1,26 @@
 export const navbarData = [
   {
-    routerLink: 'produtos',
+    routerLink: 'admin/produtos',
     icon: 'fal fa-box',
     label: 'Produtos',
   },
   {
-    routerLink: 'pedidos',
+    routerLink: 'admin/pedidos',
     icon: 'fal fa-shopping-cart',
     label: 'Pedidos',
   },
   {
-    routerLink: 'clientes',
+    routerLink: 'admin/clientes',
     icon: 'fal fa-user',
     label: 'Clientes',
   },
   {
-    routerLink: 'funcionarios',
+    routerLink: 'admin/funcionarios',
     icon: 'fal fa-user-tie',
     label: 'Funcionários',
   },
   {
-    routerLink: 'relatorios',
+    routerLink: 'admin/relatorios',
     icon: 'fal fa-chart-bar',
     label: 'Relatórios',
   }

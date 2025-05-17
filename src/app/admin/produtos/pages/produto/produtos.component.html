@@ -42,7 +42,7 @@
 
       <!-- Botão de cadastrar fora da tabela, logo abaixo dos filtros -->
       <div class="d-flex justify-content-end mb-3">
-        <button class="btn btn-success" title="Cadastrar Produto" [routerLink]="['/cadastro']">
+        <button class="btn btn-success" title="Cadastrar Produto" [routerLink]="['/admin/cadastro']">
           <i class="bi bi-plus-circle"></i> Cadastrar Produto
         </button>
       </div>
@@ -98,10 +98,10 @@
         <ng-container matColumnDef="acoes">
           <th mat-header-cell *matHeaderCellDef> Ações </th>
           <td mat-cell *matCellDef="let produto">
-            <button class="btn btn-info me-2" title="Editar" [routerLink]="['/editar', produto.id]">
+            <button class="btn btn-info me-2" title="Editar" [routerLink]="['/admin/editar', produto.id]">
               <i class="bi bi-pencil-square"></i>
             </button>
-            <button class="btn btn-secondary me-2" [routerLink]="['/detalhes', produto.id]" title="Detalhes">
+            <button class="btn btn-secondary me-2" [routerLink]="['admin/detalhes', produto.id]" title="Detalhes">
               <i class="bi bi-file-earmark-text"></i>
             </button>
             <button class="btn"

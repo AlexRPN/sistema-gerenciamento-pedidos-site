@@ -1,0 +1,209 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+margin: 0;
+padding: 0;
+width: 100vw;
+overflow-x: hidden; /* Evita rolagem lateral */
+}
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  color: #000000;
+}
+
+/* Estilo do cabeçalho com a imagem */
+.hero {
+  text-align: center;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding-top: 120px;
+}
+
+.empresa-foto {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Conteúdo principal */
+.conteudo {
+  padding: 40px 20px;
+  text-align: center;
+}
+.sobre {
+padding: 40px 20px;
+text-align: center;
+font-weight: bold;
+}
+
+/* Rodapé */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #eee;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.navbar-collapse {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #fff;
+  z-index: 1000;
+  min-width: 200px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 992px) {
+  /* Em telas grandes, volta ao layout padrão */
+  .navbar-collapse {
+    position: static;
+    box-shadow: none;
+    background-color: transparent;
+    display: flex !important;
+    justify-content: flex-end;
+  }
+}
+
+.top {
+  background-color: #8B0000; /* vinho escuro, por exemplo */
+}
+
+.navbar .nav-link,
+.navbar .navbar-brand {
+  color: #ffffff; /* texto branco */
+}
+
+.navbar .nav-link:hover {
+  color: #a1a1a1; /* dourado no hover */
+}
+nav.navbar {
+  background-color: #ff0022 !important;
+  width: 100vw;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1050;
+}
+
+.navbar-toggler{
+  color: #000000;
+  background-color: #aaaaaa;
+}
+/* Define a cor preta apenas quando o menu está expandido */
+.navbar-collapse.show .nav-link {
+color: rgb(255, 255, 255) !important;
+}
+.navbar-collapse.show .nav-link:hover {
+color: #a1a1a1 !important;
+}
+.navbar-collapse.show { /* branco com 80% de opacidade */
+backdrop-filter: blur(0px); /* efeito de desfoque opcional */
+-webkit-backdrop-filter: blur(8px); /* compatibilidade com Safari */
+}
+/* Torna o menu um painel lateral ao expandir */
+@media (max-width: 991.98px) {
+.navbar-collapse.show {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: auto;
+  width: 250px;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.8); /* fundo translúcido */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 999;
+  padding: 2rem 1rem;
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1); /* sombra à esquerda */
+}
+
+.navbar-collapse.show .nav-link {
+  color: black !important;
+  font-size: 1.0rem;
+  margin-bottom: 1rem;
+}
+
+.navbar-nav {
+  flex-direction: column;
+  align-items: flex-start;
+}
+}
+.animate-fade-in {
+animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+to {
+  opacity: 1;
+  transform: translateY(0);
+}
+}
+
+/* cards*/
+.card-text {
+text-align: center;
+margin-bottom: 1rem; /* Ajuste a margem, se necessário */
+}
+.card-text {
+text-align: center;
+font-size: clamp(0.50rem, 2vw, 0.9rem);
+}
+
+.card-title {
+text-align: center;
+font-weight: bold;
+font-size: clamp(1.2rem, 2.5vw, 1.2rem);
+}
+.card-img-top {
+height: 120px;          /* altura imagem */
+object-fit: cover;      /* mantém proporção e corta excesso */
+width: 100%;            /* largura total do card */
+}
+
+/* Tema escuro padrão */
+body.dark-mode {
+background-color: #121212;
+color: #e0e0e0;
+}
+/*
+body.dark-mode .navbar {
+background-color: #1f1f1f !important;
+}
+*/
+body.dark-mode .card {
+background-color: #2c2c2c;
+color: #ffffff;
+border-color: #444;
+}
+
+body.dark-mode .card-title,
+body.dark-mode .card-text {
+color: #ffffff;
+}
+
+body.dark-mode footer {
+background-color: #1f1f1f;
+color: #bbb;
+}
+
+/* Para o texto do label do switch */
+body.dark-mode .form-check-label {
+color: #ffffff;
+}

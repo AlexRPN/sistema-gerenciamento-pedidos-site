@@ -8,16 +8,32 @@ import { EditarProdutoComponent } from './admin/produtos/components/editar-produ
 import { CriarPedidoComponent } from './admin/pedidos/components/criar-pedido/criar-pedido.component';
 import { CadastrarClienteModalComponent } from './admin/clientes/components/cadastrar-cliente-modal/cadastrar-cliente-modal.component';
 import { FuncionariosComponent } from './admin/funcionarios/pages/funcionario/funcionarios.component';
+import { HomeComponent } from './client/home/pages/home/home.component';
 
 export const routes: Routes = [
-  {path: '', redirectTo: 'produtos', pathMatch: 'full'},
-  {path: 'produtos', component: ProdutosComponent},
-  {path: 'pedidos', component: PedidosComponent},
-  {path: 'clientes', component: ClientesComponent},
-  {path: 'funcionarios', component: FuncionariosComponent},
-  {path: 'relatorios', component: RelatoriosComponent},
-  {path: 'cadastro', component: CadastrarProdutoComponent},
-  {path: 'editar/:id', component: EditarProdutoComponent},
-  {path: 'criar-pedido', component: CriarPedidoComponent},
-  {path: 'cadastro-cliente', component: CadastrarClienteModalComponent}
+  // Rotas do cliente (público)
+  {
+    path: '',
+    component: HomeComponent,
+    children: [
+      { path: '', component: HomeComponent },
+      // Outras rotas do cliente podem ser adicionadas aqui
+    ]
+  },
+  // Rotas do admin
+  {
+    path: 'admin',
+    children: [
+      { path: '', redirectTo: 'produtos', pathMatch: 'full' },
+      { path: 'produtos', component: ProdutosComponent },
+      { path: 'pedidos', component: PedidosComponent },
+      { path: 'clientes', component: ClientesComponent },
+      { path: 'funcionarios', component: FuncionariosComponent },
+      { path: 'relatorios', component: RelatoriosComponent },
+      { path: 'cadastro', component: CadastrarProdutoComponent },
+      { path: 'editar/:id', component: EditarProdutoComponent },
+      { path: 'criar-pedido', component: CriarPedidoComponent },
+      { path: 'cadastro-cliente', component: CadastrarClienteModalComponent }
+    ]
+  }
 ];

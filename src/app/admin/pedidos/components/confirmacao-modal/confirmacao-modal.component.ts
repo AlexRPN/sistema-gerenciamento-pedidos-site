@@ -31,6 +31,6 @@ export class ConfirmacaoModalComponent {
 
   fechar() {
     this.dialogRef.close();
-    this.router.navigate(['/pedidos']);
+    this.router.navigate(['/admin/pedidos']);
   }
 }
