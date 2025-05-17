@@ -207,3 +207,40 @@ color: #bbb;
 body.dark-mode .form-check-label {
 color: #ffffff;
 }
+
+.home-container {
+  min-height: 100vh;
+  background-color: #fff;
+  transition: background 0.6s;
+}
+.home-container.dark-mode {
+  background-color: #181818 !important;
+  color: #fff;
+}
+
+.home-container.dark-mode,
+.home-container.dark-mode * {
+  color: #fff !important;
+}
+
+.home-container.dark-mode .navbar,
+.home-container.dark-mode nav.navbar {
+  background-color: #ff0022 !important;
+}
+
+.home-container.dark-mode footer {
+  background-color: #1f1f1f;
+  color: #bbb;
+}
+
+/* Ajuste para garantir contraste dos cards no modo escuro */
+.home-container.dark-mode .card {
+  background-color: #232323;
+  color: #fff;
+  border-color: #444;
+}
+
+.home-container.dark-mode .card-title,
+.home-container.dark-mode .card-text {
+  color: #fff;
+}
