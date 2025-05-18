@@ -52,6 +52,16 @@
           <mat-hint align="end">{{endereco.cep?.length || 0}} / 9</mat-hint>
         </mat-form-field>
       </div>
+      <div *ngIf="cliente?.situacao === 'Ativo'"
+           class="badge bg-success text-white"
+           style="font-size: 1rem; font-weight: bold; margin-top: 8px; padding: 8px 16px; border-radius: 6px;">
+        Cliente Ativo
+      </div>
+      <div *ngIf="cliente?.situacao !== 'Ativo'"
+           class="badge bg-danger text-white"
+           style="font-size: 1rem; font-weight: bold; margin-top: 8px; padding: 8px 16px; border-radius: 6px;">
+        Cliente inativo. Não é possível gerar o pedido.
+      </div>
     </div>
     <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-end; min-width: 160px;">
       <button *ngIf="!edicaoCliente" class="btn btn-secondary" type="button" (click)="habilitarEdicaoCliente()"><i class="bi bi-pencil"></i> Editar dados</button>

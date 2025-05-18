@@ -6,7 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -15,6 +15,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { CadastrarClienteModalComponent } from '../../components/cadastrar-cliente-modal/cadastrar-cliente-modal.component';
+import { EditarClienteModalComponent } from '../../components/editar-cliente-modal/editar-cliente-modal.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-clientes',
@@ -47,7 +49,7 @@ export class ClientesComponent implements OnInit {
 
   constructor(
     private clienteService: ClienteService,
-    private router: Router,
+    private toastr: ToastrService,
     private dialog: MatDialog
   ) {
     this.dataSource = new MatTableDataSource<ClienteResponse>([]);
@@ -91,9 +93,17 @@ export class ClientesComponent implements OnInit {
   }
 
   alterarStatusCliente(id: number) {
-    this.clienteService.alterarStatusCliente(id).subscribe(() => {
-      this.carregarClientes();
-    });
+    const cliente = this.dataSource.data.find(c => c.id === id);
+    if(cliente) {
+      cliente.situacao = cliente.situacao === 'Ativo' ? 'Inativo' : 'Ativo';
+      this.clienteService.alterarStatusCliente(id).subscribe((response) => {
+        if(response.dados !== null) {
+          this.toastr.success(response.mensagem, "Sucesso!");
+        }else {
+          this.toastr.error(response.mensagem, "Error!");
+        }
+      });
+    }
   }
 
   abrirModalCadastroCliente() {
@@ -101,6 +111,20 @@ export class ClientesComponent implements OnInit {
       width: '1100px',
       maxWidth: '98vw',
       data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'atualizar') {
+        this.carregarClientes();
+      }
+    });
+  }
+
+  abrirModalEdicao(cliente: any) {
+    const dialogRef = this.dialog.open(EditarClienteModalComponent, {
+      width: '900px',
+      maxWidth: '98vw',
+      data: { cliente }
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -50,15 +50,11 @@ export class CadastrarClienteModalComponent {
         cep: this.cliente.endereco.cep
       }
     };
-
-    console.log('Request:', request);
-
     this.clienteService.cadastrarCliente(request).subscribe({
       next: response => {
         if (response.dados) {
           this.toastr.success(response.mensagem, 'Sucesso!');
-          this.dialogRef.close();
-          window.location.reload();
+          this.dialogRef.close('atualizar');
         } else {
           this.toastr.error(response.mensagem, 'Erro!');
         }

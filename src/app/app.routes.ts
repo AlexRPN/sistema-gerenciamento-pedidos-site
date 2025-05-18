@@ -10,6 +10,7 @@ import { CadastrarClienteModalComponent } from './admin/clientes/components/cada
 import { FuncionariosComponent } from './admin/funcionarios/pages/funcionario/funcionarios.component';
 import { HomeComponent } from './client/home/pages/home/home.component';
 import { AdminLayoutComponent } from './admin/layout/admin-layout.component';
+import { EditarClienteModalComponent } from './admin/clientes/components/editar-cliente-modal/editar-cliente-modal.component';
 
 export const routes: Routes = [
   // Rotas do cliente (público)
@@ -35,7 +36,8 @@ export const routes: Routes = [
       { path: 'cadastro', component: CadastrarProdutoComponent },
       { path: 'editar/:id', component: EditarProdutoComponent },
       { path: 'criar-pedido', component: CriarPedidoComponent },
-      { path: 'cadastro-cliente', component: CadastrarClienteModalComponent }
+      { path: 'cadastro-cliente', component: CadastrarClienteModalComponent },
+      { path: 'editar-cliente/:id', component: EditarClienteModalComponent }
     ]
   }
 ];

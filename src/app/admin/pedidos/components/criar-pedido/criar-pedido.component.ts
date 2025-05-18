@@ -147,7 +147,6 @@ export class CriarPedidoComponent implements OnInit {
     }).subscribe(response => {
       if (response.dados && response.dados.length > 0) {
         const cliente: ClienteResponse = response.dados[0] as any;
-        this.clienteEncontrado = true;
         this.cliente = cliente;
         this.endereco = {
           id: cliente.endereco?.id,
@@ -155,10 +154,14 @@ export class CriarPedidoComponent implements OnInit {
           complemento: cliente.endereco?.complemento || '',
           cep: cliente.endereco?.cep || ''
         };
-        console.log(this.endereco, "Endereço do cliente");
         this.clienteOriginal = JSON.parse(JSON.stringify(cliente)); // Salva cópia original
         this.edicaoCliente = false;
-        this.toastr.success(response.mensagem, 'Sucesso!');
+        this.clienteEncontrado = true;
+        if (cliente.situacao !== 'Ativo') {
+          this.toastr.warning('Cliente inativo. Não é possível gerar o pedido.', 'Atenção!');
+        } else {
+          this.toastr.success('Cliente localizado com sucesso!', 'Sucesso!');
+        }
       } else {
         this.toastr.warning(response.mensagem, 'Atenção!');
       }
@@ -241,11 +244,12 @@ export class CriarPedidoComponent implements OnInit {
   }
 
   abrirCarrinhoModal() {
+    const clienteParaCarrinho = (this.cliente && this.cliente.situacao === 'Ativo') ? this.cliente : null;
     const dialogRef = this.dialog.open(CarrinhoModalComponent, {
       width: '900px',
       panelClass: 'custom-dialog-container',
       data: {
-        cliente: this.cliente,
+        cliente: clienteParaCarrinho,
         itensCarrinho: this.itensCarrinho
       }
     });
