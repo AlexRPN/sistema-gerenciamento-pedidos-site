@@ -27,4 +27,9 @@ export class PedidoService {
   criarPedido(pedido: PedidoRequest): Observable<ResponseModel<PedidoResponse>> {
     return this.http.post<ResponseModel<PedidoResponse>>(`${this.ApiUrl}/Pedido`, pedido);
   }
+
+  alterarStatusPedido(id: number, status: string): Observable<ResponseModel<PedidoResponse>> {
+    return this.http.put<ResponseModel<PedidoResponse>>(
+      `${this.ApiUrl}/Pedido/${id}/status?statusPedido=${status}`, null);
+  }
 }

@@ -1,0 +1,36 @@
+<form (ngSubmit)="alterarStatusPedido()" class="p-4 rounded-4 shadow" style="background-color: #fff; max-width: 500px; border-radius: 15px;">
+  <h4 class="mb-2 d-flex align-items-center text-primary">
+    <i class="bi bi-arrow-repeat me-2 fs-4"></i> Alterar Status do Pedido
+  </h4>
+
+  <hr>
+  <div class="mb-3">
+    <div class="mb-3 text-secondary" style="font-size: 1.1rem;">
+      <strong>Código do Pedido: {{ pedido.id }}</strong>
+    </div>
+    <label for="statusPedido" class="form-label fw-semibold">Status do Pedido</label>
+    <select
+      id="statusPedido"
+      class="form-select"
+      [(ngModel)]="statusSelecionado"
+      name="statusPedido"
+      required>
+      <option value="EmPreparacao">Em Preparação</option>
+      <option value="ProntoParaRetirada">Pronto Para Retirada</option>
+      <option value="AguardandoEntrega">Aguardando Entrega</option>
+      <option value="EmRota">Em Rota</option>
+      <option value="Entregue">Entregue</option>
+      <option value="Cancelado">Cancelado</option>
+    </select>
+  </div>
+  <hr>
+  <div class="d-flex justify-content-end gap-2 mt-4">
+    <button type="submit" class="btn btn-success px-4">
+      <i class="bi bi-check-circle me-1"></i> Salvar
+    </button>
+    <button type="button" class="btn btn-secondary px-4" (click)="cancelar()">
+      <i class="bi bi-x-circle me-1"></i> Cancelar
+    </button>
+  </div>
+</form>
+

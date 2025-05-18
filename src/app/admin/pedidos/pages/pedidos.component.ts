@@ -20,6 +20,7 @@ import {jsPDF} from 'jspdf';
 import {autoTable} from 'jspdf-autotable';
 import { ResponseModel } from '../../../../assets/shared/models/responseModel/responseModel';
 import { MatSort } from '@angular/material/sort';
+import { AlterarStatusModalComponent } from '../components/alterar-status-modal/alterar-status-modal.component';
 
 @Component({
   selector: 'app-pedidos',
@@ -52,7 +53,8 @@ export class PedidosComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'cliente', 'dataPedido', 'valorTotal', 'status', 'acoes'];
 
-  constructor(private pedidoService: PedidoService, private dialog: MatDialog) {}
+  constructor(private pedidoService: PedidoService,
+              private dialog: MatDialog) {}
 
   ngOnInit() {
     this.carregarPedidos();
@@ -118,8 +120,17 @@ export class PedidosComponent implements OnInit {
     });
   }
 
-  cancelarPedido(pedido: PedidoResponse) {
-    // Implementar lógica para cancelar pedido
+  abrirModalAlterarStatus(pedido: PedidoResponse) {
+    const dialogRef = this.dialog.open(AlterarStatusModalComponent, {
+      width: '500px',
+      data: { pedido }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'atualizar') {
+        this.carregarPedidos();
+      }
+    });
   }
 
   exportarPDF() {

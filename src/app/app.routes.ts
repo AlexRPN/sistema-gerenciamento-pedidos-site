@@ -14,6 +14,7 @@ import { EditarClienteModalComponent } from './admin/clientes/components/editar-
 import { CadastroFuncionarioModalComponent } from './admin/funcionarios/components/cadastro-funcionario-modal/cadastro-funcionario-modal.component';
 import { EditarFuncionarioModalComponent } from './admin/funcionarios/components/editar-funcionario-modal/editar-funcionario-modal.component';
 import { DetalheFuncionarioModalComponent } from './admin/funcionarios/components/detalhe-funcionario-modal/detalhe-funcionario-modal.component';
+import { AlterarStatusModalComponent } from './admin/pedidos/components/alterar-status-modal/alterar-status-modal.component';
 
 export const routes: Routes = [
   // Rotas do cliente (público)
@@ -43,7 +44,8 @@ export const routes: Routes = [
       { path: 'editar-cliente/:id', component: EditarClienteModalComponent },
       { path: 'cadastro-funcionario', component: CadastroFuncionarioModalComponent },
       { path: 'editar-funcionario/:id', component: EditarFuncionarioModalComponent },
-      { path: 'detalhe-funcionario/:id', component: DetalheFuncionarioModalComponent }
+      { path: 'detalhe-funcionario/:id', component: DetalheFuncionarioModalComponent },
+      { path: 'alterar-status-pedido/:id', component: AlterarStatusModalComponent }
     ]
   }
 ];
