@@ -1,0 +1,153 @@
+:host ::ng-deep .mat-dialog-container {
+  background: #fff;
+  border-radius: 12px;
+  min-width: 900px;
+  max-width: 1400px;
+  width: 100%;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  padding: 0;
+}
+
+.titulo-detalhe {
+  text-align: center;
+  margin: 32px 0 24px 0;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.form-group {
+  margin-bottom: 18px;
+  padding: 0 64px;
+}
+
+.form-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding: 0 64px;
+}
+
+.form-row .form-group {
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.cep-group, .logradouro-group {
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.cep-group {
+  min-width: 180px;
+  max-width: 220px;
+  flex: 0 0 180px;
+}
+
+.logradouro-group {
+  flex: 1;
+  min-width: 0;
+}
+
+.form-label.d-flex {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-control {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #e3e6ea;
+  background: #f8f9fa;
+  font-size: 1rem;
+  padding: 10px 12px;
+  margin-bottom: 0;
+}
+
+.mat-form-field {
+  width: 100%;
+  max-width: 100%;
+  background: #fff;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #ccc;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  border-width: 1px;
+}
+
+.botoes-cadastro {
+  display: flex;
+  gap: 16px;
+  margin: 32px 64px 24px 64px;
+}
+
+.botoes-cadastro button,
+.botoes-cadastro a {
+  flex: 1;
+  min-width: 120px;
+}
+
+.botoes-cadastro a {
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-olho-senha {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(10%);
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+@media (max-width: 1200px) {
+  :host ::ng-deep .mat-dialog-container {
+    min-width: 90vw;
+    max-width: 98vw;
+    padding: 0;
+  }
+  .form-group, .botoes-cadastro {
+    padding: 0 16px;
+    margin: 16px 0;
+  }
+  .botoes-cadastro {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 900px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+    padding: 0 16px;
+  }
+  .cep-group, .logradouro-group {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+  .form-group {
+    padding: 0 16px;
+  }
+}
+
+.is-invalid {
+  border-color: #dc3545 !important;
+  background-color: #fff0f0;
+}
+
+.obrigatorio {
+  color: #dc3545;
+  font-weight: bold;
+  margin-left: 2px;
+}

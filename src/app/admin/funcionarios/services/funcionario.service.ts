@@ -4,6 +4,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResponseModel } from '../../../../assets/shared/models/responseModel/responseModel';
 import { FuncionarioResponse } from '../models/response/funcionario.response';
+import { FuncionarioRequest } from '../models/request/funcionario.request';
+import { FuncionarioEdicaoRequest } from '../models/request/funcionario-edicao.request';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +31,21 @@ export class FuncionarioService {
       params = params.append('telefone', filtro.telefone);
     }
     return this.http.get<ResponseModel<FuncionarioResponse[]>>(`${this.ApiUrl}/Funcionario`, { params });
+  }
+
+  cadastrarFuncionario(request: FuncionarioRequest): Observable<ResponseModel<FuncionarioResponse>> {
+    return this.http.post<ResponseModel<FuncionarioResponse>>(`${this.ApiUrl}/Funcionario`, request);
+  }
+
+  editarFuncionario(request: FuncionarioEdicaoRequest): Observable<ResponseModel<FuncionarioResponse>> {
+    return this.http.put<ResponseModel<FuncionarioResponse>>(`${this.ApiUrl}/Funcionario`, request);
+  }
+
+  alterarStatusFuncionario(id: number): Observable<ResponseModel<FuncionarioResponse>> {
+    return this.http.put<ResponseModel<FuncionarioResponse>>(`${this.ApiUrl}/Funcionario/${id}`, {});
+  }
+
+  obterFuncionarioPorId(id: number): Observable<ResponseModel<FuncionarioResponse>> {
+    return this.http.get<ResponseModel<FuncionarioResponse>>(`${this.ApiUrl}/Funcionario/${id}`);
   }
 }

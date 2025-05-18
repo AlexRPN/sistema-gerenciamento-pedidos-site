@@ -35,7 +35,7 @@
     <input type="text" class="form-control shadow-sm" name="complemento" [(ngModel)]="cliente.endereco.complemento" placeholder="Digite o complemento" />
   </div>
   <div class="botoes-cadastro">
-    <button class="btn btn-success" type="submit" [disabled]="formCliente.invalid">
+    <button class="btn btn-success" type="submit" >
       <i class="bi bi-save"></i> {{btnAcao}}
     </button>
     <a class="btn btn-secondary" (click)="fecharModal()">

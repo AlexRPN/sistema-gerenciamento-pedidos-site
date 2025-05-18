@@ -11,6 +11,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialog } from '@angular/material/dialog';
+import { CadastroFuncionarioModalComponent } from '../../components/cadastro-funcionario-modal/cadastro-funcionario-modal.component';
+import { EditarFuncionarioModalComponent } from '../../components/editar-funcionario-modal/editar-funcionario-modal.component';
+import { ToastrService } from 'ngx-toastr';
+import { DetalheFuncionarioModalComponent } from '../../components/detalhe-funcionario-modal/detalhe-funcionario-modal.component';
 
 @Component({
   selector: 'app-funcionarios',
@@ -41,7 +45,8 @@ export class FuncionariosComponent implements OnInit {
   situacoes: string[] = ['Ativo', 'Inativo'];
 
   constructor(private funcionarioService: FuncionarioService,
-              private dialog: MatDialog
+              private dialog: MatDialog,
+              private toastr: ToastrService
   ) {
     this.dataSource = new MatTableDataSource<FuncionarioResponse>([]);
    }
@@ -73,20 +78,65 @@ export class FuncionariosComponent implements OnInit {
   }
 
   abrirModalCadastroFuncionario(){
-    //Implementar modal de cadastro de funcionário
+    const dialogRef = this.dialog.open(CadastroFuncionarioModalComponent, {
+      width: '1100px',
+      maxWidth: '98vw',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'atualizar') {
+        this.carregarFuncionarios();
+      }
+    });
   }
 
-  /*alterarStatusFuncionario(id: number) {
-    this.funcionarioService.alterarStatusFuncionario(id).subscribe(() => {
-      this.carregarFuncionarios();
+  abrirModalDetalhesFuncionario(funcionario: any) {
+    const dialogRef = this.dialog.open(DetalheFuncionarioModalComponent, {
+      width: '1100px',
+      maxWidth: '98vw',
+      data: {funcionario: funcionario}
     });
-  }*/
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'atualizar') {
+        this.carregarFuncionarios();
+      }
+    });
+  }
+
+  abrirModalEditarFuncionario(funcionario: any) {
+      const dialogRef = this.dialog.open(EditarFuncionarioModalComponent, {
+        width: '1100px',
+        maxWidth: '98vw',
+        data: {funcionario: funcionario}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+      if (result === 'atualizar') {
+        this.carregarFuncionarios();
+      }
+    });
+  }
+
+  alterarStatusFuncionario(id: number) {
+    const funcionario = this.dataSource.data.find(f => f.id === id);
+    if(funcionario) {
+      funcionario.situacao = funcionario.situacao === 'Ativo' ? 'Inativo' : 'Ativo';
+      this.funcionarioService.alterarStatusFuncionario(id).subscribe((response) => {
+        if(response.dados !== null) {
+          this.toastr.success(response.mensagem, "Sucesso!");
+        }else {
+          this.toastr.error(response.mensagem, "Error!");
+        }
+      });
+    }
+  }
 
   private carregarFuncionarios() {
     this.funcionarioService.listarFuncionarios().subscribe(response => {
       this.funcionarios = response.dados;
       this.dataSource.data = this.funcionarios;
-      console.log(this.funcionarios, "Funcionarios response");
       setTimeout(() => {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

@@ -11,6 +11,9 @@ import { FuncionariosComponent } from './admin/funcionarios/pages/funcionario/fu
 import { HomeComponent } from './client/home/pages/home/home.component';
 import { AdminLayoutComponent } from './admin/layout/admin-layout.component';
 import { EditarClienteModalComponent } from './admin/clientes/components/editar-cliente-modal/editar-cliente-modal.component';
+import { CadastroFuncionarioModalComponent } from './admin/funcionarios/components/cadastro-funcionario-modal/cadastro-funcionario-modal.component';
+import { EditarFuncionarioModalComponent } from './admin/funcionarios/components/editar-funcionario-modal/editar-funcionario-modal.component';
+import { DetalheFuncionarioModalComponent } from './admin/funcionarios/components/detalhe-funcionario-modal/detalhe-funcionario-modal.component';
 
 export const routes: Routes = [
   // Rotas do cliente (público)
@@ -37,7 +40,10 @@ export const routes: Routes = [
       { path: 'editar/:id', component: EditarProdutoComponent },
       { path: 'criar-pedido', component: CriarPedidoComponent },
       { path: 'cadastro-cliente', component: CadastrarClienteModalComponent },
-      { path: 'editar-cliente/:id', component: EditarClienteModalComponent }
+      { path: 'editar-cliente/:id', component: EditarClienteModalComponent },
+      { path: 'cadastro-funcionario', component: CadastroFuncionarioModalComponent },
+      { path: 'editar-funcionario/:id', component: EditarFuncionarioModalComponent },
+      { path: 'detalhe-funcionario/:id', component: DetalheFuncionarioModalComponent }
     ]
   }
 ];

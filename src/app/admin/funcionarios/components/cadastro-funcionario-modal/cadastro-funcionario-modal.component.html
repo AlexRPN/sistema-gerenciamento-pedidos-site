@@ -1,0 +1,87 @@
+<h1 class="titulo-cadastro">
+  <i class="bi bi-person-add"></i> {{descTitulo}}
+</h1>
+<form #formCadastro="ngForm" (ngSubmit)="cadastrarFuncionario()">
+  <div class="form-row" style="display: flex; gap: 12px; align-items: flex-end; margin-bottom: 18px;">
+    <div class="form-group" style="flex: 2;">
+      <label class="form-label fw-bold">
+        <i class="bi bi-person"></i> Nome <span class="obrigatorio">*</span>
+      </label>
+      <input type="text" class="form-control shadow-sm" [(ngModel)]="funcionario.nome" name="nome" placeholder="Digite o nome do funcionário" required />
+    </div>
+    <div class="form-group">
+      <label class="form-label fw-bold">
+        <i class="bi bi-person"></i> Nome de Usuário <span class="obrigatorio">*</span>
+      </label>
+      <input type="text" class="form-control shadow-sm" [(ngModel)]="funcionario.nomeUsuario" name="nomeUsuario" placeholder="Digite o nome do usuário" required />
+    </div>
+    <div class="form-group">
+      <label class="form-label fw-bold">
+        <i class="bi bi-telephone"></i> Telefone <span class="obrigatorio">*</span>
+      </label>
+      <input type="text" class="form-control shadow-sm" [(ngModel)]="funcionario.telefone" name="telefone" placeholder="Digite o telefone" required />
+    </div>
+  </div>
+
+  <div class="form-row" style="display: flex; gap: 12px; ">
+    <div class="form-group">
+      <label class="form-label fw-bold">
+        <i class="bi bi-123"></i> CEP <span class="obrigatorio">*</span>
+      </label>
+      <input type="text" class="form-control shadow-sm" [(ngModel)]="funcionario.endereco.cep" name="cep" placeholder="Digite o CEP" required />
+    </div>
+    <div class="form-group logradouro-group">
+      <label class="form-label fw-bold d-flex align-items-center">
+        <i class="bi bi-geo-alt me-1"></i> Logradouro <span class="obrigatorio">*</span>
+      </label>
+      <input type="text" class="form-control shadow-sm" [(ngModel)]="funcionario.endereco.logradouro" name="logradouro" placeholder="Digite o logradouro" required />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label fw-bold">
+      <i class="bi bi-building"></i> Complemento
+    </label>
+    <input type="text" class="form-control shadow-sm" [(ngModel)]="funcionario.endereco.complemento" name="complemento" placeholder="Digite o complemento" />
+  </div>
+
+  <div class="form-row" style="display: flex; gap: 12px; align-items: flex-end; margin-bottom: 18px;">
+    <div class="form-group" style="flex: 2;">
+      <label class="form-label fw-bold">
+        <i class="bi bi-person-badge"></i> Perfil de Acesso <span class="obrigatorio">*</span>
+      </label>
+      <select class="form-control shadow-sm" [(ngModel)]="funcionario.perfilAcesso" name="perfilAcesso" required>
+        <option value="">Selecione o perfil de acesso</option>
+        <option value="SuperAdministrador">Administrador</option>
+        <option value="Administrador">Funcionário</option>
+      </select>
+    </div>
+    <div class="form-group" style="flex: 1; position: relative;">
+      <label class="form-label fw-bold">
+        <i class="bi bi-123"></i> Senha <span class="obrigatorio">*</span>
+      </label>
+      <input [type]="mostrarSenha ? 'text' : 'password'" class="form-control shadow-sm" [(ngModel)]="funcionario.senha" name="senha" placeholder="Digite a senha" required />
+      <button type="button" (click)="mostrarSenha = !mostrarSenha" class="btn-olho-senha">
+        <i class="bi" [class.bi-eye-slash]="mostrarSenha" [class.bi-eye]="!mostrarSenha"></i>
+      </button>
+    </div>
+    <div class="form-group" style="flex: 1; position: relative;">
+      <label class="form-label fw-bold">
+        <i class="bi bi-123"></i> Confirmar Senha <span class="obrigatorio">*</span>
+      </label>
+      <input [type]="mostrarConfirmaSenha ? 'text' : 'password'" class="form-control shadow-sm" [(ngModel)]="funcionario.confirmaSenha" name="confirmaSenha" placeholder="Confirme a senha" required />
+      <button type="button" (click)="mostrarConfirmaSenha = !mostrarConfirmaSenha" class="btn-olho-senha">
+        <i class="bi" [class.bi-eye-slash]="mostrarConfirmaSenha" [class.bi-eye]="!mostrarConfirmaSenha"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="botoes-cadastro">
+    <button class="btn btn-success" type="submit" [disabled]="formCadastro.invalid">
+      <i class="bi bi-save"></i> {{btnAcao}}
+    </button>
+    <a class="btn btn-secondary" (click)="fecharModal()">
+      <i class="bi bi-x-circle"></i> Fechar
+    </a>
+  </div>
+</form>

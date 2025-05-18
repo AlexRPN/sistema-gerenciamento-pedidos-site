@@ -52,6 +52,12 @@
           <td mat-cell *matCellDef="let funcionario"> {{funcionario.telefone}} </td>
         </ng-container>
 
+        <!-- Endereço Column -->
+        <ng-container matColumnDef="endereco">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="endereco"> Endereço </th>
+          <td mat-cell *matCellDef="let funcionario"> {{funcionario.endereco.cep}}, {{funcionario.endereco.logradouro}} - {{funcionario.endereco.complemento}} </td>
+        </ng-container>
+
         <!-- Situação Column -->
         <ng-container matColumnDef="situacao">
           <th mat-header-cell *matHeaderCellDef mat-sort-header="situacao"> Situação </th>
@@ -66,19 +72,19 @@
         <ng-container matColumnDef="acoes">
           <th mat-header-cell *matHeaderCellDef> Ações </th>
           <td mat-cell *matCellDef="let funcionario">
-            <button class="btn btn-info me-2" title="Editar" [routerLink]="['/admin/editar', funcionario.id]">
-              <i class="bi bi-pencil-square"></i>
+            <button class="btn btn-info me-2" title="Editar" (click)="abrirModalEditarFuncionario(funcionario)">
+              <i class="bi bi-pencil-square"></i> Editar
             </button>
 
-            <button class="btn btn-secondary me-2" title="Detalhes" [routerLink]="['/admin/editar', funcionario.id]">
-              <i class="bi bi-eye"></i>
+            <button class="btn btn-secondary me-2" title="Detalhes" (click)="abrirModalDetalhesFuncionario(funcionario)">
+              <i class="bi bi-eye"></i> Detalhes
             </button>
 
             <button class="btn"
               [ngClass]="funcionario.situacao === 'Ativo' ? 'btn btn-danger' : 'btn btn-success'"
-
+              (click)="alterarStatusFuncionario(funcionario.id)"
               [title]="funcionario.situacao === 'Ativo' ? 'Inativar' : 'Ativar'">
-              <i class="bi" [ngClass]="funcionario.situacao === 'Ativo' ? 'bi-x-octagon' : 'bi-check-circle'"></i>
+              <i class="bi" [ngClass]="funcionario.situacao === 'Ativo' ? 'bi-x-octagon' : 'bi-check-circle'"></i> Ativar/Inativar
             </button>
           </td>
         </ng-container>

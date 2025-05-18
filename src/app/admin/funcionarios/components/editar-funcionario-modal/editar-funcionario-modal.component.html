@@ -1,0 +1,60 @@
+<h1 class="titulo-edicao">
+  <i class="bi bi-person-add"></i> {{descTitulo}}
+</h1>
+<form #formFuncionario="ngForm" (ngSubmit)="editarFuncionario()">
+  <div class="form-row" style="display: flex; gap: 12px; align-items: flex-end; margin-bottom: 18px;">
+    <div class="form-group" style="flex: 2;">
+      <label class="form-label fw-bold">
+        <i class="bi bi-person"></i> Nome <span class="obrigatorio">*</span>
+      </label>
+      <input type="text" class="form-control shadow-sm" name="nome" [(ngModel)]="funcionario.nome" placeholder="Digite o nome do funcionário" required />
+    </div>
+    <div class="form-group">
+      <label class="form-label fw-bold">
+        <i class="bi bi-telephone"></i> Telefone <span class="obrigatorio">*</span>
+      </label>
+      <input type="text" class="form-control shadow-sm" name="telefone" [(ngModel)]="funcionario.telefone" placeholder="Digite o telefone" required />
+    </div>
+    <div class="form-group" style="flex: 2;">
+      <label class="form-label fw-bold">
+        <i class="bi bi-person-badge"></i> Perfil de Acesso <span class="obrigatorio">*</span>
+      </label>
+      <select class="form-control shadow-sm" name="perfilAcesso" [(ngModel)]="funcionario.perfilAcesso" required>
+        <option value="">Selecione o perfil de acesso</option>
+        <option value="SuperAdministrador">Administrador</option>
+        <option value="Administrador">Funcionário</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row" style="display: flex; gap: 12px; ">
+    <div class="form-group">
+      <label class="form-label fw-bold">
+        <i class="bi bi-123"></i> CEP
+      </label>
+      <input type="text" class="form-control shadow-sm" name="cep" [(ngModel)]="funcionario.endereco.cep" placeholder="Digite o CEP" required />
+    </div>
+    <div class="form-group logradouro-group">
+      <label class="form-label fw-bold d-flex align-items-center">
+        <i class="bi bi-geo-alt me-1"></i> Logradouro <span class="obrigatorio">*</span>
+      </label>
+      <input type="text" class="form-control shadow-sm" name="logradouro" [(ngModel)]="funcionario.endereco.logradouro" placeholder="Digite o logradouro" required />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label fw-bold">
+      <i class="bi bi-building"></i> Complemento
+    </label>
+    <input type="text" class="form-control shadow-sm" name="complemento" [(ngModel)]="funcionario.endereco.complemento" placeholder="Digite o complemento" />
+  </div>
+
+  <div class="botoes-cadastro">
+    <button class="btn btn-success" type="submit" [disabled]="formFuncionario.invalid">
+      <i class="bi bi-save"></i> {{btnAcao}}
+    </button>
+    <a class="btn btn-secondary" (click)="fecharModal()">
+      <i class="bi bi-x-circle"></i> Fechar
+    </a>
+  </div>
+</form>
