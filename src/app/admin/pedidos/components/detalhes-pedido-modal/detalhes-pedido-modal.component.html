@@ -45,6 +45,7 @@
       <p><strong>Status:</strong> {{data.pedido.statusPedido}}</p>
       <p><strong>Valor Total:</strong> R$ {{data.pedido.valorTotal | number:'1.2-2'}}</p>
       <p><strong>Tipo de Pagamento:</strong> {{data.pedido.tipoPagamento}}</p>
+      <p><strong>Motivo Cancelamento:</strong> {{data.pedido.motivoCancelamento || '-'}}</p>
     </div>
 
     <div class="info-section">

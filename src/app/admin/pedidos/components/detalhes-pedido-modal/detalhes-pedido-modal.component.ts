@@ -17,9 +17,7 @@ export class DetalhesPedidoModalComponent {
   constructor(
     public dialogRef: MatDialogRef<DetalhesPedidoModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { pedido: PedidoResponse }
-  ) {
-    console.log('Pedido recebido no modal:', data.pedido);
-  }
+  ) {}
 
   fecharModal(): void {
     this.dialogRef.close();

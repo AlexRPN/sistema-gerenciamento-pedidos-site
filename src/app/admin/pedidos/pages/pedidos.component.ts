@@ -68,8 +68,10 @@ export class PedidosComponent implements OnInit {
   carregarPedidos() {
     this.pedidoService.listarPedidos().subscribe(
       (response: ResponseModel<PedidoResponse[]>) => {
-        this.pedidos = response.dados;
-        this.dataSource.data = response.dados;
+        this.pedidos = (response.dados || []).sort((a, b) => {
+          return new Date(b.dataPedido).getTime() - new Date(a.dataPedido).getTime();
+        });
+        this.dataSource.data = this.pedidos;
         setTimeout(() => {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -166,5 +168,17 @@ export class PedidosComponent implements OnInit {
   private formatarData(data: string | Date): string {
     const d = new Date(data);
     return d.toLocaleDateString('pt-BR');
+  }
+
+  statusLabel(status: string): string {
+    const map: { [key: string]: string } = {
+      'EmPreparacao': 'Em Preparação',
+      'ProntoParaRetirada': 'Pronto Para Retirada',
+      'AguardandoEntrega': 'Aguardando Entrega',
+      'EmRota': 'Em Rota',
+      'Entregue': 'Entregue',
+      'Cancelado': 'Cancelado'
+    };
+    return map[status] || status;
   }
 }
