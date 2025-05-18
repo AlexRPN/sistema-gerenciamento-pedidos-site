@@ -28,8 +28,11 @@ export class PedidoService {
     return this.http.post<ResponseModel<PedidoResponse>>(`${this.ApiUrl}/Pedido`, pedido);
   }
 
-  alterarStatusPedido(id: number, status: string): Observable<ResponseModel<PedidoResponse>> {
-    return this.http.put<ResponseModel<PedidoResponse>>(
-      `${this.ApiUrl}/Pedido/${id}/status?statusPedido=${status}`, null);
+  alterarStatusPedido(id: number, status: string, motivoCancelamento?: string): Observable<ResponseModel<PedidoResponse>> {
+    let url = `${this.ApiUrl}/Pedido/status?Id=${id}&StatusPedido=${status}`;
+    if (motivoCancelamento) {
+      url += `&MotivoCancelamento=${encodeURIComponent(motivoCancelamento)}`;
+    }
+    return this.http.put<ResponseModel<PedidoResponse>>(url, null);
   }
 }

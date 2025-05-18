@@ -9,6 +9,7 @@ export interface PedidoResponse {
   dataPedido: Date;
   observacao: string;
   statusPedido: string;
+  motivoCancelamento: string;
   cliente: ClienteResponse;
   produtos: PedidoProdutoResponse[];
   empresa: EmpresaResponse;
