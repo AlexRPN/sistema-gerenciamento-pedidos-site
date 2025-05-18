@@ -93,7 +93,7 @@
                   <div style="width: 100%; height: 140px; border-radius: 8px 8px 0 0; background: #f5f5f5; border-bottom: 1px solid #eee;"></div>
                 </ng-template>
                 <mat-card-header style="flex-direction: column; align-items: flex-start;">
-                  <mat-card-title><strong>{{produto.nome}} - {{produto.tamanho}}</strong></mat-card-title>
+                  <mat-card-title><strong>{{produto.nome}}<span *ngIf="produto.categoria === 'Pizza'"> - {{produto.tamanho}}</span></strong></mat-card-title>
                   <mat-card-subtitle>{{produto.descricao}}</mat-card-subtitle>
                   <mat-card-subtitle><strong>R$ {{produto.valor| number:'1.2-2'}}</strong></mat-card-subtitle>
                 </mat-card-header>
@@ -123,7 +123,7 @@
                   <div style="width: 100%; height: 140px; border-radius: 8px 8px 0 0; background: #f5f5f5; border-bottom: 1px solid #eee;"></div>
                 </ng-template>
                 <mat-card-header style="flex-direction: column; align-items: flex-start;">
-                  <mat-card-title><strong>{{produto.nome}} - {{produto.tamanho}}</strong></mat-card-title>
+                  <mat-card-title><strong>{{produto.nome}}<span *ngIf="produto.categoria === 'Pizza'"> - {{produto.tamanho}}</span></strong></mat-card-title>
                   <mat-card-subtitle>{{produto.descricao}}</mat-card-subtitle>
                   <mat-card-subtitle><strong>R$ {{produto.valor| number:'1.2-2'}}</strong></mat-card-subtitle>
                 </mat-card-header>

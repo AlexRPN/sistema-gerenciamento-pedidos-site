@@ -28,18 +28,34 @@ export class FormularioComponent implements OnInit {
     this.produtoForm = new FormGroup({
       id: new FormControl(this.dadosProduto?.id),
       nome: new FormControl(this.dadosProduto?.nome, [Validators.required]),
-      descricao: new FormControl(this.dadosProduto?.descricao, [Validators.required]),
+      descricao: new FormControl(this.dadosProduto?.descricao),
       valor: new FormControl(this.dadosProduto?.valor, [Validators.required, Validators.min(0)]),
       categoria: new FormControl(this.dadosProduto?.categoria, [Validators.required]),
-      tamanho: new FormControl(this.dadosProduto?.tamanho, [Validators.required]),
+      tamanho: new FormControl(this.dadosProduto?.tamanho || ''),
       imagem: new FormControl(this.dadosProduto?.imagem),
       situacao: new FormControl(this.dadosProduto?.situacao || 'Ativo'),
       empresaId: new FormControl(this.dadosProduto?.empresaId || 1)
     });
 
+    // Habilita/desabilita o campo tamanho conforme a categoria
+    this.produtoForm.get('categoria')?.valueChanges.subscribe((categoria) => {
+      const tamanhoControl = this.produtoForm.get('tamanho');
+      if (categoria === 'Pizza') {
+        tamanhoControl?.enable();
+      } else {
+        tamanhoControl?.disable();
+        tamanhoControl?.setValue('');
+      }
+    });
+
     // Se houver uma imagem existente, exibe o preview com a URL completa
     if (this.dadosProduto?.imagem) {
       this.previewUrl = this.getUrlImagem(this.dadosProduto.imagem);
+    }
+
+    // Garante que o campo tamanho inicie desabilitado se não for Pizza
+    if (this.produtoForm.get('categoria')?.value !== 'Pizza') {
+      this.produtoForm.get('tamanho')?.disable();
     }
   }
 
@@ -67,7 +83,11 @@ export class FormularioComponent implements OnInit {
       formData.append('descricao', formValue.descricao);
       formData.append('valor', formValue.valor);
       formData.append('categoria', formValue.categoria);
-      formData.append('tamanho', formValue.tamanho);
+      let tamanho = formValue.tamanho;
+      if (typeof tamanho === 'undefined' || tamanho === null) {
+        tamanho = '';
+      }
+      formData.append('tamanho', tamanho);
       formData.append('empresaId', (formValue.empresaId || 1).toString());
       formData.append('situacao', formValue.situacao || 'Ativo');
 

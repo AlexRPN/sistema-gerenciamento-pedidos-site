@@ -80,17 +80,14 @@
 
       <div class="col-md-3 offset-md-1">
         <label class="form-label fw-bold"><i class="bi bi-box-seam"></i> Tamanho</label>
-        <select class="form-control shadow-sm" formControlName="tamanho"
-        [ngClass]="{'is-invalid': produtoForm.get('tamanho')?.invalid && produtoForm.get('tamanho')?.touched}">
+        <select class="form-control shadow-sm" formControlName="tamanho">
           <option value="">Selecione o tamanho do produto</option>
           <option value="Pequeno">Pequeno</option>
           <option value="Medio">Médio</option>
           <option value="Grande">Grande</option>
         </select>
-        <div class="invalid-feedback">
-          <span *ngIf="produtoForm.get('tamanho')?.invalid && produtoForm.get('tamanho')?.touched">
-            O tamanho do produto é obrigatório
-          </span>
+        <div *ngIf="produtoForm.get('tamanho')?.disabled" class="alert alert-warning py-1 mt-1" style="font-size: 0.95em;">
+          Campo habilitado para categoria Pizza.
         </div>
       </div>
     </div>
