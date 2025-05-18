@@ -19,6 +19,7 @@ import { RouterModule } from '@angular/router';
 import {jsPDF} from 'jspdf';
 import {autoTable} from 'jspdf-autotable';
 import { ResponseModel } from '../../../../assets/shared/models/responseModel/responseModel';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-pedidos',
@@ -41,6 +42,7 @@ export class PedidosComponent implements OnInit {
   pedidos: PedidoResponse[] = [];
   dataSource = new MatTableDataSource<PedidoResponse>(this.pedidos);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   filtroIdPedido: string = '';
   filtroNomeCliente: string = '';
@@ -48,7 +50,7 @@ export class PedidosComponent implements OnInit {
   filtroDataInicio: Date | null = null;
   filtroDataFim: Date | null = null;
 
-  pedidosFiltradosAux: PedidoResponse[] = [];
+  displayedColumns: string[] = ['id', 'cliente', 'dataPedido', 'valorTotal', 'status', 'acoes'];
 
   constructor(private pedidoService: PedidoService, private dialog: MatDialog) {}
 
@@ -58,6 +60,7 @@ export class PedidosComponent implements OnInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   carregarPedidos() {
@@ -65,7 +68,10 @@ export class PedidosComponent implements OnInit {
       (response: ResponseModel<PedidoResponse[]>) => {
         this.pedidos = response.dados;
         this.dataSource.data = response.dados;
-        this.pedidosFiltradosAux = response.dados;
+        setTimeout(() => {
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        });
       },
       (error: any) => {
         console.error('Erro ao carregar pedidos:', error);
@@ -74,7 +80,7 @@ export class PedidosComponent implements OnInit {
   }
 
   aplicarFiltro() {
-    this.pedidosFiltradosAux = this.pedidos.filter(pedido => {
+    const filtrados = this.pedidos.filter(pedido => {
       const idMatch = !this.filtroIdPedido || pedido.id.toString().includes(this.filtroIdPedido);
       const nomeMatch = !this.filtroNomeCliente || pedido.cliente.nome.toLowerCase().includes(this.filtroNomeCliente.toLowerCase());
       const statusMatch = !this.filtroStatus || pedido.statusPedido === this.filtroStatus;
@@ -83,7 +89,7 @@ export class PedidosComponent implements OnInit {
           (new Date(pedido.dataPedido) >= this.filtroDataInicio && new Date(pedido.dataPedido) <= this.filtroDataFim));
       return idMatch && nomeMatch && statusMatch && dataMatch;
     });
-    this.dataSource.data = this.pedidosFiltradosAux;
+    this.dataSource.data = filtrados;
   }
 
   limparFiltro() {
@@ -92,7 +98,6 @@ export class PedidosComponent implements OnInit {
     this.filtroStatus = '';
     this.filtroDataInicio = null;
     this.filtroDataFim = null;
-    this.pedidosFiltradosAux = this.pedidos;
     this.dataSource.data = this.pedidos;
   }
 
@@ -125,13 +130,14 @@ export class PedidosComponent implements OnInit {
     doc.text('Relatório de Pedidos', 14, 15);
 
     // Cabeçalho da tabela
-    const head = [['ID Pedido', 'Cliente', 'Data do Pedido', 'Status']];
+    const head = [['ID Pedido', 'Cliente', 'Data do Pedido', 'Valor Total', 'Status']];
 
     // Dados da tabela (substitua pelo array real do seu componente)
     const data = this.pedidos.map((pedido: any) => [
       pedido.id,
       pedido.cliente.nome,
       this.formatarData(pedido.dataPedido),
+      pedido.valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
       pedido.statusPedido
     ]);
 
