@@ -15,6 +15,7 @@ import { CadastroFuncionarioModalComponent } from './admin/funcionarios/componen
 import { EditarFuncionarioModalComponent } from './admin/funcionarios/components/editar-funcionario-modal/editar-funcionario-modal.component';
 import { DetalheFuncionarioModalComponent } from './admin/funcionarios/components/detalhe-funcionario-modal/detalhe-funcionario-modal.component';
 import { AlterarStatusModalComponent } from './admin/pedidos/components/alterar-status-modal/alterar-status-modal.component';
+import { LoginComponent } from './admin/login/pages/login/login.component';
 
 export const routes: Routes = [
   // Rotas do cliente (público)
@@ -26,7 +27,10 @@ export const routes: Routes = [
       // Outras rotas do cliente podem ser adicionadas aqui
     ]
   },
-  // Rotas do admin
+  // Login do admin (fora do layout)
+  { path: 'admin/login', component: LoginComponent },
+
+  // Rotas do admin (com layout)
   {
     path: 'admin',
     component: AdminLayoutComponent,

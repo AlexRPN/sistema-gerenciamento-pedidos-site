@@ -7,6 +7,7 @@ export interface FuncionarioResponse {
   nomeUsuario: string;
   senha: string;
   confirmaSenha: string;
+  token: string;
   telefone: string;
   situacao: string;
   dataCriacao: string;

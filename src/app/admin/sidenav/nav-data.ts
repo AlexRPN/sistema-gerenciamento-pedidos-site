@@ -23,5 +23,10 @@ export const navbarData = [
     routerLink: 'relatorios',
     icon: 'fal fa-chart-bar',
     label: 'Relatórios',
+  },
+  {
+    routerLink: 'logout',
+    icon: 'bi bi-box-arrow-left',
+    label: 'Sair',
   }
 ];
