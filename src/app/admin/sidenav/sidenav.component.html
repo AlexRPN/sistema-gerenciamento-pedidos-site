@@ -10,15 +10,24 @@
   </div>
   <ul class="sidenav-nav">
     <li class="sidenav-nav-item" *ngFor="let data of navData">
-      <a class="sidenav-nav-link" [routerLink]="[data.routerLink]"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
+      <a class="sidenav-nav-link"
+         *ngIf="data.label !== 'Sair'; else sairLink"
+         [routerLink]="[data.routerLink]"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }">
         <i class="sidenav-link-icon" [class]="data.icon"></i>
         <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
           {{data.label}}
         </span>
       </a>
+      <ng-template #sairLink>
+        <a class="sidenav-nav-link" (click)="deslogar()">
+          <i class="sidenav-link-icon" [class]="data.icon"></i>
+          <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+            {{data.label}}
+          </span>
+        </a>
+      </ng-template>
     </li>
   </ul>
 </div>

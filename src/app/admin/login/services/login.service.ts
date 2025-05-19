@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { FuncionarioResponse } from '../../funcionarios/models/response/funcionario.response';
 import { ResponseModel } from '../../../../assets/shared/models/responseModel/responseModel';
 import { LoginRequest } from '../models/request/login.request';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class LoginService {
 
   ApiUrl = environment.UrlApi;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   registrarUsuario(request: FuncionarioRequest): Observable<ResponseModel<FuncionarioResponse>>{
     return this.http.post<ResponseModel<FuncionarioResponse>>(`${this.ApiUrl}/Login/RegistrarUsuario`, request);
@@ -22,5 +23,10 @@ export class LoginService {
 
   loginUsuario(request: LoginRequest): Observable<ResponseModel<FuncionarioResponse>>{
     return this.http.post<ResponseModel<FuncionarioResponse>>(`${this.ApiUrl}/Login`, request);
+  }
+
+  sair(){
+    localStorage.removeItem('token');
+    this.router.navigate(['/admin/login']);
   }
 }

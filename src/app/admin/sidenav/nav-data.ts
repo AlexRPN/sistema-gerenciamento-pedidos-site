@@ -25,7 +25,6 @@ export const navbarData = [
     label: 'Relatórios',
   },
   {
-    routerLink: 'logout',
     icon: 'bi bi-box-arrow-left',
     label: 'Sair',
   }

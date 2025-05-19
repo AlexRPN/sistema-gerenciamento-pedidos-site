@@ -3,6 +3,7 @@ import { Component, Output, EventEmitter, OnInit, HostListener } from '@angular/
 import { navbarData } from './nav-data';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { LoginService } from '../login/services/login.service';
 
 interface SideNavToggle {
   screenWidth: number;
@@ -49,6 +50,8 @@ export class SidenavComponent implements OnInit {
   screenWidth = 0;
   navData = navbarData;
 
+  constructor(private loginService: LoginService) {}
+
   @HostListener('window:resize', ['$event'])
 
   onResize(event: any) {
@@ -75,6 +78,10 @@ export class SidenavComponent implements OnInit {
   closeSidenav(): void {
     this.collapsed = false;
     this.onToggleSidenav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
+  }
+
+  deslogar() {
+    this.loginService.sair();
   }
 
 }

@@ -16,6 +16,7 @@ import { EditarFuncionarioModalComponent } from './admin/funcionarios/components
 import { DetalheFuncionarioModalComponent } from './admin/funcionarios/components/detalhe-funcionario-modal/detalhe-funcionario-modal.component';
 import { AlterarStatusModalComponent } from './admin/pedidos/components/alterar-status-modal/alterar-status-modal.component';
 import { LoginComponent } from './admin/login/pages/login/login.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   // Rotas do cliente (público)
@@ -35,21 +36,20 @@ export const routes: Routes = [
     path: 'admin',
     component: AdminLayoutComponent,
     children: [
-      { path: '', redirectTo: 'produtos', pathMatch: 'full' },
-      { path: 'produtos', component: ProdutosComponent },
-      { path: 'pedidos', component: PedidosComponent },
-      { path: 'clientes', component: ClientesComponent },
-      { path: 'funcionarios', component: FuncionariosComponent },
-      { path: 'relatorios', component: RelatoriosComponent },
-      { path: 'cadastro', component: CadastrarProdutoComponent },
-      { path: 'editar/:id', component: EditarProdutoComponent },
-      { path: 'criar-pedido', component: CriarPedidoComponent },
-      { path: 'cadastro-cliente', component: CadastrarClienteModalComponent },
-      { path: 'editar-cliente/:id', component: EditarClienteModalComponent },
-      { path: 'cadastro-funcionario', component: CadastroFuncionarioModalComponent },
-      { path: 'editar-funcionario/:id', component: EditarFuncionarioModalComponent },
-      { path: 'detalhe-funcionario/:id', component: DetalheFuncionarioModalComponent },
-      { path: 'alterar-status-pedido/:id', component: AlterarStatusModalComponent }
+      { path: 'produtos', component: ProdutosComponent, canActivate: [authGuard] },
+      { path: 'pedidos', component: PedidosComponent, canActivate: [authGuard] },
+      { path: 'clientes', component: ClientesComponent, canActivate: [authGuard] },
+      { path: 'funcionarios', component: FuncionariosComponent, canActivate: [authGuard] },
+      { path: 'relatorios', component: RelatoriosComponent, canActivate: [authGuard] },
+      { path: 'cadastro', component: CadastrarProdutoComponent, canActivate: [authGuard] },
+      { path: 'editar/:id', component: EditarProdutoComponent, canActivate: [authGuard] },
+      { path: 'criar-pedido', component: CriarPedidoComponent, canActivate: [authGuard] },
+      { path: 'cadastro-cliente', component: CadastrarClienteModalComponent, canActivate: [authGuard] },
+      { path: 'editar-cliente/:id', component: EditarClienteModalComponent, canActivate: [authGuard] },
+      { path: 'cadastro-funcionario', component: CadastroFuncionarioModalComponent, canActivate: [authGuard]},
+      { path: 'editar-funcionario/:id', component: EditarFuncionarioModalComponent, canActivate: [authGuard] },
+      { path: 'detalhe-funcionario/:id', component: DetalheFuncionarioModalComponent, canActivate: [authGuard] },
+      { path: 'alterar-status-pedido/:id', component: AlterarStatusModalComponent, canActivate: [authGuard] }
     ]
   }
 ];
