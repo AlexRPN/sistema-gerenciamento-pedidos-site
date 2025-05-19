@@ -14,13 +14,17 @@ export class HomeComponent {
   isDarkMode = false;
 
   ngOnInit() {
-    // Verifica o tema salvo
-    const theme = localStorage.getItem('theme');
-    this.isDarkMode = theme === 'dark';
-    this.alterarModoEscuro(this.isDarkMode);
+    if (typeof window !== 'undefined') {
+      // Verifica o tema salvo
+      const theme = localStorage.getItem('theme');
+      this.isDarkMode = theme === 'dark';
+      this.alterarModoEscuro(this.isDarkMode);
+    }
   }
 
   alterarModoEscuro(ativar: boolean) {
+    if (typeof window === 'undefined') return;
+
     this.isDarkMode = ativar;
     const body = document.body;
     const heroImage = document.querySelector('.hero-img') as HTMLImageElement;
