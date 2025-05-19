@@ -1,1 +1,68 @@
 <h1 style="color: #fff;">Relatórios</h1>
+
+<div style="
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  width: 100%;
+  margin: 32px auto;
+  font-family: 'Segoe UI', sans-serif;
+">
+  <form (ngSubmit)="filtrar()" style="
+    margin-bottom: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  ">
+    <label style="display: flex; flex-direction: column; font-weight: bold;">
+      Período:
+      <select [(ngModel)]="periodoSelecionado" name="periodo" style="
+        padding: 6px 12px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        min-width: 120px;
+      ">
+        <option value="mes">Mês</option>
+      </select>
+    </label>
+
+    <label style="display: flex; flex-direction: column; font-weight: bold;">
+      Status:
+      <select [(ngModel)]="statusSelecionado" name="status" style="
+        padding: 6px 12px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        min-width: 140px;
+      ">
+        <option value="Todos">Todos</option>
+        <option value="Entregue">Entregue</option>
+        <option value="Cancelado">Cancelado</option>
+      </select>
+    </label>
+
+    <button type="submit" style="
+      padding: 8px 20px;
+      background-color: #e63946;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    ">Filtrar</button>
+  </form>
+
+  <div style="margin: 16px 0; font-size: 1.1rem;">
+    <strong>Faturamento total ({{ statusSelecionado }}):</strong> R$ {{ faturamentoTotal | number:'1.2-2' }}
+  </div>
+
+  <div class="grafico-container">
+    <canvas baseChart
+      [data]="barChartData"
+      [options]="barChartOptions"
+      [type]="'bar'">
+    </canvas>
+  </div>
+</div>

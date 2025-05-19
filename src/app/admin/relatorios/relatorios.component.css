@@ -1,0 +1,6 @@
+.grafico-container {
+  width: 100%;
+  max-width: 1200px; /* gráfico mais largo */
+  margin: 0 auto;
+  height: 400px;
+}
