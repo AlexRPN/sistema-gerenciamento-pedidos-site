@@ -17,17 +17,13 @@ import { DetalheFuncionarioModalComponent } from './admin/funcionarios/component
 import { AlterarStatusModalComponent } from './admin/pedidos/components/alterar-status-modal/alterar-status-modal.component';
 import { LoginComponent } from './admin/login/pages/login/login.component';
 import { authGuard } from './guards/auth.guard';
+import { CardapioComponent } from './client/cardapio/pages/cardapio.component';
 
 export const routes: Routes = [
   // Rotas do cliente (público)
-  {
-    path: '',
-    component: HomeComponent,
-    children: [
-      { path: '', component: HomeComponent },
-      // Outras rotas do cliente podem ser adicionadas aqui
-    ]
-  },
+  { path: '', component: HomeComponent },
+  { path: 'cardapio', component: CardapioComponent },
+
   // Login do admin (fora do layout)
   { path: 'admin/login', component: LoginComponent },
 

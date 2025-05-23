@@ -125,7 +125,7 @@ backdrop-filter: blur(0px); /* efeito de desfoque opcional */
   background-color: rgba(255, 255, 255, 0.8); /* fundo translúcido */
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  z-index: 999;
+  z-index: 2000 !important;
   padding: 2rem 1rem;
   box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1); /* sombra à esquerda */
 }
@@ -139,6 +139,19 @@ backdrop-filter: blur(0px); /* efeito de desfoque opcional */
 .navbar-nav {
   flex-direction: column;
   align-items: flex-start;
+}
+
+.form-check.form-switch {
+  position: relative;
+  z-index: 100;
+}
+
+.navbar-collapse.show ~ .form-check.form-switch {
+  z-index: 10 !important;
+}
+
+.form-check.form-switch {
+  display: none !important;
 }
 }
 .animate-fade-in {
@@ -243,4 +256,53 @@ color: #ffffff;
 .home-container.dark-mode .card-title,
 .home-container.dark-mode .card-text {
   color: #fff;
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding-top: 80px;
+    padding-bottom: 10px;
+  }
+  .empresa-foto {
+    max-height: 120px;
+    border-radius: 8px;
+  }
+  .conteudo, .sobre {
+    padding: 18px 6px;
+  }
+  .conteudo h1, .sobre h1 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  .conteudo p {
+    font-size: 0.98rem;
+  }
+  .card-title {
+    font-size: 1rem;
+  }
+  .card-text {
+    font-size: 0.85rem;
+  }
+  .card-img-top {
+    height: 80px;
+    border-radius: 6px;
+  }
+  .card {
+    margin-bottom: 12px;
+    padding: 6px;
+  }
+  .navbar-brand img {
+    height: 60px !important;
+    max-width: 90vw;
+  }
+  .navbar-nav .nav-link {
+    font-size: 1rem !important;
+  }
+  .home-container {
+    padding: 0 !important;
+  }
+  footer {
+    padding: 10px;
+    font-size: 0.8em;
+  }
 }

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/style.css">
+    <title>CARDÁPIO</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+    <header>
+      <!-- <img src="https://www.rw-designer.com/cursor-view/74646.png" alt="Cursor Pizza" class="cursor-pizza"
+        id="pizzaCursor"> -->
+        <div class="left-space"></div> <!-- espaço vazio para equilibrar -->
+        <h1><a href="https://www.seusite.com" target="_blank" rel="noopener noreferrer">PIT MANIA</a></h1>
+        <div class="icons">
+            <button id="cartBtn" class="icon-btn" aria-label="Abrir carrinho">
+                🛒
+                <span id="cartCount" class="cart-count">0</span>
+            </button>
+            <button id="profileBtn" class="icon-btn" aria-label="Abrir perfil">👤</button>
+        </div>
+    </header>
+
+    <!-- Sidebar carrinho -->
+    <div id="cartSidebar" class="sidebar">
+        <h2>Seu Carrinho</h2>
+        <p>Aqui seus pedidos aparecerão...</p>
+        <div id="cartItems"></div> <!-- aqui os itens serão inseridos -->
+
+        <button class="finalize-btn">Finalizar Pedido</button>
+    </div>
+
+    <!-- Modal perfil -->
+    <div id="profileModal" class="modal-bg" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal">
+            <span id="closeModal" class="close-btn" aria-label="Fechar formulário">&times;</span>
+            <h2 id="modalTitle">Cadastro de Perfil</h2>
+            <form id="profileForm">
+                <label for="phone" class="required">Telefone:
+                    <span class="required-star" title="Campo obrigatório">*</span>
+                </label>
+                <input type="tel" id="phone" name="phone" placeholder="(99) 99999-9999" required
+                    pattern="^\(?\d{2}\)?[\s-]?\d{4,5}-\d{4}$" title="Digite um número de telefone válido com DDD" />
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" placeholder="Digite seu nome" required />
+
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+
+    <main>
+        <h1>Nosso Menu</h1>
+        <mat-tab-group (selectedTabChange)="onTabChange($event)" [dynamicHeight]="true" animationDuration="200ms" style="width: 100%; margin-top: 15px;">
+            <ng-container *ngFor="let tab of asyncTabs | async; let idx = index;">
+                <mat-tab [label]="tab.label">
+                    <!-- Se for a aba de Pizza, exibe os botões de tamanho -->
+                    <div *ngIf="tab.label === 'Pizza' && abaSelecionada === idx">
+                      <div class="pizza-tamanhos-btns" style="margin-top: 20px;">
+                        <button *ngFor="let t of tamanhosPizza"
+                          [ngClass]="{'active': t.nome === tamanhoPizzaSelecionado}"
+                          (click)="tamanhoPizzaSelecionado = t.nome">
+                          <span style="font-weight: bold; text-transform: uppercase;">Pizza {{t.nome}}</span>
+                        </button>
+                      </div>
+                      <div class="menu-grid-mat" style="margin-top: 20px;">
+                        <mat-card class="menu-mat-card" *ngFor="let produto of pizzasFiltradas(); trackBy: trackByProdutoId">
+                          <img mat-card-image [src]="getUrlImagem(produto.imagem)" [alt]="produto.nome" />
+                          <mat-card-header>
+                            <mat-card-title>{{produto.nome}} - {{produto.tamanho}}</mat-card-title>
+                          </mat-card-header>
+                          <mat-card-content>
+                            <p>{{produto.descricao}}</p>
+                            <div class="price">R$ {{produto.valor | number:'1.2-2'}}</div>
+                          </mat-card-content>
+                          <mat-card-actions>
+                            <button mat-raised-button color="primary" (click)="adicionarAoCarrinho(produto)">Adicionar ao Carrinho</button>
+                          </mat-card-actions>
+                        </mat-card>
+                      </div>
+                      <div *ngIf="pizzasFiltradas().length === 0" style="text-align:center; color: #888; margin: 32px 0; width: 100%;">
+                        Nenhuma pizza encontrada para este tamanho.
+                      </div>
+                    </div>
+                    <!-- Outras categorias -->
+                    <div *ngIf="tab.label !== 'Pizza'">
+                      <div *ngIf="produtos.length > 0; else semProdutos" class="menu-grid-mat" style="margin-top: 20px;">
+                        <ng-container *ngFor="let produto of produtos; trackBy: trackByProdutoId">
+                          <mat-card class="menu-mat-card">
+                            <img mat-card-image [src]="getUrlImagem(produto.imagem)" [alt]="produto.nome" />
+                            <mat-card-header>
+                              <mat-card-title>{{produto.nome}}</mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                              <p>{{produto.descricao}}</p>
+                              <div class="price">R$ {{produto.valor | number:'1.2-2'}}</div>
+                            </mat-card-content>
+                            <mat-card-actions>
+                              <button mat-raised-button color="primary" (click)="adicionarAoCarrinho(produto)">Adicionar ao Carrinho</button>
+                            </mat-card-actions>
+                          </mat-card>
+                        </ng-container>
+                      </div>
+                      <ng-template #semProdutos>
+                        <div style="text-align:center; color: #888; margin: 32px 0;">
+                          Nenhum produto encontrado para esta categoria.
+                        </div>
+                      </ng-template>
+                    </div>
+                </mat-tab>
+            </ng-container>
+        </mat-tab-group>
+    </main>
+
+    <a id="whatsappBtn" class="floating-btn">
+        <i class="bi bi-whatsapp"></i>
+    </a>
+    <div id="whatsappPopup" class="whatsapp-popup">Dúvidas? Entre em contato!</div>
+
+    <a id="scrollTopBtn" class="floating-btn">
+        <i class="bi bi-arrow-up"></i>
+    </a>
+
+</body>
+
+</html>
