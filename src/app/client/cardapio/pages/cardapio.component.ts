@@ -33,7 +33,7 @@ export class CardapioComponent implements OnInit {
 
   tamanhosPizza = [
     { nome: 'Pequeno', descricao: '2 complementos' },
-    { nome: 'Médio', descricao: '2 complementos' },
+    { nome: 'Medio', descricao: '2 complementos' },
     { nome: 'Grande', descricao: '2 complementos' }
   ];
   tamanhoPizzaSelecionado = 'Pequeno';
