@@ -26,7 +26,7 @@
           </div>
           <p>{{item.descricao}}</p>
           <span style="font-weight: bold; color: #222;">R$ {{item.valor | number:'1.2-2'}}</span>
-          <textarea class="obs-field" [(ngModel)]="item.observacao" placeholder="Deseja remover algum ingrediente?"></textarea>
+          <textarea *ngIf="item.categoria !== 'Bebidas' && item.categoria !== 'Adicional'" class="obs-field" [(ngModel)]="item.observacao" placeholder="Deseja remover algum ingrediente?"></textarea>
         </div>
       </div>
       <div class="info-section" style="font-size: 18px; margin-bottom: 16px;">

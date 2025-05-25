@@ -13,6 +13,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { CarrinhoProdutosSidebarComponent } from '../components/carrinho-produtos-sidebar/carrinho-produtos-sidebar.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatIconModule } from '@angular/material/icon';
 
 interface Tab {
   label: string;
@@ -33,6 +35,8 @@ interface Tab {
     MatDialogModule,
     MatSidenavModule,
     CarrinhoProdutosSidebarComponent,
+    MatBadgeModule,
+    MatIconModule,
   ],
   templateUrl: './cardapio.component.html',
   styleUrl: './cardapio.component.css'

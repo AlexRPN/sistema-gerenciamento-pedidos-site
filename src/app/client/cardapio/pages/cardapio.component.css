@@ -110,8 +110,6 @@ header .icons {
   /* importante para posicionar o badge dentro */
 }
 
-
-
 .cart-count {
   position: absolute;
   top: -8px;
@@ -129,8 +127,6 @@ header .icons {
   pointer-events: none;
   user-select: none;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-  display: none;
-  /* começa escondido */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   transition: transform 0.3s ease;
   z-index: 10;
