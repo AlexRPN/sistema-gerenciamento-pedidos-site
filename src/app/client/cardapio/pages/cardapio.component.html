@@ -13,7 +13,7 @@
       <div class="icons">
         <button class="icon-btn" id="cartBtn" (click)="abrirCarrinho()">
           🛒
-          <span class="cart-count" *ngIf="quantidadeTotalCarrinho > 0">{{quantidadeTotalCarrinho}}</span>
+          <span class="cart-count" style="background-color: black;" *ngIf="quantidadeTotalCarrinho > 0">{{quantidadeTotalCarrinho}}</span>
         </button>
         <button id="profileBtn" class="icon-btn" aria-label="Abrir perfil">👤</button>
       </div>
@@ -30,7 +30,9 @@
                 <button *ngFor="let t of tamanhosPizza"
                   [ngClass]="{'active': t.nome === tamanhoPizzaSelecionado}"
                   (click)="tamanhoPizzaSelecionado = t.nome">
-                  <span style="font-weight: bold; text-transform: uppercase;">Pizza {{t.nome}}</span>
+                  <span style="font-weight: bold; text-transform: uppercase; text-align: center;">
+                    {{ mapTamanhoExibicao[t.nome] || t.nome }}
+                  </span>
                 </button>
               </div>
               <div class="menu-grid-mat" style="margin-top: 20px;">

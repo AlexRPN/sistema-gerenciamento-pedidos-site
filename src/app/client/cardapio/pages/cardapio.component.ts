@@ -76,6 +76,12 @@ export class CardapioComponent implements OnInit {
 
   urlApi = environment.UrlApi.replace(/\/api$/, '');
 
+  mapTamanhoExibicao: { [key: string]: string } = {
+    'Pequeno': 'Pequena',
+    'Medio': 'Média',
+    'Grande': 'Grande'
+  };
+
   constructor(
     private produtoService: ProdutoService,
     private dialog: MatDialog,

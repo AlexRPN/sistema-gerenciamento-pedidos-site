@@ -27,8 +27,8 @@ header {
   left: 0;
   width: 100%;
   height: 70px;
-  background: linear-gradient(90deg, #ff6347, #ff7b59);
-  box-shadow: 0 4px 15px rgba(255, 99, 71, 0.6);
+  background: #e60019;
+  box-shadow: 0 4px 15px rgba(230, 0, 25, 0.6);
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
@@ -114,7 +114,7 @@ header .icons {
   position: absolute;
   top: -8px;
   right: -8px;
-  background: linear-gradient(135deg, #ff6347 0%, #ff7b59 100%);
+  background: #e60019;
   color: white;
   font-weight: bold;
   font-size: 12px;
@@ -307,7 +307,7 @@ header .icons {
   top: 4px;
   right: 6px;
   background: #fff;
-  color: #ff6347;
+  color: #e60019;
   font-weight: 700;
   font-size: 12px;
   padding: 2px 6px;
@@ -351,7 +351,7 @@ header .icons {
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-  background-color: #ff6347;
+  background-color: #e60019;
   border-radius: 8px;
   border: 2px solid transparent;
   background-clip: content-box;
@@ -365,7 +365,7 @@ header .icons {
 /* Scrollbar para Firefox */
 .sidebar {
   scrollbar-width: thin;
-  scrollbar-color: #ff6347 transparent;
+  scrollbar-color: #e60019 transparent;
 }
 
 .sidebar .finalize-btn {
@@ -374,7 +374,7 @@ header .icons {
   width: 100%;
   padding: 16px 0;
   margin-top: 25px;
-  background: linear-gradient(135deg, #ff6347 0%, #ff7b59 100%);
+  background: linear-gradient(90deg, #e60019 0%, #b80014 100%);
   border: none;
   border-radius: 16px;
   color: white;
@@ -383,8 +383,8 @@ header .icons {
   letter-spacing: 0.05em;
   cursor: pointer;
   box-shadow:
-      0 6px 12px rgba(255, 99, 71, 0.6),
-      0 2px 6px rgba(255, 123, 89, 0.4);
+      0 6px 12px rgba(230, 0, 25, 0.6),
+      0 2px 6px rgba(230, 0, 25, 0.4);
   transition:
       background 0.4s ease,
       box-shadow 0.4s ease,
@@ -395,18 +395,18 @@ header .icons {
 }
 
 .sidebar .finalize-btn:hover {
-  background: linear-gradient(135deg, #ff7b59 0%, #ff6347 100%);
+  background: linear-gradient(90deg, #b80014 0%, #e60019 100%);
   box-shadow:
-      0 10px 20px rgba(255, 99, 71, 0.8),
-      0 4px 10px rgba(255, 123, 89, 0.6);
+      0 10px 20px rgba(230, 0, 25, 0.8),
+      0 4px 10px rgba(230, 0, 25, 0.6);
   transform: translateY(-3px) scale(1.03);
 }
 
 .sidebar .finalize-btn:active {
   transform: translateY(1px) scale(0.98);
   box-shadow:
-      0 4px 8px rgba(255, 99, 71, 0.5),
-      0 1px 4px rgba(255, 123, 89, 0.3);
+      0 4px 8px rgba(230, 0, 25, 0.5),
+      0 1px 4px rgba(230, 0, 25, 0.3);
 }
 
 /* Pop-up modal (perfil) */
@@ -497,8 +497,8 @@ header .icons {
 
 /* Foco no input telefone */
 .modal input[type="tel"]:focus {
-  border-color: #ff6347;
-  box-shadow: 0 0 8px rgba(255, 99, 71, 0.4);
+  border-color: #e60019;
+  box-shadow: 0 0 8px rgba(230, 0, 25, 0.4);
   outline: none;
 }
 
@@ -516,8 +516,8 @@ header .icons {
 }
 
 .modal input[type="text"]:focus {
-  border-color: #ff6347;
-  box-shadow: 0 0 8px rgba(255, 99, 71, 0.4);
+  border-color: #e60019;
+  box-shadow: 0 0 8px rgba(230, 0, 25, 0.4);
   outline: none;
 }
 
@@ -525,20 +525,20 @@ header .icons {
 .modal button {
   width: 100%;
   padding: 14px 0;
-  background: linear-gradient(135deg, #ff6347, #ff7b59);
+  background: linear-gradient(90deg, #e60019, #b80014);
   border: none;
   border-radius: 10px;
   color: white;
   font-size: 18px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 5px 12px rgba(255, 99, 71, 0.6);
+  box-shadow: 0 5px 12px rgba(230, 0, 25, 0.6);
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .modal button:hover {
-  background: linear-gradient(135deg, #ff7b59, #ff6347);
-  box-shadow: 0 8px 16px rgba(255, 99, 71, 0.8);
+  background: linear-gradient(90deg, #b80014, #e60019);
+  box-shadow: 0 8px 16px rgba(230, 0, 25, 0.8);
 }
 
 /* Botão fechar (X) */
@@ -555,7 +555,7 @@ header .icons {
 }
 
 .modal .close-btn:hover {
-  color: #ff6347;
+  color: #e60019;
 }
 
 /* Animar esconder/mostrar o campo nome */
@@ -656,8 +656,7 @@ h2 {
 .menu-item .price {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #d35400;
-  /* tom de laranja queimado */
+  color: #e60019;
   margin: 8px 0;
 }
 
@@ -689,7 +688,7 @@ h2 {
 
 /* ✅ BOTÃO no estilo da sidebar */
 .menu-item button {
-  background: linear-gradient(to right, #ff6a00, #ff9000);
+  background: linear-gradient(to right, #e60019, #ff9000);
   color: white;
   padding: 10px 20px;
   border: none;
@@ -698,7 +697,7 @@ h2 {
   font-weight: bold;
   cursor: pointer;
   transition: background 0.4s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 10px rgba(255, 106, 0, 0.3);
+  box-shadow: 0 4px 10px rgba(230, 0, 25, 0.3);
   margin-top: 12px;
 }
 
@@ -904,7 +903,7 @@ h2 {
 .menu-mat-card .price {
   font-size: 1.1rem;
   font-weight: bold;
-  color: #d35400;
+  color: #e60019;
   margin: 10px 0 0 0;
 }
 
@@ -991,7 +990,7 @@ h2 {
 
 .mat-tab-label {
   background: #fff3e6;
-  color: #ff6347;
+  color: #e60019;
   border-radius: 18px 18px 0 0;
   margin: 0 4px;
   min-width: 110px;
@@ -1008,9 +1007,9 @@ h2 {
 }
 
 .mat-tab-label.mat-tab-label-active {
-  background: linear-gradient(90deg, #ff6347 60%, #ff7b59 100%);
+  background: linear-gradient(90deg, #e60019 60%, #ff7b59 100%);
   color: #fff;
-  box-shadow: 0 4px 16px rgba(255,99,71,0.13);
+  box-shadow: 0 4px 16px rgba(230, 0, 25,0.13);
   font-size: 1.13rem;
   border-bottom: 3px solid #fff;
 }
@@ -1050,12 +1049,12 @@ h2 {
 }
 
 .menu-mat-card mat-card-actions button, .menu-mat-card button, .mat-raised-button.mat-primary {
-  background: linear-gradient(90deg, #ff9800 0%, #ff7300 100%) !important;
+  background: linear-gradient(90deg, #e60019 0%, #b80014 100%) !important;
   color: #fff !important;
   font-weight: bold !important;
   border: none !important;
   border-radius: 18px !important;
-  box-shadow: 0 4px 16px rgba(255, 152, 0, 0.13);
+  box-shadow: 0 4px 16px rgba(230, 0, 25, 0.13);
   padding: 10px 0 !important;
   min-width: 180px;
   font-size: 1rem;
@@ -1064,8 +1063,8 @@ h2 {
   display: block;
 }
 .menu-mat-card mat-card-actions button:hover, .menu-mat-card button:hover, .mat-raised-button.mat-primary:hover {
-  background: linear-gradient(90deg, #ffb347 0%, #ff9800 100%) !important;
-  box-shadow: 0 6px 20px rgba(255, 152, 0, 0.18);
+  background: linear-gradient(90deg, #b80014 0%, #e60019 100%) !important;
+  box-shadow: 0 6px 20px rgba(230, 0, 25, 0.18);
   transform: translateY(-2px) scale(1.04);
 }
 
@@ -1095,9 +1094,9 @@ h2 {
 }
 .pizza-tamanhos-btns button.active, .pizza-tamanhos-btns button:hover {
   background: #fff6f2;
-  border: 2px solid #ff6347;
+  border: 2px solid #e60019;
   color: #b71c1c;
-  box-shadow: 0 4px 16px rgba(255,99,71,0.10);
+  box-shadow: 0 4px 16px rgba(230, 0, 25,0.10);
 }
 .pizza-tamanhos-btns button span {
   display: block;
