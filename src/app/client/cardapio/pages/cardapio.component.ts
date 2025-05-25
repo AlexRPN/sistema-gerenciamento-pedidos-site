@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -10,6 +10,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { Observable, of } from 'rxjs';
 import { MatTabsModule } from '@angular/material/tabs';
+import { CarrinhoProdutosSidebarComponent } from '../components/carrinho-produtos-sidebar/carrinho-produtos-sidebar.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 interface Tab {
   label: string;
@@ -20,7 +23,17 @@ interface Tab {
 @Component({
   selector: 'app-cardapio',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, MatCardModule, MatButtonModule, MatTabsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatTabsModule,
+    MatDialogModule,
+    MatSidenavModule,
+    CarrinhoProdutosSidebarComponent,
+  ],
   templateUrl: './cardapio.component.html',
   styleUrl: './cardapio.component.css'
 })
@@ -30,6 +43,7 @@ export class CardapioComponent implements OnInit {
   tabs: Tab[] = [];
   asyncTabs: Observable<Tab[]>;
   abaSelecionada = 0;
+  carrinhoAberto = false;
 
   tamanhosPizza = [
     { nome: 'Pequeno', descricao: '2 complementos' },
@@ -60,7 +74,8 @@ export class CardapioComponent implements OnInit {
 
   constructor(
     private produtoService: ProdutoService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cdr: ChangeDetectorRef
   ) {
     this.tabs = [
       { label: 'Pizza', content: 'Pizza', categoria: 'Pizza' },
@@ -124,6 +139,7 @@ export class CardapioComponent implements OnInit {
         quantidade: 1
       });
     }
+    //this.abrirCarrinho();
   }
 
   trackByProdutoId(index: number, produto: ProdutoResponse): number {
@@ -135,5 +151,38 @@ export class CardapioComponent implements OnInit {
       p => p.categoria && p.categoria.trim().toLowerCase() === 'pizza' &&
            p.tamanho === this.tamanhoPizzaSelecionado
     );
+  }
+
+  abrirModalCarrinho() {
+    const dialogRef = this.dialog.open(CarrinhoProdutosSidebarComponent, {
+      width: '350px',
+      panelClass: 'sidebar',
+      data: {
+        itensCarrinho: this.itensCarrinho
+      }
+    });
+    console.log(this.itensCarrinho, "abrindo modal");
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'limparCarrinho') {
+        this.itensCarrinho = [];
+      }
+    });
+  }
+
+  abrirCarrinho() {
+    this.carrinhoAberto = false;
+    setTimeout(() => {
+      this.carrinhoAberto = true;
+      this.cdr.detectChanges();
+    }, 0);
+  }
+
+  fecharCarrinho() {
+    this.carrinhoAberto = false;
+  }
+
+  get quantidadeTotalCarrinho(): number {
+    return this.itensCarrinho.reduce((total, item) => total + item.quantidade, 0);
   }
 }

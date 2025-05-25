@@ -1,0 +1,33 @@
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-carrinho-produtos-sidebar',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: './carrinho-produtos-sidebar.component.html',
+  styleUrls: ['./carrinho-produtos-sidebar.component.css']
+})
+export class CarrinhoProdutosSidebarComponent {
+  @Input() itensCarrinho: any[] = [];
+  @Output() fechar = new EventEmitter<void>();
+
+  calcularTotal(): number {
+    return this.itensCarrinho.reduce((total, item) => total + (item.valor * item.quantidade), 0);
+  }
+
+  alterarQuantidade(item: any, delta: number) {
+    item.quantidade += delta;
+    if (item.quantidade < 1) {
+      const idx = this.itensCarrinho.indexOf(item);
+      if (idx > -1) {
+        this.itensCarrinho.splice(idx, 1);
+      }
+    }
+  }
+
+  removerTodosProdutos() {
+    this.itensCarrinho.length = 0;
+  }
+}

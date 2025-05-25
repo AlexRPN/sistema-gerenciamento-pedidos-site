@@ -323,40 +323,18 @@ header .icons {
 
 /* Aba lateral (carrinho) estilizada e fluida */
 .sidebar {
-  position: fixed;
-  top: 60px;
-  right: -350px;
-  /* Largura maior para melhor visual */
-  width: 350px;
-  height: calc(100vh - 60px);
-  /* Ajusta altura considerando o topo fixo */
   background-color: #fff;
-  box-shadow:
-      -12px 0 30px rgba(0, 0, 0, 0.15),
-      -6px 0 15px rgba(0, 0, 0, 0.1);
+  box-shadow: -12px 0 30px rgba(0, 0, 0, 0.15), -6px 0 15px rgba(0, 0, 0, 0.1);
   padding: 30px 25px;
   overflow-y: auto;
   z-index: 999;
-
-  border-radius: 15px 0 0 15px;
-
-  /* Transições */
-  opacity: 0;
-  visibility: hidden;
-  transition:
-      right 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-      opacity 0.4s ease,
-      visibility 0.4s ease;
-
-  /* Animação suave de entrada */
-  transform: translateX(20px);
 }
 
-.sidebar.open {
-  right: 0;
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(0);
+:host ::ng-deep .mat-sidenav.sidebar {
+  width: 600px !important;
+  max-width: 100vw !important;
+  right: 0 !important;
+  box-sizing: border-box !important;
 }
 
 /* Título */
@@ -1140,4 +1118,9 @@ h2 {
     padding: 12px 10px 8px 10px;
     max-width: 100%;
   }
+}
+
+.sidenav-container {
+  width: 100vw;
+  height: 100vh;
 }
