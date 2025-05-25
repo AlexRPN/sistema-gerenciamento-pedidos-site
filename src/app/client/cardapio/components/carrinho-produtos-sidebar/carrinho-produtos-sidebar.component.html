@@ -16,14 +16,16 @@
     <div *ngIf="itensCarrinho && itensCarrinho.length > 0; else vazio">
       <div *ngFor="let item of itensCarrinho" class="cart-item show">
         <div class="cart-item-details">
-          <h4>{{item.nome}}</h4>
+          <div class="cart-item-header">
+            <h4>{{item.nome}}</h4>
+            <div class="cart-qty-controls">
+              <button class="btn btn-light btn-sm" (click)="alterarQuantidade(item, -1)"><i class="bi bi-dash"></i></button>
+              <span>{{item.quantidade}}</span>
+              <button class="btn btn-light btn-sm" (click)="alterarQuantidade(item, 1)"><i class="bi bi-plus"></i></button>
+            </div>
+          </div>
           <p>{{item.descricao}}</p>
           <span style="font-weight: bold; color: #222;">R$ {{item.valor | number:'1.2-2'}}</span>
-          <div style="display: flex; align-items: center; gap: 8px; margin: 8px 0;">
-            <button class="btn btn-light btn-sm" (click)="alterarQuantidade(item, -1)"><i class="bi bi-dash"></i></button>
-            <span>{{item.quantidade}}</span>
-            <button class="btn btn-light btn-sm" (click)="alterarQuantidade(item, 1)"><i class="bi bi-plus"></i></button>
-          </div>
           <textarea class="obs-field" [(ngModel)]="item.observacao" placeholder="Deseja remover algum ingrediente?"></textarea>
         </div>
       </div>

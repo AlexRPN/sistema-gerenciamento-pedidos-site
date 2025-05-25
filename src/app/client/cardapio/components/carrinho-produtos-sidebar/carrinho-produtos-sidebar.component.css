@@ -96,8 +96,15 @@
   flex-direction: column;
 }
 
-.cart-item-details h4 {
-  margin: 0 0 6px 0;
+.cart-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.cart-item-header h4 {
+  margin: 0;
   font-size: 17px;
   font-weight: 600;
   color: #222;
@@ -157,6 +164,12 @@
 .edit-btn:hover {
   color: #333;
   transform: scale(1.2);
+}
+
+.cart-qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 :host ::ng-deep .mat-dialog-container.sidebar {
