@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmarClienteModalComponent } from '../confirmar-cliente-modal/confirmar-cliente-modal/confirmar-cliente-modal.component';
+import { ConfirmarClienteModalComponent } from '../confirmar-pedido-modal/confirmar-pedido-modal.component';
 
 @Component({
   selector: 'app-carrinho-produtos-sidebar',
@@ -38,8 +38,11 @@ export class CarrinhoProdutosSidebarComponent {
   abrirModalConfirmarCliente() {
     this.dialog.open(ConfirmarClienteModalComponent, {
       panelClass: 'custom-dialog-container',
+      width: '90vw',
+      maxWidth: '700px',
       disableClose: true,
-      autoFocus: false
+      autoFocus: false,
+      data: { produtos: this.itensCarrinho }
     });
   }
 

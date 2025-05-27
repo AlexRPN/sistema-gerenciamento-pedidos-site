@@ -13,9 +13,8 @@
 .modal-content {
   background: white;
   padding: 30px 24px 18px 24px;
-  border-radius: 12px;
-  max-width: 400px;
-  width: 90vw;
+  border-radius: 25px;
+  width: 100%;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
   position: relative;
   display: flex;
@@ -117,3 +116,76 @@
   color: red;
   margin-left: 2px;
 }
+
+.form-group-row {
+  display: flex;
+  gap: 16px;
+}
+
+.cep-group {
+  flex: 0 0 140px;
+}
+
+.logradouro-group {
+  flex: 1;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+}
+
+.modal-title {
+  flex: 1;
+  text-align: center;
+  font-weight: bold;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.pedido-title {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 18px;
+  margin-top: 0;
+  vertical-align: middle;
+}
+
+/* Remove margin do h2 dentro do .modal-title para alinhar melhor */
+.modal-title h2 {
+  margin: 0;
+}
+
+.produtos-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+}
+
+.entrega-section-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 18px 0 10px 0;
+}
+
+.pagamento-opcoes-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+/* Ajuste para alinhar ícone e texto do mat-checkbox */
+.pagamento-opcoes-col mat-checkbox .mat-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Centralizar o título do endereço */
+/* Já está usando h2 com .modal-title-center */

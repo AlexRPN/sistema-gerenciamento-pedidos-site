@@ -1,0 +1,108 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button *ngIf="etapaAtual !== 'cliente' && etapaAtual !== 'endereco'" mat-icon-button class="back-btn" (click)="etapaAnterior()" aria-label="Voltar">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <span class="modal-title">
+      <ng-container [ngSwitch]="etapaAtual">
+        <h2 *ngSwitchCase="'cliente'" class="modal-title-center">DADOS DO CLIENTE</h2>
+        <h2 *ngSwitchCase="'endereco'" class="modal-title-center">ENDEREÇO</h2>
+        <h2 *ngSwitchCase="'pedido'" class="modal-title-center">RESUMO DO PEDIDO</h2>
+      </ng-container>
+    </span>
+    <button mat-icon-button class="close-btn" (click)="fecharModal()" aria-label="Fechar formulário">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div [@slideAnimation]="etapaAtual">
+    <!-- Etapa 1: Cliente -->
+    <form *ngIf="etapaAtual === 'cliente' && (!carregando && (!clienteEncontrado || edicaoEndereco))" #profileForm="ngForm" (ngSubmit)="onSubmit(profileForm)">
+      <label for="name">Nome:</label>
+      <input type="text" id="name" name="name" [(ngModel)]="name" placeholder="Digite seu nome" required />
+      <label for="phone">Telefone: <span class="required-star" title="Campo obrigatório">*</span></label>
+      <input type="tel" id="phone" name="phone" [(ngModel)]="phone" placeholder="(99) 9 9999-9999" required pattern="\(\d{2}\) \d \d{4}-\d{4}" title="Digite um número de telefone válido com DDD" (input)="formatarTelefone()" />
+      <button type="submit" class="gradient-btn">Confirmar</button>
+    </form>
+
+    <!-- Spinner de carregamento -->
+    <div *ngIf="carregando" style="display: flex; justify-content: center; align-items: center; min-height: 120px;">
+      <mat-spinner diameter="48"></mat-spinner>
+    </div>
+
+    <!-- Etapa 2: Endereço -->
+    <div *ngIf="etapaAtual === 'endereco'">
+      <div *ngIf="clienteEncontrado && !edicaoEndereco">
+        <div class="form-group">
+          <label>Nome:</label>
+          <input type="text" [value]="cliente.nome" disabled />
+        </div>
+        <div class="form-group">
+          <label>Telefone:</label>
+          <input type="text" [value]="cliente.telefone" disabled />
+        </div>
+        <div class="form-group-row">
+          <div class="form-group cep-group">
+            <label>CEP:</label>
+            <input type="text" [value]="endereco.cep" disabled />
+          </div>
+          <div class="form-group logradouro-group">
+            <label>Logradouro:</label>
+            <input type="text" [value]="endereco.logradouro" disabled />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Complemento:</label>
+          <input type="text" [value]="endereco.complemento" disabled />
+        </div>
+        <button class="gradient-btn" (click)="habilitarEdicaoEndereco()">Alterar Endereço</button>
+        <button class="gradient-btn" (click)="proximaEtapa()">Próximo</button>
+      </div>
+      <div *ngIf="edicaoEndereco">
+        <form #enderecoForm="ngForm" (ngSubmit)="salvarEndereco()">
+          <div class="form-group-row">
+            <div class="form-group cep-group">
+              <label>CEP:</label>
+              <input type="text" [(ngModel)]="endereco.cep" name="cep" maxlength="9" required />
+            </div>
+            <div class="form-group logradouro-group">
+              <label>Logradouro:</label>
+              <input type="text" [(ngModel)]="endereco.logradouro" name="logradouro" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Complemento:</label>
+            <input type="text" [(ngModel)]="endereco.complemento" name="complemento" />
+          </div>
+          <button type="submit" class="gradient-btn">Salvar Endereço</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Etapa 3: Pedido -->
+    <div *ngIf="etapaAtual === 'pedido'">
+      <div class="produtos-section">
+        <h4 class="produtos-title-left">Produtos Selecionados</h4>
+        <div *ngFor="let produto of produtos" class="produto-item">
+          <span>{{produto.nome}} </span>
+          <span>x{{produto.quantidade}} </span>
+          <span>R$ {{produto.valor | number:'1.2-2'}}</span>
+        </div>
+      </div>
+      <div class="entrega-section-col">
+        <mat-checkbox [(ngModel)]="entrega" name="entrega" (change)="selecionarEntrega(true)">Entrega</mat-checkbox>
+        <mat-checkbox [(ngModel)]="retirada" name="retirada" (change)="selecionarEntrega(false)">Retirada</mat-checkbox>
+      </div>
+      <div class="pagamento-section" style="margin-bottom: 10px;">
+        <label>Forma de Pagamento:</label>
+        <mat-radio-group [(ngModel)]="pagamentoSelecionado" name="pagamentoSelecionado" class="pagamento-opcoes-col">
+          <mat-radio-button value="dinheiro"><mat-icon>attach_money</mat-icon> Dinheiro</mat-radio-button>
+          <mat-radio-button value="pix"><mat-icon>pix</mat-icon> Pix</mat-radio-button>
+          <mat-radio-button value="credito"><mat-icon>credit_card</mat-icon> Cartão de Crédito</mat-radio-button>
+          <mat-radio-button value="debito"><mat-icon>credit_card</mat-icon> Cartão de Débito</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <button class="gradient-btn" (click)="proximaEtapa()">Finalizar Pedido</button>
+    </div>
+  </div>
+</div>
