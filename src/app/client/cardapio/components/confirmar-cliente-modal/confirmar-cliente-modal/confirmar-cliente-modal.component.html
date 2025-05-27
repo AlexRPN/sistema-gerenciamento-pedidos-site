@@ -1,0 +1,36 @@
+<div class="modal-content">
+  <button mat-icon-button class="close-btn" (click)="fecharModal()" aria-label="Fechar formulário">
+    <span>&times;</span>
+  </button>
+
+  <h2>CADASTRO DE PERFIL</h2>
+
+  <form #profileForm="ngForm" (ngSubmit)="onSubmit(profileForm)">
+    <label for="name">Nome:</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      [(ngModel)]="name"
+      placeholder="Digite seu nome"
+      required
+    />
+
+    <label for="phone">Telefone:
+      <span class="required-star" title="Campo obrigatório">*</span>
+    </label>
+    <input
+      type="tel"
+      id="phone"
+      name="phone"
+      [(ngModel)]="phone"
+      placeholder="(99) 99999-9999"
+      required
+      pattern="^\(?\d{2}\)?[\s-]?\d{4,5}-\d{4}$"
+      title="Digite um número de telefone válido com DDD"
+      (input)="formatarTelefone()"
+    />
+
+    <button type="submit" class="gradient-btn">Confirmar</button>
+  </form>
+</div>

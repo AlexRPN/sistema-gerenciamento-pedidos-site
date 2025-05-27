@@ -1,0 +1,119 @@
+/* Estilização do container principal do Dialog */
+.custom-dialog-container .mat-dialog-container {
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* Caixa branca interna do modal */
+.modal-content {
+  background: white;
+  padding: 30px 24px 18px 24px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90vw;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Título */
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 25px;
+  color: #222;
+  font-weight: 700;
+  font-size: 28px;
+  text-align: center;
+  letter-spacing: 0.03em;
+  user-select: none;
+}
+
+/* Inputs */
+.modal-content label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #555;
+  font-size: 14px;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 1.8px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: inherit;
+}
+
+.modal-content input:focus {
+  border-color: #e60019;
+  box-shadow: 0 0 8px rgba(230, 0, 25, 0.4);
+  outline: none;
+}
+
+/* Botão X */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #bbb;
+  transition: color 0.3s ease;
+  font-size: 28px;
+  font-weight: 700;
+  user-select: none;
+}
+
+.close-btn:hover {
+  color: #e60019;
+}
+
+/* Botão cadastrar */
+.gradient-btn {
+  width: 100%;
+  padding: 14px 0;
+  background: linear-gradient(90deg, #e60019, #b80014);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 5px 12px rgba(230, 0, 25, 0.6);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.gradient-btn:hover {
+  background: linear-gradient(90deg, #b80014, #e60019);
+  box-shadow: 0 8px 16px rgba(230, 0, 25, 0.8);
+}
+
+/* Link login */
+.login-link {
+  text-align: center;
+  font-size: 15px;
+  margin-top: 8px;
+}
+
+.login-link a {
+  color: #222;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Campo obrigatório */
+.required-star {
+  color: red;
+  margin-left: 2px;
+}

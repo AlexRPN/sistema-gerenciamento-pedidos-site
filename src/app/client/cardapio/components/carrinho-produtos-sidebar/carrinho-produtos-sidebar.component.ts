@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmarClienteModalComponent } from '../confirmar-cliente-modal/confirmar-cliente-modal/confirmar-cliente-modal.component';
 
 @Component({
   selector: 'app-carrinho-produtos-sidebar',
@@ -12,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 export class CarrinhoProdutosSidebarComponent {
   @Input() itensCarrinho: any[] = [];
   @Output() fechar = new EventEmitter<void>();
+
+  constructor(private dialog: MatDialog) {}
 
   calcularTotal(): number {
     return this.itensCarrinho.reduce((total, item) => total + (item.valor * item.quantidade), 0);
@@ -30,4 +34,14 @@ export class CarrinhoProdutosSidebarComponent {
   removerTodosProdutos() {
     this.itensCarrinho.length = 0;
   }
+
+  abrirModalConfirmarCliente() {
+    this.dialog.open(ConfirmarClienteModalComponent, {
+      panelClass: 'custom-dialog-container',
+      disableClose: true,
+      autoFocus: false
+    });
+  }
+
+
 }

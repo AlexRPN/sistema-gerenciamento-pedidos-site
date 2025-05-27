@@ -149,7 +149,6 @@ export class CardapioComponent implements OnInit {
         quantidade: 1
       });
     }
-    //this.abrirCarrinho();
   }
 
   trackByProdutoId(index: number, produto: ProdutoResponse): number {
@@ -171,7 +170,6 @@ export class CardapioComponent implements OnInit {
         itensCarrinho: this.itensCarrinho
       }
     });
-    console.log(this.itensCarrinho, "abrindo modal");
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'limparCarrinho') {

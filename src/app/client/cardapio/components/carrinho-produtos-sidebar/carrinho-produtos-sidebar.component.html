@@ -1,4 +1,4 @@
-<div class="">
+<div>
   <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center;">
     <h2 style="margin-bottom: 30px;"><i class="bi bi-cart"></i> Seu Carrinho</h2>
     <button class="btn btn-secondary" (click)="fechar.emit()" aria-label="Fechar">
@@ -33,7 +33,7 @@
         <strong>Total do Pedido:</strong> R$ {{calcularTotal() | number:'1.2-2'}}
       </div>
       <div style="display: flex; justify-content: center;">
-        <button class="finalize-btn">FINALIZAR PEDIDO</button>
+        <button class="finalize-btn" (click)="abrirModalConfirmarCliente()">FINALIZAR PEDIDO</button>
       </div>
     </div>
     <ng-template #vazio>
