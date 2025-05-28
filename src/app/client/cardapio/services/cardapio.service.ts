@@ -7,6 +7,9 @@ import { ResponseModel } from '../../../../assets/shared/models/responseModel/re
 import { ClienteResponse } from '../../../admin/clientes/models/response/cliente.response';
 import { ClienteEdicaoRequest } from '../../../admin/clientes/models/request/clienteEdicao.request';
 import { ClienteRequest } from '../../../admin/clientes/models/request/cliente.request';
+import { PedidoRequest } from '../../../admin/pedidos/models/request/pedido.request';
+import { PedidoResponse } from '../../../admin/pedidos/models/response/pedido.response';
+import { PedidoProdutoResponse } from '../../../admin/pedido-produto/models/response/pedido-produto.response';
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +48,13 @@ export class CardapioService {
 
   editarCliente(request: ClienteEdicaoRequest): Observable<ResponseModel<ClienteRequest>> {
     return this.http.put<ResponseModel<ClienteRequest>>(`${this.ApiUrl}/Cliente`, request);
+  }
+
+  obterPedidoPorId(id: number): Observable<ResponseModel<PedidoProdutoResponse>> {
+    return this.http.get<ResponseModel<PedidoProdutoResponse>>(`${this.ApiUrl}/Pedido/${id}`);
+  }
+
+  criarPedido(pedido: PedidoRequest): Observable<ResponseModel<PedidoResponse>> {
+    return this.http.post<ResponseModel<PedidoResponse>>(`${this.ApiUrl}/Pedido`, pedido);
   }
 }

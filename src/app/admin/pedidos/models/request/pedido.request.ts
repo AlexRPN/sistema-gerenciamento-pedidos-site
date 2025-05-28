@@ -3,5 +3,6 @@ import { PedidoProdutoRequest } from "../../../pedido-produto/models/request/ped
 export interface PedidoRequest {
   idCliente: number;
   tipoPagamento: string;
+  tipoEntrega: string;
   pedidoProdutos: PedidoProdutoRequest[];
 }

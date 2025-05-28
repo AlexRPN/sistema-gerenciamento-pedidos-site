@@ -90,8 +90,8 @@
         </div>
       </div>
       <div class="entrega-section-col">
-        <mat-checkbox [(ngModel)]="entrega" name="entrega" (change)="selecionarEntrega(true)">Entrega</mat-checkbox>
-        <mat-checkbox [(ngModel)]="retirada" name="retirada" (change)="selecionarEntrega(false)">Retirada</mat-checkbox>
+        <mat-checkbox [(ngModel)]="entrega" name="EntregaDomiciliar" (change)="selecionarEntrega(true)">Entrega</mat-checkbox>
+        <mat-checkbox [(ngModel)]="retirada" name="RetiradaNoLocal" (change)="selecionarEntrega(false)">Retirada</mat-checkbox>
       </div>
       <div class="pagamento-section" style="margin-bottom: 10px;">
         <label>Forma de Pagamento:</label>
@@ -102,7 +102,7 @@
           <mat-radio-button value="debito"><mat-icon>credit_card</mat-icon> Cartão de Débito</mat-radio-button>
         </mat-radio-group>
       </div>
-      <button class="gradient-btn" (click)="proximaEtapa()">Finalizar Pedido</button>
+      <button class="gradient-btn" (click)="criarPedido()">Confirmar Pedido</button>
     </div>
   </div>
 </div>

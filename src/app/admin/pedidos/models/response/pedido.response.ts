@@ -6,6 +6,7 @@ export interface PedidoResponse {
   id: number;
   valorTotal: number;
   tipoPagamento: string;
+  tipoEntrega: string;
   dataPedido: Date;
   observacao: string;
   statusPedido: string;

@@ -9,6 +9,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { MatRadioModule } from '@angular/material/radio';
+import { PedidoRequest } from '../../../../admin/pedidos/models/request/pedido.request';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-confirmar-cliente-modal',
@@ -59,6 +62,8 @@ export class ConfirmarClienteModalComponent {
     private dialogRef: MatDialogRef<ConfirmarClienteModalComponent>,
     private cardapioService: CardapioService,
     private dialog: MatDialog,
+    private toastr: ToastrService,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.produtos = data?.produtos || [];
@@ -160,5 +165,55 @@ export class ConfirmarClienteModalComponent {
   selecionarEntrega(isEntrega: boolean) {
     this.entrega = isEntrega;
     this.retirada = !isEntrega;
+  }
+
+  criarPedido() {
+    if (!this.pagamentoSelecionado) {
+      this.toastr.error('Selecione uma forma de pagamento');
+      return;
+    }
+
+    if (this.entrega && (!this.endereco.logradouro || !this.endereco.cep)) {
+      this.toastr.error('Endereço incompleto para entrega');
+      return;
+    }
+
+    if (this.cliente?.situacao !== 'Ativo') {
+      this.toastr.error('Cliente inativo. Não é possível gerar o pedido.');
+      return;
+    }
+
+    this.carregando = true;
+
+    const pedidoProdutos = this.produtos.map(item => ({
+      produtoId: item.id,
+      quantidade: item.quantidade,
+      observacao: item.observacao || '',
+      valorUnitario: item.valor
+    }));
+
+    const request = {
+      clienteId: Number(this.cliente?.id),
+      tipoPagamento: this.pagamentoSelecionado,
+      tipoEntrega: this.entrega ? 'EntregaDomiciliar' : 'RetiradaNoLocal',
+      pedidoProdutos
+    } as any;
+
+    this.cardapioService.criarPedido(request).subscribe({
+      next: response => {
+        console.log(response, 'response tela cliente');
+        this.carregando = false;
+        if (response.dados) {
+          this.toastr.success('Pedido criado com sucesso!');
+          this.dialogRef.close();
+          this.router.navigate(['/pedidos', response.dados.id]);
+        }
+      },
+      error: error => {
+        this.carregando = false;
+        console.error('Erro ao criar pedido:', error);
+        this.toastr.error('Erro ao criar pedido. Tente novamente.');
+      }
+    });
   }
 }
