@@ -1,0 +1,107 @@
+.detalhe-pedido-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+.detalhe-pedido-container h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.status-pedido {
+  margin-bottom: 20px;
+  font-weight: 500;
+  color: #555;
+}
+.status-pedido span {
+  font-weight: bold;
+  color: #2980b9;
+}
+
+.info-cliente,
+.info-pedido {
+  margin-bottom: 25px;
+}
+
+.info-cliente h3,
+.info-pedido h3 {
+  font-size: 20px;
+  color: #34495e;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 6px;
+}
+
+.info-cliente p,
+.info-extra p {
+  margin: 4px 0;
+  font-size: 15px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  background-color: #f8f8f8;
+  padding: 10px 15px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.produto-nome {
+  font-weight: 600;
+  color: #2d3436;
+}
+
+.produto-qtd,
+.produto-valor {
+  margin-left: 10px;
+  color: #636e72;
+}
+
+.valor-total {
+  font-weight: bold;
+  font-size: 18px;
+  color: #27ae60;
+}
+
+.btn-voltar {
+  width: 200px;
+  padding: 12px 0;
+  background: linear-gradient(90deg, #e60019, #b80014);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 5px 12px rgba(230, 0, 25, 0.2);
+  transition: background 0.3s, box-shadow 0.3s;
+  margin-top: 18px;
+}
+
+.btn-voltar:hover {
+  background: linear-gradient(90deg, #b80014, #e60019);
+  box-shadow: 0 8px 16px rgba(230, 0, 25, 0.3);
+}
+
+.carregando,
+.erro {
+  text-align: center;
+  margin-top: 50px;
+  color: #888;
+  font-size: 16px;
+}

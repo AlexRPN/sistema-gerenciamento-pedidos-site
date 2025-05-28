@@ -18,11 +18,13 @@ import { AlterarStatusModalComponent } from './admin/pedidos/components/alterar-
 import { LoginComponent } from './admin/login/pages/login/login.component';
 import { authGuard } from './guards/auth.guard';
 import { CardapioComponent } from './client/cardapio/pages/cardapio.component';
+import { DetalhePedidoComponent } from './client/cardapio/components/detalhe-pedido/detalhe-pedido.component';
 
 export const routes: Routes = [
   // Rotas do cliente (público)
   { path: '', component: HomeComponent },
   { path: 'cardapio', component: CardapioComponent },
+  { path: 'pedidos/:id', component: DetalhePedidoComponent },
 
   // Login do admin (fora do layout)
   { path: 'admin/login', component: LoginComponent },
