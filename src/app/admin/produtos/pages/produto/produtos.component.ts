@@ -57,7 +57,7 @@ export class ProdutosComponent implements OnInit, AfterViewInit {
 
   // Opções para os filtros
   tamanhos: string[] = ['Pequeno', 'Medio', 'Grande'];
-  categorias: string[] = ['Sanduiche', 'Omelete', 'Pão Sírio', 'Pizza', 'Bebidas', 'Adicional'];
+  categorias: string[] = ['Sanduiche', 'Omelete', 'PaoSirio', 'Pizza', 'Bebidas', 'Adicional'];
   situacoes: string[] = ['Ativo', 'Inativo'];
 
   // Valores selecionados nos filtros
