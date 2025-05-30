@@ -95,6 +95,27 @@
       </td>
     </ng-container>
 
+    <!-- Tipo de Entrega -->
+    <ng-container matColumnDef="tipoEntrega">
+      <th mat-header-cell *matHeaderCellDef>Tipo de Entrega</th>
+      <td mat-cell *matCellDef="let pedido">
+        <span [ngStyle]="{
+          'padding': '4px 8px',
+          'border-radius': '4px',
+          'color': '#fff',
+          'background-color':
+            pedido.tipoEntrega === 'EntregaDomiciliar' ? '#0d6efd' :
+            pedido.tipoEntrega === 'RetiradaNoLocal' ? '#198754' :
+            pedido.tipoEntrega === 'ConsumirNoLocal' ? '#6f42c1' : '#6c757d'
+        }">
+          {{ pedido.tipoEntrega === 'EntregaDomiciliar' ? 'Entrega Domiciliar' :
+             pedido.tipoEntrega === 'RetiradaNoLocal' ? 'Retirada No Local' :
+             pedido.tipoEntrega === 'ConsumirNoLocal' ? 'Consumir No Local' :
+             '-' }}
+        </span>
+      </td>
+    </ng-container>
+
     <!-- Ações -->
     <ng-container matColumnDef="acoes" >
       <th mat-header-cell *matHeaderCellDef class="acoes-header">Ações</th>

@@ -17,6 +17,7 @@ export class CarrinhoModalComponent {
   cliente: any = null;
   observacao: string = '';
   tipoPagamento: string = '';
+  tipoEntrega: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<CarrinhoModalComponent>,
@@ -38,8 +39,6 @@ export class CarrinhoModalComponent {
 
   criarPedido() {
     const pedidoProdutos = this.itensCarrinho.map(item => ({
-      clienteId: Number(this.cliente?.id),
-      tipoPagamento: this.tipoPagamento,
       produtoId: item.id,
       quantidade: item.quantidade,
       observacao: item.observacao || '',
@@ -49,14 +48,12 @@ export class CarrinhoModalComponent {
     const request = {
       clienteId: Number(this.cliente?.id),
       pedidoProdutos,
-      tipoPagamento: this.tipoPagamento
-    } as any;
+      tipoPagamento: this.tipoPagamento,
+      tipoEntrega: this.tipoEntrega
+    };
 
-    console.log('Request:', request);
-
-    this.pedidoService.criarPedido(request).subscribe({
+    this.pedidoService.criarPedido(request as any).subscribe({
       next: response => {
-        console.log('Resposta do criarPedido:', response);
         if (response.dados) {
           // Buscar detalhes completos do pedido pelo id retornado
           this.pedidoService.obterPedidoPorId(response.dados.id).subscribe({

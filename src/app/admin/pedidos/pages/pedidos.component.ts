@@ -51,7 +51,7 @@ export class PedidosComponent implements OnInit {
   filtroDataInicio: Date | null = null;
   filtroDataFim: Date | null = null;
 
-  displayedColumns: string[] = ['id', 'cliente', 'dataPedido', 'valorTotal', 'status', 'acoes'];
+  displayedColumns: string[] = ['id', 'cliente', 'dataPedido', 'valorTotal', 'status', 'tipoEntrega', 'acoes'];
 
   constructor(private pedidoService: PedidoService,
               private dialog: MatDialog) {}
@@ -143,7 +143,7 @@ export class PedidosComponent implements OnInit {
     doc.text('Relatório de Pedidos', 14, 15);
 
     // Cabeçalho da tabela
-    const head = [['ID Pedido', 'Cliente', 'Data do Pedido', 'Valor Total', 'Status']];
+    const head = [['ID Pedido', 'Cliente', 'Data do Pedido', 'Valor Total', 'Status', 'Tipo de Entrega']];
 
     // Dados da tabela (substitua pelo array real do seu componente)
     const data = this.pedidos.map((pedido: any) => [
@@ -151,7 +151,11 @@ export class PedidosComponent implements OnInit {
       pedido.cliente.nome,
       this.formatarData(pedido.dataPedido),
       pedido.valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
-      pedido.statusPedido
+      this.statusLabel(pedido.statusPedido),
+      pedido.tipoEntrega === 'EntregaDomiciliar' ? 'Entrega Domiciliar' :
+      pedido.tipoEntrega === 'RetiradaNoLocal' ? 'Retirada No Local' :
+      pedido.tipoEntrega === 'ConsumirNoLocal' ? 'Consumir No Local' :
+      '-'
     ]);
 
     // Geração da tabela

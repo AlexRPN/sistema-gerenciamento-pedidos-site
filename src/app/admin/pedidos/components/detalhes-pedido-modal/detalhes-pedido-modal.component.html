@@ -44,6 +44,14 @@
       <p><strong>Data:</strong> {{data.pedido.dataPedido | date:'dd/MM/yyyy HH:mm'}}</p>
       <p><strong>Status:</strong> {{data.pedido.statusPedido}}</p>
       <p><strong>Valor Total:</strong> R$ {{data.pedido.valorTotal | number:'1.2-2'}}</p>
+      <p><strong>Tipo de Entrega:</strong>
+        {{
+          data.pedido.tipoEntrega === 'EntregaDomiciliar' ? 'Entrega Domiciliar' :
+          data.pedido.tipoEntrega === 'RetiradaNoLocal' ? 'Retirada No Local' :
+          data.pedido.tipoEntrega === 'ConsumirNoLocal' ? 'Consumir No Local' :
+          '-'
+        }}
+      </p>
       <p><strong>Tipo de Pagamento:</strong> {{data.pedido.tipoPagamento}}</p>
       <p><strong>Motivo Cancelamento:</strong> {{data.pedido.motivoCancelamento || '-'}}</p>
     </div>

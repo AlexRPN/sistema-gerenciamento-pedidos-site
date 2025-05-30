@@ -99,16 +99,14 @@
           <th mat-header-cell *matHeaderCellDef> Ações </th>
           <td mat-cell *matCellDef="let produto">
             <button class="btn btn-info me-2" title="Editar" [routerLink]="['/admin/editar', produto.id]">
-              <i class="bi bi-pencil-square"></i>
-            </button>
-            <button class="btn btn-secondary me-2" [routerLink]="['admin/detalhes', produto.id]" title="Detalhes">
-              <i class="bi bi-file-earmark-text"></i>
+              <i class="bi bi-pencil-square"></i> Editar
             </button>
             <button class="btn"
               [ngClass]="produto.situacao === 'Ativo' ? 'btn btn-danger' : 'btn btn-success'"
               (click)="alterarStatusProduto(produto.id)"
               [title]="produto.situacao === 'Ativo' ? 'Inativar' : 'Ativar'">
               <i class="bi" [ngClass]="produto.situacao === 'Ativo' ? 'bi-x-octagon' : 'bi-check-circle'"></i>
+              {{produto.situacao === 'Ativo' ? 'Inativar' : 'Ativar'}}
             </button>
           </td>
         </ng-container>
