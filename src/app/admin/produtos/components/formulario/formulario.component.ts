@@ -29,7 +29,7 @@ export class FormularioComponent implements OnInit {
       id: new FormControl(this.dadosProduto?.id),
       nome: new FormControl(this.dadosProduto?.nome, [Validators.required]),
       descricao: new FormControl(this.dadosProduto?.descricao),
-      valor: new FormControl(this.formatarValorParaExibicao(this.dadosProduto?.valor), [Validators.required, Validators.min(0)]),
+      valor: new FormControl(this.dadosProduto?.valor, [Validators.required, Validators.min(0)]),
       categoria: new FormControl(this.dadosProduto?.categoria, [Validators.required]),
       tamanho: new FormControl(this.dadosProduto?.tamanho || ''),
       imagem: new FormControl(this.dadosProduto?.imagem),
@@ -66,17 +66,6 @@ export class FormularioComponent implements OnInit {
     return `${environment.UrlApi.replace(/\/api$/, '')}/${imagem}`;
   }
 
-  formatarValorParaExibicao(valor: any): string {
-    if (valor === null || valor === undefined) return '';
-    if (typeof valor === 'number') {
-      return valor.toFixed(2).replace('.', ',');
-    }
-    if (typeof valor === 'string' && valor.includes('.')) {
-      return valor.replace('.', ',');
-    }
-    return valor;
-  }
-
   submit(): void {
     if(this.produtoForm.valid) {
       const formValue = this.produtoForm.value;
@@ -92,7 +81,7 @@ export class FormularioComponent implements OnInit {
       // Adiciona os campos do formulário ao FormData
       formData.append('nome', formValue.nome);
       formData.append('descricao', formValue.descricao);
-      formData.append('valor', valor);
+      formData.append('valor', formValue.valor);
       formData.append('categoria', formValue.categoria);
       let tamanho = formValue.tamanho;
       if (typeof tamanho === 'undefined' || tamanho === null) {
