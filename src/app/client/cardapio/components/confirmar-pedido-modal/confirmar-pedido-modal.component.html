@@ -32,7 +32,8 @@
 
     <!-- Etapa 2: Endereço -->
     <div *ngIf="etapaAtual === 'endereco'">
-      <div *ngIf="clienteEncontrado && !edicaoEndereco">
+      <!-- Cliente encontrado ou cadastrado -->
+      <div *ngIf="(clienteEncontrado && !edicaoEndereco) || clienteCadastrado">
         <div class="form-group">
           <label>Nome:</label>
           <input type="text" [value]="cliente.nome" disabled />
@@ -58,8 +59,9 @@
         <button class="gradient-btn" (click)="habilitarEdicaoEndereco()">Alterar Endereço</button>
         <button class="gradient-btn" (click)="proximaEtapa()">Próximo</button>
       </div>
-      <div *ngIf="edicaoEndereco">
-        <form #enderecoForm="ngForm" (ngSubmit)="salvarEndereco()">
+      <!-- Cadastro de novo cliente -->
+      <div *ngIf="edicaoEndereco && !clienteEncontrado && !clienteCadastrado">
+        <form #enderecoForm="ngForm" (ngSubmit)="cadastrarNovoCliente()">
           <div class="form-group-row">
             <div class="form-group cep-group">
               <label>CEP:</label>
@@ -74,7 +76,7 @@
             <label>Complemento:</label>
             <input type="text" [(ngModel)]="endereco.complemento" name="complemento" />
           </div>
-          <button type="submit" class="gradient-btn">Salvar Endereço</button>
+          <button type="submit" class="gradient-btn">Cadastrar</button>
         </form>
       </div>
     </div>

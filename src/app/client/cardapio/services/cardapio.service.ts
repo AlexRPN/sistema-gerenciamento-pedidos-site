@@ -57,4 +57,8 @@ export class CardapioService {
   criarPedido(pedido: PedidoRequest): Observable<ResponseModel<PedidoResponse>> {
     return this.http.post<ResponseModel<PedidoResponse>>(`${this.ApiUrl}/Pedido`, pedido);
   }
+
+  cadastrarCliente(request: ClienteRequest): Observable<ResponseModel<ClienteRequest>> {
+    return this.http.post<ResponseModel<ClienteRequest>>(`${this.ApiUrl}/Cliente`, request);
+  }
 }

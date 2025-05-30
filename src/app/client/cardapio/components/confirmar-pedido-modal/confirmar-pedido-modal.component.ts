@@ -12,6 +12,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { PedidoRequest } from '../../../../admin/pedidos/models/request/pedido.request';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { ClienteRequest } from '../../../../admin/clientes/models/request/cliente.request';
+import { ClienteService } from '../../../../admin/clientes/service/cliente.service';
 
 @Component({
   selector: 'app-confirmar-cliente-modal',
@@ -42,6 +44,7 @@ export class ConfirmarClienteModalComponent {
   // Estados para controle do fluxo
   carregando: boolean = false;
   clienteEncontrado: boolean = false;
+  clienteCadastrado: boolean = false;
   cliente: any = null;
   endereco: any = { logradouro: '', complemento: '', cep: '' };
   edicaoEndereco: boolean = false;
@@ -61,7 +64,7 @@ export class ConfirmarClienteModalComponent {
   constructor(
     private dialogRef: MatDialogRef<ConfirmarClienteModalComponent>,
     private cardapioService: CardapioService,
-    private dialog: MatDialog,
+    private clienteService: ClienteService,
     private toastr: ToastrService,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -101,15 +104,14 @@ export class ConfirmarClienteModalComponent {
 
   consultarCliente() {
     if (!this.name && !this.phone) {
-      // Pode exibir um alerta/toastr se desejar
       return;
     }
     this.carregando = true;
     this.clienteEncontrado = false;
+    this.clienteCadastrado = false;
     this.cliente = null;
     this.endereco = { logradouro: '', complemento: '', cep: '' };
     this.cardapioService.listarClientes({
-      nome: this.name || undefined,
       telefone: this.phone || undefined
     }).subscribe({
       next: (response: any) => {
@@ -127,13 +129,25 @@ export class ConfirmarClienteModalComponent {
           this.proximaEtapa();
         } else {
           this.clienteEncontrado = false;
-          this.edicaoEndereco = true; // Permite preencher endereço
+          this.edicaoEndereco = true;
+          this.cliente = {
+            nome: this.name,
+            telefone: this.phone,
+            endereco: { logradouro: '', complemento: '', cep: '' }
+          };
+          this.etapaAtual = 'endereco';
         }
       },
       error: () => {
         this.carregando = false;
         this.clienteEncontrado = false;
         this.edicaoEndereco = true;
+        this.cliente = {
+          nome: this.name,
+          telefone: this.phone,
+          endereco: { logradouro: '', complemento: '', cep: '' }
+        };
+        this.etapaAtual = 'endereco';
       }
     });
   }
@@ -165,6 +179,45 @@ export class ConfirmarClienteModalComponent {
   selecionarEntrega(isEntrega: boolean) {
     this.entrega = isEntrega;
     this.retirada = !isEntrega;
+  }
+
+  cadastrarNovoCliente() {
+    if (!this.cliente || !this.endereco.cep || !this.endereco.logradouro) {
+      this.toastr.error('Preencha todos os campos obrigatórios do endereço.');
+      return;
+    }
+    const request: ClienteRequest = {
+      nome: this.cliente.nome,
+      telefone: this.cliente.telefone,
+      empresaId: 1,
+      endereco: {
+        logradouro: this.endereco.logradouro,
+        complemento: this.endereco.complemento,
+        cep: this.endereco.cep
+      }
+    };
+    this.carregando = true;
+    this.clienteService.cadastrarCliente(request).subscribe({
+      next: response => {
+        this.carregando = false;
+        if (response.dados) {
+          this.clienteCadastrado = true;
+          this.cliente = response.dados;
+          this.endereco = {
+            logradouro: response.dados.endereco?.logradouro || '',
+            complemento: response.dados.endereco?.complemento || '',
+            cep: response.dados.endereco?.cep || ''
+          };
+          this.toastr.success('Cliente cadastrado com sucesso!');
+        } else {
+          this.toastr.error(response.mensagem, 'Erro!');
+        }
+      },
+      error: () => {
+        this.carregando = false;
+        this.toastr.error('Erro ao cadastrar cliente.');
+      }
+    });
   }
 
   criarPedido() {
