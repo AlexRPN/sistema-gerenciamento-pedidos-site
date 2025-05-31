@@ -20,6 +20,8 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 /* Título */
@@ -189,3 +191,104 @@
 
 /* Centralizar o título do endereço */
 /* Já está usando h2 com .modal-title-center */
+
+@media (max-width: 768px) {
+  .custom-dialog-container .mat-dialog-container {
+    padding: 10px;
+  }
+
+  .modal-content {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    border-radius: 15px;
+    padding: 20px;
+  }
+
+  .modal-header {
+    padding: 0 0 15px 0;
+  }
+
+  .modal-title h2 {
+    font-size: 1.3rem;
+  }
+
+  .form-group-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .cep-group,
+  .logradouro-group {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .modal-content input {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .gradient-btn {
+    padding: 12px 0;
+    font-size: 0.9rem;
+  }
+
+  .produtos-title-left {
+    font-size: 1.1rem;
+  }
+
+  .produto-item {
+    font-size: 0.9rem;
+    padding: 8px 0;
+  }
+
+  .pagamento-opcoes-col {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 15px;
+  }
+
+  .modal-title h2 {
+    font-size: 1.1rem;
+  }
+
+  .modal-content label {
+    font-size: 0.9rem;
+  }
+
+  .modal-content input {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+
+  .gradient-btn {
+    padding: 10px 0;
+    font-size: 0.85rem;
+  }
+
+  .produtos-title-left {
+    font-size: 1rem;
+  }
+
+  .produto-item {
+    font-size: 0.85rem;
+    padding: 6px 0;
+  }
+
+  .pagamento-opcoes-col {
+    gap: 6px;
+  }
+
+  .mat-radio-button {
+    font-size: 0.85rem;
+  }
+
+  .form-group-row {
+    gap: 2px;
+  }
+}

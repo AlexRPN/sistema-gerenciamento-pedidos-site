@@ -18,7 +18,15 @@
       </li>
     </ul>
     <div class="info-extra">
-      <p><strong>Forma de Pagamento:</strong> {{ pedido.tipoPagamento ? (pedido.tipoPagamento | titlecase) : '-' }}</p>
+      <p><strong>Forma de Pagamento:</strong>
+        {{
+          pedido.tipoPagamento === 'CartaoCredito' ? 'Cartão de Crédito' :
+          pedido.tipoPagamento === 'Dinheiro' ? 'Dinheiro' :
+          pedido.tipoPagamento === 'Pix' ? 'Pix' :
+          '-'
+        }}
+      </p>
+
       <p><strong>Tipo de Entrega:</strong> {{ pedido.tipoEntrega === 'EntregaDomiciliar' ? 'Entrega em domicílio' : (pedido.tipoEntrega === 'RetiradaNoLocal' ? 'Retirada no local' : '-') }}</p>
       <p><strong>Valor Total:</strong> <span class="valor-total">R$ {{ pedido.valorTotal != null ? (pedido.valorTotal | number:'1.2-2') : '-' }}</span></p>
       <p><strong>Data do Pedido:</strong> {{ pedido.dataPedido ? (pedido.dataPedido | date:'dd/MM/yyyy HH:mm') : '-' }}</p>

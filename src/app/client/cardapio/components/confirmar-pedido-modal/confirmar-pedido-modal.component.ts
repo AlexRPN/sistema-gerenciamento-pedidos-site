@@ -9,7 +9,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { MatRadioModule } from '@angular/material/radio';
-import { PedidoRequest } from '../../../../admin/pedidos/models/request/pedido.request';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ClienteRequest } from '../../../../admin/clientes/models/request/cliente.request';
@@ -251,10 +250,10 @@ export class ConfirmarClienteModalComponent {
       tipoEntrega: this.entrega ? 'EntregaDomiciliar' : 'RetiradaNoLocal',
       pedidoProdutos
     } as any;
+    console.log(request, 'tipo pagamento');
 
     this.cardapioService.criarPedido(request).subscribe({
       next: response => {
-        console.log(response, 'response tela cliente');
         this.carregando = false;
         if (response.dados) {
           this.toastr.success('Pedido criado com sucesso!');

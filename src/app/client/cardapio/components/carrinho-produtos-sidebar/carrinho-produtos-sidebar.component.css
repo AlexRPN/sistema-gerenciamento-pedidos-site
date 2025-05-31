@@ -189,3 +189,91 @@
   flex-direction: column;
   z-index: 2000 !important;
 }
+
+@media (max-width: 768px) {
+  :host ::ng-deep .mat-dialog-container.sidebar {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+  }
+
+  .modal-header {
+    padding: 15px;
+  }
+
+  .modal-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .cart-item {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .cart-item img {
+    width: 70px;
+    height: 60px;
+  }
+
+  .cart-item-header h4 {
+    font-size: 1rem;
+  }
+
+  .cart-item-details p {
+    font-size: 0.9rem;
+  }
+
+  .finalize-btn {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 1rem;
+  }
+
+  .info-section {
+    font-size: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-header {
+    padding: 10px;
+  }
+
+  .modal-header h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+
+  .cart-item {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .cart-item img {
+    width: 60px;
+    height: 50px;
+  }
+
+  .cart-item-header h4 {
+    font-size: 0.9rem;
+  }
+
+  .cart-item-details p {
+    font-size: 0.8rem;
+  }
+
+  .obs-field {
+    font-size: 0.8rem;
+    padding: 4px;
+  }
+
+  .finalize-btn {
+    padding: 10px 0;
+    font-size: 0.9rem;
+  }
+}

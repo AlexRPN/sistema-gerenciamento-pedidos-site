@@ -98,10 +98,10 @@
       <div class="pagamento-section" style="margin-bottom: 10px;">
         <label>Forma de Pagamento:</label>
         <mat-radio-group [(ngModel)]="pagamentoSelecionado" name="pagamentoSelecionado" class="pagamento-opcoes-col">
-          <mat-radio-button value="dinheiro"><mat-icon>attach_money</mat-icon> Dinheiro</mat-radio-button>
-          <mat-radio-button value="pix"><mat-icon>pix</mat-icon> Pix</mat-radio-button>
-          <mat-radio-button value="credito"><mat-icon>credit_card</mat-icon> Cartão de Crédito</mat-radio-button>
-          <mat-radio-button value="debito"><mat-icon>credit_card</mat-icon> Cartão de Débito</mat-radio-button>
+          <mat-radio-button value="Dinheiro"><mat-icon>attach_money</mat-icon> Dinheiro</mat-radio-button>
+          <mat-radio-button value="Pix"><mat-icon>pix</mat-icon> Pix</mat-radio-button>
+          <mat-radio-button value="CartaoCredito"><mat-icon>credit_card</mat-icon> Cartão de Crédito</mat-radio-button>
+          <mat-radio-button value="CartaoDebito"><mat-icon>credit_card</mat-icon> Cartão de Débito</mat-radio-button>
         </mat-radio-group>
       </div>
       <button class="gradient-btn" (click)="criarPedido()">Confirmar Pedido</button>
