@@ -59,7 +59,7 @@ export class FormularioComponent implements OnInit {
     }
   }
 
-  getUrlImagem(imagem: string | null): string {
+  getUrlImagem(imagem: string | null): string { //pega a url da imagem e retorna a url completa
     if (!imagem) {
       return 'assets/img/sem-imagem.png';
     }
@@ -91,9 +91,10 @@ export class FormularioComponent implements OnInit {
       formData.append('empresaId', (formValue.empresaId || 1).toString());
       formData.append('situacao', formValue.situacao || 'Ativo');
 
-      // Adiciona a imagem se existir
       if (this.selectedFile) {
         formData.append('imagem', this.selectedFile);
+      } else {
+        formData.append('imagem', this.produtoForm.value.imagem || '');
       }
 
       if(this.dadosProduto && (this.dadosProduto as ProdutoResponse).id){
