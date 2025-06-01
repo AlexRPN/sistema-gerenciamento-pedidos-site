@@ -28,6 +28,7 @@ export const routes: Routes = [
 
   // Login do admin (fora do layout)
   { path: 'admin/login', component: LoginComponent },
+  { path: 'admin', redirectTo: 'admin/login', pathMatch: 'full' },
 
   // Rotas do admin (com layout)
   {

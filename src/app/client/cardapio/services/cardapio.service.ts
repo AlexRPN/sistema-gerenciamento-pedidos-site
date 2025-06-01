@@ -16,21 +16,21 @@ import { PedidoProdutoResponse } from '../../../admin/pedido-produto/models/resp
 })
 export class CardapioService {
 
-  ApiUrl = environment.UrlApi;
+  private readonly ApiUrl = `${environment.UrlApi}/PedidoClientes`;
 
   constructor(private http: HttpClient) { }
 
-  listarProdutosPorCategoria(filtro?: {categoria?: string}): Observable<ResponseModel<ProdutoResponse[]>> {
+  listarProdutosPorCategoria(filtro?: { categoria?: string }): Observable<ResponseModel<ProdutoResponse[]>> {
     let params = new HttpParams();
 
     if (filtro?.categoria) {
       params = params.append('categoria', filtro.categoria);
     }
 
-    return this.http.get<ResponseModel<ProdutoResponse[]>>(`${this.ApiUrl}/Produto`, { params });
+    return this.http.get<ResponseModel<ProdutoResponse[]>>(`${this.ApiUrl}/produtos`, { params });
   }
 
-  listarClientes(filtro?: {id?: number, telefone?: string, nome?: string}): Observable<ResponseModel<ClienteResponse[]>> {
+  listarClientes(filtro?: { id?: number, telefone?: string, nome?: string }): Observable<ResponseModel<ClienteResponse[]>> {
     let params = new HttpParams();
 
     if (filtro?.id) {
@@ -43,22 +43,22 @@ export class CardapioService {
       params = params.append('nome', filtro.nome);
     }
 
-    return this.http.get<ResponseModel<ClienteResponse[]>>(`${this.ApiUrl}/Cliente`, { params });
+    return this.http.get<ResponseModel<ClienteResponse[]>>(`${this.ApiUrl}/clientes`, { params });
   }
 
   editarCliente(request: ClienteEdicaoRequest): Observable<ResponseModel<ClienteRequest>> {
-    return this.http.put<ResponseModel<ClienteRequest>>(`${this.ApiUrl}/Cliente`, request);
+    return this.http.put<ResponseModel<ClienteRequest>>(`${this.ApiUrl}/cliente`, request);
   }
 
   obterPedidoPorId(id: number): Observable<ResponseModel<PedidoProdutoResponse>> {
-    return this.http.get<ResponseModel<PedidoProdutoResponse>>(`${this.ApiUrl}/Pedido/${id}`);
+    return this.http.get<ResponseModel<PedidoProdutoResponse>>(`${this.ApiUrl}/pedido/${id}`);
   }
 
   criarPedido(pedido: PedidoRequest): Observable<ResponseModel<PedidoResponse>> {
-    return this.http.post<ResponseModel<PedidoResponse>>(`${this.ApiUrl}/Pedido`, pedido);
+    return this.http.post<ResponseModel<PedidoResponse>>(`${this.ApiUrl}/pedido`, pedido);
   }
 
   cadastrarCliente(request: ClienteRequest): Observable<ResponseModel<ClienteRequest>> {
-    return this.http.post<ResponseModel<ClienteRequest>>(`${this.ApiUrl}/Cliente`, request);
+    return this.http.post<ResponseModel<ClienteRequest>>(`${this.ApiUrl}/cliente`, request);
   }
 }

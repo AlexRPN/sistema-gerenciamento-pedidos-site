@@ -208,6 +208,8 @@ export class ConfirmarClienteModalComponent {
             cep: response.dados.endereco?.cep || ''
           };
           this.toastr.success('Cliente cadastrado com sucesso!');
+          this.edicaoEndereco = false;
+          this.proximaEtapa();
         } else {
           this.toastr.error(response.mensagem, 'Erro!');
         }
