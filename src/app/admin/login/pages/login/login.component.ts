@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { AlterarSenhaModalComponent } from '../../components/alterar-senha-modal/alterar-senha-modal.component';
 
 @Component({
   selector: 'app-login',
@@ -19,11 +21,12 @@ export class LoginComponent implements OnInit {
               private formBuilder: FormBuilder,
               private router: Router,
               private toastr: ToastrService,
+              private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      nomeUsuario: ['', [Validators.required, Validators.email]],
+      nomeUsuario: ['', [Validators.required]],
       senha: ['', [Validators.required]]
     });
   }
@@ -37,6 +40,14 @@ export class LoginComponent implements OnInit {
       }else{
         this.toastr.error(response.mensagem, 'Erro!');
       }
+    });
+  }
+
+  abrirModalAlterarSenha(){
+    this.dialog.open(AlterarSenhaModalComponent, {
+      width: '100%',
+      maxWidth: '500px',
+      panelClass: 'custom-modal'
     });
   }
 

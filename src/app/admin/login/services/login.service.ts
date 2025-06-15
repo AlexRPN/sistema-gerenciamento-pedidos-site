@@ -7,6 +7,7 @@ import { FuncionarioResponse } from '../../funcionarios/models/response/funciona
 import { ResponseModel } from '../../../../assets/shared/models/responseModel/responseModel';
 import { LoginRequest } from '../models/request/login.request';
 import { Router } from '@angular/router';
+import { AlterarSenhaRequest } from '../models/request/alterar-senha.request';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,10 @@ export class LoginService {
 
   loginUsuario(request: LoginRequest): Observable<ResponseModel<FuncionarioResponse>>{
     return this.http.post<ResponseModel<FuncionarioResponse>>(`${this.ApiUrl}/Login`, request);
+  }
+
+  alterarSenha(request: AlterarSenhaRequest): Observable<ResponseModel<FuncionarioResponse>>{
+    return this.http.post<ResponseModel<FuncionarioResponse>>(`${this.ApiUrl}/Login/AlterarSenha`, request);
   }
 
   sair(){

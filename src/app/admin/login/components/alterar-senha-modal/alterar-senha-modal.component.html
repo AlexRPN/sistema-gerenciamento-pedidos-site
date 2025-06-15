@@ -1,0 +1,59 @@
+<div class="modal-container">
+  <h2 mat-dialog-title>Alterar Senha</h2>
+
+  <form [formGroup]="form" (ngSubmit)="alterarSenha()">
+    <mat-dialog-content>
+      <div class="form-fields">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Usuário</mat-label>
+          <input matInput type="text" formControlName="nomeUsuario" required>
+          <mat-error *ngIf="form.get('nomeUsuario')?.hasError('required')">
+            <span class="campo-obrigatorio">Usuário é obrigatório *</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Senha Atual</mat-label>
+          <input matInput [type]="hideSenhaAtual ? 'password' : 'text'" formControlName="senhaAtual" required>
+          <button mat-icon-button matSuffix type="button" (click)="hideSenhaAtual = !hideSenhaAtual">
+            <mat-icon>{{ hideSenhaAtual ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="form.get('senhaAtual')?.hasError('required')">
+            <span class="campo-obrigatorio">Senha atual é obrigatória *</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nova Senha</mat-label>
+          <input matInput [type]="hideNovaSenha ? 'password' : 'text'" formControlName="novaSenha" required>
+          <button mat-icon-button matSuffix type="button" (click)="hideNovaSenha = !hideNovaSenha">
+            <mat-icon>{{ hideNovaSenha ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="form.get('novaSenha')?.hasError('required')">
+            <span class="campo-obrigatorio">Nova senha é obrigatória *</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Confirmar Nova Senha</mat-label>
+          <input matInput [type]="hideConfirmarSenha ? 'password' : 'text'" formControlName="confirmarSenha" required>
+          <button mat-icon-button matSuffix type="button" (click)="hideConfirmarSenha = !hideConfirmarSenha">
+            <mat-icon>{{ hideConfirmarSenha ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="form.get('confirmarSenha')?.hasError('required')">
+            <span class="campo-obrigatorio">Confirmação de senha é obrigatória *</span>
+          </mat-error>
+          <mat-error *ngIf="form.hasError('senhasNaoConferem')">
+            <span class="campo-obrigatorio">As senhas não conferem *</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button mat-button type="button" (click)="fecharModal()">Cancelar</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+        Salvar
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>
