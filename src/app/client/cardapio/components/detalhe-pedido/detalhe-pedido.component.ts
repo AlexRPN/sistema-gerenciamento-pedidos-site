@@ -55,4 +55,15 @@ export class DetalhePedidoComponent implements OnInit {
       .replace('Em Preparacao', 'Em Preparação')
       .trim();
   }
+
+  public formatarTelefoneExibicao(telefone: string): string {
+    if (!telefone) return '';
+    let valor = telefone.replace(/\D/g, '');
+    if (valor.length === 11) {
+      return valor.replace(/(\d{2})(\d{1})(\d{4})(\d{4})/, '($1) $2 $3-$4');
+    } else if (valor.length === 10) {
+      return valor.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+    }
+    return telefone;
+  }
 }

@@ -4,7 +4,7 @@
   <div class="info-cliente">
     <h3>Cliente</h3>
     <p><strong>Nome:</strong> {{ pedido.cliente.nome || '-' }}</p>
-    <p><strong>Telefone:</strong> {{ pedido.cliente.telefone || '-' }}</p>
+    <p><strong>Telefone:</strong> {{ pedido.cliente.telefone.telefone || '-' }}</p>
     <p *ngIf="pedido.cliente.endereco"><strong>Endereço:</strong> {{ pedido.cliente.endereco.logradouro || '-' }}, {{ pedido.cliente.endereco.complemento || '-' }} - CEP: {{ pedido.cliente.endereco.cep || '-' }}</p>
   </div>
   <div class="info-pedido">
