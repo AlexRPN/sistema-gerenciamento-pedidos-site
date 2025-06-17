@@ -270,4 +270,11 @@ export class ConfirmarClienteModalComponent {
       }
     });
   }
+
+  voltarParaCliente() {
+    this.etapaAtual = 'cliente';
+    this.clienteEncontrado = false;
+    this.edicaoEndereco = false;
+    this.clienteCadastrado = false;
+  }
 }

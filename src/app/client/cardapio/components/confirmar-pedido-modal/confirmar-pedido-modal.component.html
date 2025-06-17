@@ -1,12 +1,12 @@
 <div class="modal-content">
   <div class="modal-header">
-    <button *ngIf="etapaAtual !== 'cliente' && etapaAtual !== 'endereco'" mat-icon-button class="back-btn" (click)="etapaAnterior()" aria-label="Voltar">
+    <button *ngIf="etapaAtual !== 'cliente' && etapaAtual !== 'endereco'" mat-icon-button class="back-btn" (click)="voltarParaCliente()" aria-label="Voltar">
       <mat-icon>chevron_left</mat-icon>
     </button>
     <span class="modal-title">
       <ng-container [ngSwitch]="etapaAtual">
         <h2 *ngSwitchCase="'cliente'" class="modal-title-center">DADOS DO CLIENTE</h2>
-        <h2 *ngSwitchCase="'endereco'" class="modal-title-center">ENDEREÇO</h2>
+        <ng-container *ngSwitchCase="'endereco'"></ng-container>
         <h2 *ngSwitchCase="'pedido'" class="modal-title-center">RESUMO DO PEDIDO</h2>
       </ng-container>
     </span>
@@ -18,10 +18,9 @@
   <div [@slideAnimation]="etapaAtual">
     <!-- Etapa 1: Cliente -->
     <form *ngIf="etapaAtual === 'cliente' && (!carregando && (!clienteEncontrado || edicaoEndereco))" #profileForm="ngForm" (ngSubmit)="onSubmit(profileForm)">
-      <label for="name">Nome:</label>
-      <input type="text" id="name" name="name" [(ngModel)]="name" placeholder="Digite seu nome" required />
-      <label for="phone">Telefone: <span class="required-star" title="Campo obrigatório">*</span></label>
+      <label for="name">Telefone:</label>
       <input type="tel" id="phone" name="phone" [(ngModel)]="phone" placeholder="(99) 9 9999-9999" required pattern="\(\d{2}\) \d \d{4}-\d{4}" title="Digite um número de telefone válido com DDD" (input)="formatarTelefone()" />
+      <div *ngIf="profileForm.submitted && !phone" style="color: red; font-size: 13px; margin-top: -2vh; margin-bottom: 18px;">Telefone é obrigatório</div>
       <button type="submit" class="gradient-btn">Confirmar</button>
     </form>
 
@@ -30,57 +29,106 @@
       <mat-spinner diameter="48"></mat-spinner>
     </div>
 
-    <!-- Etapa 2: Endereço -->
-    <div *ngIf="etapaAtual === 'endereco'">
-      <!-- Visualização do endereço -->
-      <div *ngIf="(clienteEncontrado && !edicaoEndereco) || clienteCadastrado">
+    <!-- Etapa 2: DADOS DO CLIENTE para cliente já cadastrado -->
+    <div *ngIf="etapaAtual === 'endereco' && (clienteEncontrado || clienteCadastrado) && !edicaoEndereco">
+      <div class="modal-header">
+        <button mat-icon-button class="back-btn" (click)="voltarParaCliente()" aria-label="Voltar">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <span class="modal-title">
+          <h2 class="modal-title-center">DADOS DO CLIENTE</h2>
+        </span>
+        <button mat-icon-button class="close-btn" (click)="fecharModal()" aria-label="Fechar formulário">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="form-group">
+        <label>Nome:</label>
+        <input type="text" [value]="cliente.nome" disabled />
+      </div>
+      <div class="form-group">
+        <label>Telefone:</label>
+        <input type="text" [value]="cliente.telefone?.telefone" disabled />
+      </div>
+      <div class="form-group-row">
+        <div class="form-group cep-group">
+          <label>CEP:</label>
+          <input type="text" [value]="endereco.cep" disabled />
+        </div>
+        <div class="form-group logradouro-group">
+          <label>Logradouro:</label>
+          <input type="text" [value]="endereco.logradouro" disabled />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Complemento:</label>
+        <input type="text" [value]="endereco.complemento" disabled />
+      </div>
+      <button class="gradient-btn" (click)="habilitarEdicaoEndereco()">Alterar Endereço</button>
+      <button class="gradient-btn" (click)="proximaEtapa()">Próximo</button>
+    </div>
+    <!-- Etapa 2: Cadastro de novo cliente -->
+    <div *ngIf="etapaAtual === 'endereco' && !clienteEncontrado && edicaoEndereco">
+      <div class="modal-header">
+        <button mat-icon-button class="back-btn" (click)="voltarParaCliente()" aria-label="Voltar">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <span class="modal-title">
+          <h2 class="modal-title-center">DADOS PARA CADASTRO</h2>
+        </span>
+        <button mat-icon-button class="close-btn" (click)="fecharModal()" aria-label="Fechar formulário">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <form #cadastroForm="ngForm" (ngSubmit)="cadastrarNovoCliente()">
         <div class="form-group">
-          <label>Nome:</label>
-          <input type="text" [value]="cliente.nome" disabled />
+          <label for="nome">Nome:</label>
+          <input type="text" id="nome" name="nome" [(ngModel)]="cliente.nome" required />
+          <div *ngIf="cadastroForm.submitted && !cliente.nome" style="color: red; font-size: 13px; margin-top: -2vh; margin-bottom: 18px;">Nome é obrigatório</div>
         </div>
         <div class="form-group">
-          <label>Telefone:</label>
-          <input type="text" [value]="cliente.telefone.telefone" disabled />
+          <label for="telefone">Telefone:</label>
+          <input type="text" id="telefone" name="telefone" [(ngModel)]="cliente.telefone" [value]="phone" />
+          <div *ngIf="cadastroForm.submitted && !cliente.telefone" style="color: red; font-size: 13px; margin-top: -2vh; margin-bottom: 18px;">Telefone é obrigatório</div>
         </div>
         <div class="form-group-row">
           <div class="form-group cep-group">
             <label>CEP:</label>
-            <input type="text" [value]="endereco.cep" disabled />
+            <input type="text" [(ngModel)]="endereco.cep" name="cep" maxlength="9" required />
+            <div *ngIf="cadastroForm.submitted && !endereco.cep" style="color: red; font-size: 13px; margin-top: -2vh; margin-bottom: 18px;">CEP é obrigatório</div>
           </div>
           <div class="form-group logradouro-group">
             <label>Logradouro:</label>
-            <input type="text" [value]="endereco.logradouro" disabled />
+            <input type="text" [(ngModel)]="endereco.logradouro" name="logradouro" required />
+            <div *ngIf="cadastroForm.submitted && !endereco.logradouro" style="color: red; font-size: 13px; margin-top: -2vh; margin-bottom: 18px;">Logradouro é obrigatório</div>
           </div>
         </div>
         <div class="form-group">
           <label>Complemento:</label>
-          <input type="text" [value]="endereco.complemento" disabled />
+          <input type="text" [(ngModel)]="endereco.complemento" name="complemento" />
         </div>
-        <button class="gradient-btn" (click)="habilitarEdicaoEndereco()">Alterar Endereço</button>
-        <button class="gradient-btn" (click)="proximaEtapa()">Próximo</button>
-      </div>
-      <!-- Edição do endereço (para cliente encontrado OU novo) -->
-      <div *ngIf="edicaoEndereco">
-        <form #enderecoForm="ngForm" (ngSubmit)="clienteEncontrado ? salvarEndereco() : cadastrarNovoCliente()">
-          <div class="form-group-row">
-            <div class="form-group cep-group">
-              <label>CEP:</label>
-              <input type="text" [(ngModel)]="endereco.cep" name="cep" maxlength="9" required />
-            </div>
-            <div class="form-group logradouro-group">
-              <label>Logradouro:</label>
-              <input type="text" [(ngModel)]="endereco.logradouro" name="logradouro" required />
-            </div>
+        <button type="submit" class="gradient-btn">Cadastrar</button>
+      </form>
+    </div>
+    <!-- Edição do endereço (para cliente encontrado OU novo) -->
+    <div *ngIf="etapaAtual === 'endereco' && (clienteEncontrado || clienteCadastrado) && edicaoEndereco">
+      <form #enderecoForm="ngForm" (ngSubmit)="salvarEndereco()">
+        <div class="form-group-row">
+          <div class="form-group cep-group">
+            <label>CEP:</label>
+            <input type="text" [(ngModel)]="endereco.cep" name="cep" maxlength="9" required />
           </div>
-          <div class="form-group">
-            <label>Complemento:</label>
-            <input type="text" [(ngModel)]="endereco.complemento" name="complemento" />
+          <div class="form-group logradouro-group">
+            <label>Logradouro:</label>
+            <input type="text" [(ngModel)]="endereco.logradouro" name="logradouro" required />
           </div>
-          <button type="submit" class="gradient-btn">
-            {{ clienteEncontrado ? 'Salvar' : 'Cadastrar' }}
-          </button>
-        </form>
-      </div>
+        </div>
+        <div class="form-group">
+          <label>Complemento:</label>
+          <input type="text" [(ngModel)]="endereco.complemento" name="complemento" />
+        </div>
+        <button type="submit" class="gradient-btn">Salvar</button>
+      </form>
     </div>
 
     <!-- Etapa 3: Pedido -->
