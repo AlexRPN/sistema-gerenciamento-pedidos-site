@@ -24,7 +24,7 @@ export class CadastrarClienteModalComponent {
 
   cliente = {
     nome: '',
-    telefone: '',
+    telefone: { telefone: '' },
     endereco: {
       id: 0,
       logradouro: '',
@@ -42,7 +42,9 @@ export class CadastrarClienteModalComponent {
   cadastrarCliente() {
     const request: ClienteRequest = {
       nome: this.cliente.nome,
-      telefone: this.cliente.telefone,
+      telefone: {
+        telefone: this.cliente.telefone.telefone
+      },
       empresaId: 1,
       endereco: {
         logradouro: this.cliente.endereco.logradouro,

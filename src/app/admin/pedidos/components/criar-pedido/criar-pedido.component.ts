@@ -147,6 +147,9 @@ export class CriarPedidoComponent implements OnInit {
     }).subscribe(response => {
       if (response.dados && response.dados.length > 0) {
         const cliente: ClienteResponse = response.dados[0] as any;
+        if (!cliente.telefone) {
+          cliente.telefone = { id: 0, telefone: '' };
+        }
         this.cliente = cliente;
         this.endereco = {
           id: cliente.endereco?.id,

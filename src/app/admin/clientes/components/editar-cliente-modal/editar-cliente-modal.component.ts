@@ -16,7 +16,7 @@ export class EditarClienteModalComponent {
   btnAcao: string = 'Salvar';
   cliente = {
     nome: '',
-    telefone: '',
+    telefone: { id: 0, telefone: '' },
     endereco: {
       cep: '',
       logradouro: '',
@@ -32,9 +32,8 @@ export class EditarClienteModalComponent {
   ) {
     if (data && data.cliente) {
       this.cliente = { ...data.cliente };
-      if (!this.cliente.endereco) {
-        this.cliente.endereco = { cep: '', logradouro: '', complemento: '' };
-      }
+      if (!this.cliente.telefone) this.cliente.telefone = { id: 0, telefone: '' };
+      if (!this.cliente.endereco) this.cliente.endereco = { cep: '', logradouro: '', complemento: '' };
     }
   }
 
@@ -42,7 +41,10 @@ export class EditarClienteModalComponent {
     const request: ClienteEdicaoRequest = {
       id: this.data.cliente.id,
       nome: this.cliente.nome,
-      telefone: this.cliente.telefone,
+      telefone: {
+        id: this.data.cliente.telefone.id,
+        telefone: this.cliente.telefone.telefone
+      },
       enderecoCliente: {
         id: this.data.cliente.endereco.id,
         cep: this.cliente.endereco.cep,
