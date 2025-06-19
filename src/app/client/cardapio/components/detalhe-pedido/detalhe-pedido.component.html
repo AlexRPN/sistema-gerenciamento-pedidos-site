@@ -1,43 +1,45 @@
-<div class="detalhe-pedido-container" *ngIf="!carregando && pedido">
-  <h2>Pedido #{{ pedido.id || '-' }}</h2>
-  <div class="status-pedido">Status: <span>{{ pedido.statusPedido || '-' }}</span></div>
-  <div class="info-cliente">
-    <h3>Cliente</h3>
-    <p><strong>Nome:</strong> {{ pedido.cliente.nome || '-' }}</p>
-    <p><strong>Telefone:</strong> {{ pedido.cliente.telefone.telefone || '-' }}</p>
-    <p *ngIf="pedido.cliente.endereco"><strong>Endereço:</strong> {{ pedido.cliente.endereco.logradouro || '-' }}, {{ pedido.cliente.endereco.complemento || '-' }} - CEP: {{ pedido.cliente.endereco.cep || '-' }}</p>
-  </div>
-  <div class="info-pedido">
-    <h3>Resumo do Pedido</h3>
-    <ul>
-      <li *ngFor="let produto of pedido?.produtos">
-        <span class="produto-nome">{{ produto?.nomeProduto || '-' }}</span>
-        <span class="produto-qtd">x{{ produto?.quantidade || '-' }}</span>
-        <span class="produto-valor">R$ {{ produto?.valorUnitario != null ? (produto?.valorUnitario | number:'1.2-2') : '-' }}</span>
-        <span *ngIf="produto?.observacao">- <em>{{ produto?.observacao }}</em></span>
-      </li>
-    </ul>
-    <div class="info-extra">
-      <p><strong>Forma de Pagamento:</strong>
-        {{
-          pedido.tipoPagamento === 'CartaoCredito' ? 'Cartão de Crédito' :
-          pedido.tipoPagamento === 'Dinheiro' ? 'Dinheiro' :
-          pedido.tipoPagamento === 'Pix' ? 'Pix' :
-          '-'
-        }}
-      </p>
-
-      <p><strong>Tipo de Entrega:</strong> {{ pedido.tipoEntrega === 'EntregaDomiciliar' ? 'Entrega em domicílio' : (pedido.tipoEntrega === 'RetiradaNoLocal' ? 'Retirada no local' : '-') }}</p>
-      <p><strong>Valor Total:</strong> <span class="valor-total">R$ {{ pedido.valorTotal != null ? (pedido.valorTotal | number:'1.2-2') : '-' }}</span></p>
-      <p><strong>Data do Pedido:</strong> {{ pedido.dataPedido ? (pedido.dataPedido | date:'dd/MM/yyyy HH:mm') : '-' }}</p>
+<div class="detalhe-pedido-bg">
+  <div class="detalhe-pedido-container" *ngIf="!carregando && pedido">
+    <h2>Pedido #{{ pedido.id || '-' }}</h2>
+    <div class="status-pedido">Status: <span>{{ pedido.statusPedido || '-' }}</span></div>
+    <div class="info-cliente">
+      <h3>Cliente</h3>
+      <p><strong>Nome:</strong> {{ pedido.cliente.nome || '-' }}</p>
+      <p><strong>Telefone:</strong> {{ pedido.cliente.telefone.telefone || '-' }}</p>
+      <p *ngIf="pedido.cliente.endereco"><strong>Endereço:</strong> {{ pedido.cliente.endereco.logradouro || '-' }}, {{ pedido.cliente.endereco.complemento || '-' }} - CEP: {{ pedido.cliente.endereco.cep || '-' }}</p>
     </div>
-  </div>
-  <button class="btn-voltar" (click)="voltarParaCardapio()">Voltar ao Cardápio</button>
-</div>
+    <div class="info-pedido">
+      <h3>Resumo do Pedido</h3>
+      <ul>
+        <li *ngFor="let produto of pedido?.produtos">
+          <span class="produto-nome">{{ produto?.nomeProduto || '-' }}</span>
+          <span class="produto-qtd">x{{ produto?.quantidade || '-' }}</span>
+          <span class="produto-valor">R$ {{ produto?.valorUnitario != null ? (produto?.valorUnitario | number:'1.2-2') : '-' }}</span>
+          <span *ngIf="produto?.observacao">- <em>{{ produto?.observacao }}</em></span>
+        </li>
+      </ul>
+      <div class="info-extra">
+        <p><strong>Forma de Pagamento:</strong>
+          {{
+            pedido.tipoPagamento === 'CartaoCredito' ? 'Cartão de Crédito' :
+            pedido.tipoPagamento === 'Dinheiro' ? 'Dinheiro' :
+            pedido.tipoPagamento === 'Pix' ? 'Pix' :
+            '-'
+          }}
+        </p>
 
-<div *ngIf="carregando" class="carregando">
-  <p>Carregando detalhes do pedido...</p>
-</div>
-<div *ngIf="erro && !carregando" class="erro">
-  <p>{{ erro }}</p>
+        <p><strong>Tipo de Entrega:</strong> {{ pedido.tipoEntrega === 'EntregaDomiciliar' ? 'Entrega em domicílio' : (pedido.tipoEntrega === 'RetiradaNoLocal' ? 'Retirada no local' : '-') }}</p>
+        <p><strong>Valor Total:</strong> <span class="valor-total">R$ {{ pedido.valorTotal != null ? (pedido.valorTotal | number:'1.2-2') : '-' }}</span></p>
+        <p><strong>Data do Pedido:</strong> {{ pedido.dataPedido ? (pedido.dataPedido | date:'dd/MM/yyyy HH:mm') : '-' }}</p>
+      </div>
+    </div>
+    <button class="btn-voltar" (click)="voltarParaCardapio()">Voltar ao Cardápio</button>
+  </div>
+
+  <div *ngIf="carregando" class="carregando">
+    <p>Carregando detalhes do pedido...</p>
+  </div>
+  <div *ngIf="erro && !carregando" class="erro">
+    <p>{{ erro }}</p>
+  </div>
 </div>

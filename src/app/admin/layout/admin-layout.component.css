@@ -1,13 +1,35 @@
 /* Estilos exclusivos do layout admin podem ser adicionados aqui */
 
 .admin-bg {
-  position: relative;
+  background: none;
   background-image: url('/assets/shared/images/PitMania.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   min-height: 100vh;
+  width: 100vw;
+  height: 100%;
+}
+
+body, html {
+  min-height: 100vh;
+  height: 100%;
+}
+
+/* Garante que o conteúdo fique acima do background */
+:host ::ng-deep .main-content, :host ::ng-deep .container-fluid, :host ::ng-deep .container {
+  position: relative;
+  z-index: 1;
+  overflow: visible !important;
+}
+
+/* Garante que o conteúdo do app ocupe toda a altura e permita rolagem */
+:host ::ng-deep app-body {
+  min-height: 100vh;
+  height: auto;
+  overflow: visible;
+  display: block;
 }
 
 .card {

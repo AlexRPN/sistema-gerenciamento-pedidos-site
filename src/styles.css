@@ -2,4 +2,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 @import 'ngx-toastr/toastr';
 
+body, html {
+  min-height: 100vh;
+  height: 100%;
+  background-image: url('/assets/shared/images/PitMania.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #fff; /* fallback */
+}
+
 
