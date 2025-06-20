@@ -974,3 +974,13 @@ h2 {
   width: 100vw;
   height: 100vh;
 }
+
+.indisponivel-badge {
+  background-color: #666;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-top: 8px;
+  text-align: center;
+  font-size: 0.9em;
+}

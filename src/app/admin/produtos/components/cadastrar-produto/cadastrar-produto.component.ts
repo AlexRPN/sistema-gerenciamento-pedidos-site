@@ -21,7 +21,6 @@ export class CadastrarProdutoComponent {
 
   cadastrarProduto(formData: FormData) {
     this.produtoService.cadastrarProduto(formData).subscribe(response => {
-      console.log(response, 'response');
       if (response.dados != null) {
         this.toastr.success(response.mensagem, 'Sucesso!');
         this.router.navigate(['admin/produtos']);

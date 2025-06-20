@@ -252,7 +252,6 @@ export class ConfirmarClienteModalComponent {
       tipoEntrega: this.entrega ? 'EntregaDomiciliar' : 'RetiradaNoLocal',
       pedidoProdutos
     } as any;
-    console.log(request, 'tipo pagamento');
 
     this.cardapioService.criarPedido(request).subscribe({
       next: response => {

@@ -27,10 +27,8 @@ export class DetalhePedidoComponent implements OnInit {
     if (id) {
       this.cardapioService.obterPedidoPorId(id).subscribe({
         next: (resp: any) => {
-          console.log('Resposta da API:', resp);
           this.pedido = resp.dados;
           this.carregando = false;
-          console.log(this.pedido, 'pedido');
         },
         error: () => {
           this.erro = 'Não foi possível carregar os detalhes do pedido.';

@@ -35,7 +35,8 @@
                 </button>
               </div>
               <div class="menu-grid-mat" style="margin-top: 20px;">
-                <mat-card class="menu-mat-card" *ngFor="let produto of pizzasFiltradas(); trackBy: trackByProdutoId">
+                <mat-card class="menu-mat-card" *ngFor="let produto of pizzasFiltradas(); trackBy: trackByProdutoId"
+                  [ngStyle]="{'opacity': produto.situacao === 'Inativo' ? '0.6' : '1'}">
                   <img mat-card-image [src]="getUrlImagem(produto.imagem)" [alt]="produto.nome" />
                   <mat-card-header>
                     <mat-card-title>{{produto.nome}} - {{produto.tamanho}}</mat-card-title>
@@ -43,9 +44,16 @@
                   <mat-card-content>
                     <p>{{produto.descricao}}</p>
                     <div class="price">R$ {{produto.valor | number:'1.2-2'}}</div>
+                    <div *ngIf="produto.situacao === 'Inativo'" class="indisponivel-badge">
+                      Produto Indisponível
+                    </div>
                   </mat-card-content>
                   <mat-card-actions>
-                    <button mat-raised-button color="primary" (click)="adicionarAoCarrinho(produto)">Adicionar ao Carrinho</button>
+                    <button mat-raised-button color="primary"
+                      (click)="adicionarAoCarrinho(produto)"
+                      [disabled]="produto.situacao === 'Inativo'">
+                      Adicionar ao Carrinho
+                    </button>
                   </mat-card-actions>
                 </mat-card>
               </div>
@@ -57,7 +65,7 @@
             <div *ngIf="tab.label !== 'Pizza'">
               <div *ngIf="produtos.length > 0; else semProdutos" class="menu-grid-mat" style="margin-top: 20px;">
                 <ng-container *ngFor="let produto of produtos; trackBy: trackByProdutoId">
-                  <mat-card class="menu-mat-card">
+                  <mat-card class="menu-mat-card" [ngStyle]="{'opacity': produto.situacao === 'Inativo' ? '0.6' : '1'}">
                     <img mat-card-image [src]="getUrlImagem(produto.imagem)" [alt]="produto.nome" />
                     <mat-card-header>
                       <mat-card-title>{{produto.nome}}</mat-card-title>
@@ -65,9 +73,16 @@
                     <mat-card-content>
                       <p>{{produto.descricao}}</p>
                       <div class="price">R$ {{produto.valor | number:'1.2-2'}}</div>
+                      <div *ngIf="produto.situacao === 'Inativo'" class="indisponivel-badge">
+                        Produto Indisponível
+                      </div>
                     </mat-card-content>
                     <mat-card-actions>
-                      <button mat-raised-button color="primary" (click)="adicionarAoCarrinho(produto)">Adicionar ao Carrinho</button>
+                      <button mat-raised-button color="primary"
+                        (click)="adicionarAoCarrinho(produto)"
+                        [disabled]="produto.situacao === 'Inativo'">
+                        Adicionar ao Carrinho
+                      </button>
                     </mat-card-actions>
                   </mat-card>
                 </ng-container>

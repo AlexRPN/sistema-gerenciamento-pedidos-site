@@ -93,7 +93,7 @@
           </mat-tab-group>
           <div *ngIf="pizzasFiltradas.length > 0; else semProdutosPizza" class="produtos-grid">
             <ng-container *ngFor="let produto of pizzasFiltradas; trackBy: trackByProdutoId">
-              <mat-card class="produto-card">
+              <mat-card class="produto-card" [ngStyle]="{'opacity': produto.situacao === 'Inativo' ? '0.6' : '1'}">
                 <ng-container *ngIf="produto.imagem; else placeholderImg">
                   <img [src]="getUrlImagem(produto.imagem)"
                        alt="Imagem do produto"
@@ -106,9 +106,16 @@
                   <mat-card-title><strong>{{produto.nome}}<span *ngIf="produto.categoria === 'Pizza'"> - {{produto.tamanho}}</span></strong></mat-card-title>
                   <mat-card-subtitle>{{produto.descricao}}</mat-card-subtitle>
                   <mat-card-subtitle><strong>R$ {{produto.valor| number:'1.2-2'}}</strong></mat-card-subtitle>
+                  <div *ngIf="produto.situacao === 'Inativo'" class="indisponivel-badge">
+                    Produto Indisponível
+                  </div>
                 </mat-card-header>
                 <mat-card-actions>
-                  <button class="btn btn-success" type="button" style="width: 100%;" (click)="adicionarAoCarrinho(produto)">Adicionar no Carrinho</button>
+                  <button class="btn btn-success" type="button" style="width: 100%;"
+                    (click)="adicionarAoCarrinho(produto)"
+                    [disabled]="produto.situacao === 'Inativo'">
+                    Adicionar no Carrinho
+                  </button>
                 </mat-card-actions>
               </mat-card>
             </ng-container>
@@ -123,7 +130,7 @@
         <ng-container *ngIf="tab.label !== 'Pizza'">
           <div *ngIf="produtos.length > 0; else semProdutos" class="produtos-grid">
             <ng-container *ngFor="let produto of produtos; trackBy: trackByProdutoId">
-              <mat-card class="produto-card">
+              <mat-card class="produto-card" [ngStyle]="{'opacity': produto.situacao === 'Inativo' ? '0.6' : '1'}">
                 <ng-container *ngIf="produto.imagem; else placeholderImg">
                   <img [src]="getUrlImagem(produto.imagem)"
                        alt="Imagem do produto"
@@ -136,9 +143,16 @@
                   <mat-card-title><strong>{{produto.nome}}<span *ngIf="produto.categoria === 'Pizza'"> - {{produto.tamanho}}</span></strong></mat-card-title>
                   <mat-card-subtitle>{{produto.descricao}}</mat-card-subtitle>
                   <mat-card-subtitle><strong>R$ {{produto.valor| number:'1.2-2'}}</strong></mat-card-subtitle>
+                  <div *ngIf="produto.situacao === 'Inativo'" class="indisponivel-badge">
+                    Produto Indisponível
+                  </div>
                 </mat-card-header>
                 <mat-card-actions>
-                  <button class="btn btn-success" type="button" style="width: 100%;" (click)="adicionarAoCarrinho(produto)">Adicionar no Carrinho</button>
+                  <button class="btn btn-success" type="button" style="width: 100%;"
+                    (click)="adicionarAoCarrinho(produto)"
+                    [disabled]="produto.situacao === 'Inativo'">
+                    Adicionar no Carrinho
+                  </button>
                 </mat-card-actions>
               </mat-card>
             </ng-container>

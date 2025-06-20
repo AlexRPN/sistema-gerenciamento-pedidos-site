@@ -36,10 +36,8 @@ export class AlterarStatusModalComponent {
 
   alterarStatusPedido() {
     const pedidoAtualizado = { ...this.pedido, statusPedido: this.statusSelecionado, motivoCancelamento: this.motivoCancelamento };
-    //console.log(pedidoAtualizado, "Pedido atualizado");
     this.pedidoService.alterarStatusPedido(pedidoAtualizado.id, this.statusSelecionado, pedidoAtualizado.motivoCancelamento).subscribe({
       next: response => {
-        console.log(response, "Resposta do pedido");
         if (response.dados) {
           this.toastr.success(response.mensagem, 'Sucesso!');
           this.dialogRef.close('atualizar');

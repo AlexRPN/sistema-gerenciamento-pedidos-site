@@ -111,7 +111,6 @@ export class CardapioComponent implements OnInit {
   carregarProdutosPorCategoria(categoria: string) {
     this.produtoService.listarProdutosPorCategoria({ categoria }).subscribe(
       response => {
-        console.log(response);
         if (response.dados && response.dados.length > 0) {
           this.produtos = response.dados;
         } else {

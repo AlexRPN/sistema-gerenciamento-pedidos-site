@@ -44,3 +44,13 @@
   padding: 24px;
   margin-bottom: 24px;
 }
+
+.indisponivel-badge {
+  background-color: #666;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-top: 8px;
+  text-align: center;
+  font-size: 0.9em;
+}
